@@ -1,0 +1,24 @@
+// Para usar los REM como pixels
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: $m-size;
+}
+
+button {
+    // Para que aparezca una manita
+    cursor: pointer;
+}
+
+button:disabled {
+    // Para que no aparezca la manita cuando esta deshabilitado
+    cursor: default;
+}
+
+// Clase de estilo de link Activo
+.esta-activo {
+    font-weight: bold;
+}
