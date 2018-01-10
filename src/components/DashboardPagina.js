@@ -3,10 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {NavLink} from 'react-router-dom';
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
-import ListaCuentaItemPagina from "./ListaCuentaItemPagina"; // Componente de lista de mesas
-import ListaProductosPagina from './ListaProductosPagina'; // Componente de lista de productos
-import CarritoDeCompras from './CarritoDeCompras'; // Componente carrito de compras
 import TituloDashboard from './TituloDashboard'; // Componente del titulo del dashboard
+import MenuLateral from './MenuLateral'; // Componente del Menu lateral
+import ComponenteVentas from './ComponenteVentas'; // Componente del Menu del POS
 // Prueba
 const DashboardPagina = () => (
     <div>
@@ -14,50 +13,12 @@ const DashboardPagina = () => (
         <TituloDashboard/>
         <div className="container">
             <div className="row">
-                <div className="col-md-3">
-                    <NavLink to = "/" activeClassName = "esta-activo" exact={true}>
-                        DASHBOARD
-                    </NavLink>
-                    <br/>
-                    <div>
-                        <Button bsStyle='primary'>Picame</Button>
-                    </div>
-                    <br/>
-                    {/* Aqui van las importaciones de varios componentes*/}
-                    <ListGroup>
-                        <ListGroupItem href="#" active>Ventas</ListGroupItem>
-                        <ListGroupItem href="#" disabled>Productos</ListGroupItem>
-                        <ListGroupItem href="#" disabled>Historico</ListGroupItem>
-                        <ListGroupItem href="#" disabled>Inventario</ListGroupItem>
-                    </ListGroup>
-                </div>
-                <div className="col-md-9">
-                    <div className="row">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                                Cuentas Disponibles
-                            </div>
-                            <div className="panel-body">
-                                <p>Seleccione una mesa para registrar pedido</p>
-                                {/* Rendereo la lista de mesas */}
-                                <ListaCuentaItemPagina />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                                Lista de productos
-                            </div>
-                            <div className="panel-body">
-                                {/* Rendereo de la lista de productos de la tienda disponibles */}
-                                <ListaProductosPagina />
-                            </div>
-                        </div>
-                    </div>
-                    {/* Rendereo del componente de carrito de compras */}
-                    <CarritoDeCompras/>
-                </div>
+                {/* Importacion del Componente de Menu lateral */}
+                <MenuLateral/>
+                {/* Importacion del Componente de Ventas POS 
+                Nota: Aca deberia ir un switch que cambie segun lo que
+                el usuario haya seleccionado en el menu lateral TODO*/}
+                <ComponenteVentas/>
             </div>
         </div>
     </div>
