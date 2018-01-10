@@ -10,12 +10,14 @@ class CuentaItemPagina extends React.Component  {
 
     render() {
         return (
-            <div className='col-md-3' onClick={() => {
+            <div
+                className='col-md-3' 
+                onClick={() => {
                 //alert('Mesa Activada');
                 // Activa la clickeada
                 this.props.dispatch(activaCuenta( this.props.currentIdCuenta, { activa: true } ));
             }}>
-                <div className="well" id={this.props.currentActivaCuenta + 'MesaActiva'}>
+                <div className="well" id={this.props.currentActivaCuenta + 'CuentaActiva'}>
                     <h2>
                         <i className="fa fa-coffee" aria-hidden="true"></i> Cuenta {this.props.currentIdCuenta}
                         {/* Activa: {this.props.currentActivaMesa ? 'si' : 'no' } */} 
