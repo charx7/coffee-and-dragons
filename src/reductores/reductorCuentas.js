@@ -1,26 +1,26 @@
 // Reducer de los gastos
 // Definimos el estado default del estado
-const reductorMesasDefault = [{id: 1, activa: true},
+const reductorCuentasDefault = [{id: 1, activa: true},
                               {id: 2, activa: false},
                               {id: 3, activa: false},
                               {id: 4, activa: false}];
 // Definimos el reductor como una funcion pura
-const reductorMesas = (estado = reductorMesasDefault, accion) => {
+const reductorCuentas = (estado = reductorCuentasDefault, accion) => {
     switch (accion.type){
-        case 'AGREGA_MESA':
+        case 'AGREGA_CUENTA':
             return [
                 // Otro operador para concatenar de otro manera con ...elementos, elemento a aniadir
                 ...estado,
-                accion.mesa
+                accion.cuenta
             ];
-        case 'ACTIVA_MESA':
-            console.log('Activando la mesa: ',accion.id, 'actualizacion: ', accion.mesaAActivar)
+        case 'ACTIVA_CUENTA':
+            console.log('Activando la cuenta: ',accion.id, 'actualizacion: ', accion.cuentaAActivar)
             // Activa la mesa en el redux
             return estado.map((elemento) => {
                 if(elemento.id === accion.id) {
                     return{
                         ...elemento,
-                        ...accion.mesaAActivar
+                        ...accion.cuentaAActivar
                     }
                 } else {
                     return {
@@ -29,14 +29,14 @@ const reductorMesas = (estado = reductorMesasDefault, accion) => {
                     };
                 }
             });
-        case 'DESACTIVA_MESA':
-            console.log('Activando la mesa: ',accion.id, 'actualizacion: ', accion.mesaADesactivar)
+        case 'DESACTIVA_CUENTA':
+            console.log('Desactivando la cuenta: ',accion.id, 'actualizacion: ', accion.cuentaADesactivar)
             // Activa la mesa en el redux
             return estado.map((elemento) => {
                 if(elemento.id === accion.id) {
                     return{
                         ...elemento,
-                        ...accion.mesaADesactivar
+                        ...accion.cuentaADesactivar
                     }
                 } else {
                     return elemento;
@@ -48,4 +48,4 @@ const reductorMesas = (estado = reductorMesasDefault, accion) => {
 };
 
 // Definimos el export del archivo
-export default reductorMesas;
+export default reductorCuentas;

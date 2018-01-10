@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { activaMesa } from '../acciones/mesas';
+import { activaCuenta } from '../acciones/cuentas';
 // Componente funcional de item de mesas
-class MesaItemPagina extends React.Component  {
+class CuentaItemPagina extends React.Component  {
     
     // state = {
     //    wellActivo: this.props.currentActivaMesa
@@ -13,11 +13,11 @@ class MesaItemPagina extends React.Component  {
             <div className='col-md-3' onClick={() => {
                 //alert('Mesa Activada');
                 // Activa la clickeada
-                this.props.dispatch(activaMesa( this.props.currentIdMesa, { activa: true } ));
+                this.props.dispatch(activaCuenta( this.props.currentIdCuenta, { activa: true } ));
             }}>
-                <div className="well" id={this.props.currentActivaMesa + 'MesaActiva'}>
+                <div className="well" id={this.props.currentActivaCuenta + 'MesaActiva'}>
                     <h2>
-                        <i className="fa fa-coffee" aria-hidden="true"></i> Mesa {this.props.currentIdMesa}
+                        <i className="fa fa-coffee" aria-hidden="true"></i> Cuenta {this.props.currentIdCuenta}
                         {/* Activa: {this.props.currentActivaMesa ? 'si' : 'no' } */} 
                     </h2>
                 </div>                        
@@ -28,8 +28,8 @@ class MesaItemPagina extends React.Component  {
 
 const mapeoEstadoAProps = (estado) => {
     return {
-        mesas: estado.mesas 
+        cuentas: estado.cuentas 
     }
 }
 
-export default connect(mapeoEstadoAProps)(MesaItemPagina);
+export default connect(mapeoEstadoAProps)(CuentaItemPagina);

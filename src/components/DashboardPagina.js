@@ -3,26 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {NavLink} from 'react-router-dom';
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
-import ListaMesaItemPagina from "./ListaMesaItemPagina"; // Componente de lista de mesas
+import ListaCuentaItemPagina from "./ListaCuentaItemPagina"; // Componente de lista de mesas
 import ListaProductosPagina from './ListaProductosPagina'; // Componente de lista de productos
 import CarritoDeCompras from './CarritoDeCompras'; // Componente carrito de compras
+import TituloDashboard from './TituloDashboard'; // Componente del titulo del dashboard
 // Prueba
 const DashboardPagina = () => (
     <div>
-        <div className="jumbotron" id="tituloHeader">
-                <div className="container">
-                    <div className="row" id="tituloTienda">
-                        <div className="col-md-10">
-                            <h2><span className="glyphicon glyphicon-cog"></span> Coffee & Dragons
-                            {" "} 
-                            <small> 
-                                Cafeteria y Material Didactico
-                            </small>
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {/* Importacion del titulo del dashboard */}
+        <TituloDashboard/>
         <div className="container">
             <div className="row">
                 <div className="col-md-3">
@@ -46,12 +35,12 @@ const DashboardPagina = () => (
                     <div className="row">
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                Mesas Disponibles
+                                Cuentas Disponibles
                             </div>
                             <div className="panel-body">
                                 <p>Seleccione una mesa para registrar pedido</p>
                                 {/* Rendereo la lista de mesas */}
-                                <ListaMesaItemPagina />
+                                <ListaCuentaItemPagina />
                             </div>
                         </div>
                     </div>

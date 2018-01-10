@@ -1,15 +1,15 @@
 import React from  'react';
 import { connect } from 'react-redux'; // Redux para hacer sync con el almacen
-import MesaItemPagina from './MesaItemPagina'; // importacion del componente individual de Gasto
+import CuentaItemPagina from './CuentaItemPagina'; // importacion del componente individual de Gasto
 
-const ListaMesaItemPagina = (props) => (
+const ListaCuentaItemPagina = (props) => (
     <div>
         {
-            props.mesas.map( (elemento) => {
-                return <MesaItemPagina 
+            props.cuentas.map( (elemento) => {
+                return <CuentaItemPagina 
                         key = {elemento.id}
-                        currentIdMesa = {elemento.id}
-                        currentActivaMesa = {elemento.activa}
+                        currentIdCuenta = {elemento.id}
+                        currentActivaCuenta = {elemento.activa}
                         />
             })
         }
@@ -20,8 +20,8 @@ const ListaMesaItemPagina = (props) => (
 const mapeoEstadoaProps = (estado) => {
     return {
         // Pasa un prop al componente ListadeGastos basado en el mapeo del almacen y filtrados con la funcion de selectorGastos
-        mesas: estado.mesas
+        cuentas: estado.cuentas
     };
 }; 
 
-export default connect(mapeoEstadoaProps)(ListaMesaItemPagina);
+export default connect(mapeoEstadoaProps)(ListaCuentaItemPagina);
