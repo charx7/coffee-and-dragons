@@ -19,11 +19,12 @@ class CarritoDeCompras extends React.Component {
                             />
                             {/* Importacion del componente de subtotales */}
                             <Subtotal
-                                currentCuentaNumero   = {this.props.recibo.id}
-                                currentMonto          = {this.props.recibo.monto}
-                                currentMesa           = {this.props.recibo.mesa}
-                                currentModoPago       = {this.props.recibo.modoPago}
-                                currentComision       = {this.props.recibo.comision}
+                                currentCuentaNumero      = {this.props.recibo.id}
+                                currentMonto             = {this.props.recibo.monto}
+                                currentMesa              = {this.props.recibo.mesa}
+                                currentModoPago          = {this.props.recibo.modoPago}
+                                currentComision          = {this.props.recibo.comision}
+                                currentProductosEnCuenta = {this.props.recibo.idProductos}
                             />
                         </div>
                     </div>
