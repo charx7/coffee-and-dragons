@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ListaCuentaItemPagina from "./ListaCuentaItemPagina"; // Componente de lista de mesas
 import ListaProductosPagina from './ListaProductosPagina'; // Componente de lista de productos
 import CarritoDeCompras from './CarritoDeCompras'; // Componente carrito de compras
-
+import { connect } from 'react-redux'; // Importacion de redux
 
 const ComponenteVentas = (props) => (
     <div className="col-md-9">
@@ -13,7 +13,7 @@ const ComponenteVentas = (props) => (
                     Cuentas Disponibles
                 </div>
                 <div className="panel-body">
-                    <p>Seleccione una mesa para registrar pedido</p>
+                    <p>Seleccione una cuenta para registrar pedido</p>
                     {/* Rendereo la lista de mesas */}
                     <ListaCuentaItemPagina />
                 </div>
@@ -31,8 +31,19 @@ const ComponenteVentas = (props) => (
             </div>
         </div>
         {/* Rendereo del componente de carrito de compras */}
-        <CarritoDeCompras/>
+        <CarritoDeCompras
+            currentCuentaActiva = {props.cuentaActiva.id}
+        />
     </div>
 );
 
-export default ComponenteVentas;
+// Funcion que se encarga de hacer las conexiones de estado a los props que se pasaran 
+const mapeoEstadoaProps = (estado) => {
+    return {
+        cuentaActiva: estado.cuentas.find((cuenta) => {
+            return cuenta.activa == true;
+        })
+    };
+}; 
+
+export default connect(mapeoEstadoaProps) (ComponenteVentas);
