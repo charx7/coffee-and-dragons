@@ -6,8 +6,8 @@ import { agregarProducto } from '../acciones/recibos';
 class ProductosItemPagina extends React.Component  {
     // Metodo que empuja el producto al almacen de recibo
     manejoAgregaProducto = () => {
-        alert('auchXD');
-        this.props.dispatch(agregarProducto( 1, { 
+        console.log('El recibo al que se le agregara es: ',this.props.currentCuentaActiva);
+        this.props.dispatch(agregarProducto( this.props.currentCuentaActiva, { 
             idProductos: [
                 ...this.props.currentArregloProductos,
                 this.props.currentIdProducto
