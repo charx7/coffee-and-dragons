@@ -1,7 +1,7 @@
 import React from  'react';
 import { connect } from 'react-redux'; // Redux para hacer sync con el almacen
 import Subtotal from './Subtotal'; // Importacion de componente de subtotal
-
+import ListaProductosRecibo from './ListaProductosRecibo'; // Importacion componente de productos en recibo
 
 class CarritoDeCompras extends React.Component {
     render() {
@@ -13,23 +13,10 @@ class CarritoDeCompras extends React.Component {
                     </div>
                     <div className="panel-body">
                         <div className='row'>
-                            <div className='col-md-6'>
-                                <ul className='list-group'>
-                                    <li className='list-group-item' id='li-botones-producto'>
-                                        producto1  {' '}
-                                        <button className='btn btn-xs btn-success' id='li-botones-producto'>+ </button>
-                                        {'   '}
-                                        <button className='btn btn-xs btn-danger' id='li-botones-producto'>-</button>
-                                        <span className="badge">3</span>
-                                    </li>
-                                    <li className='list-group-item'>producto2<span className="badge">2</span>
-                                        {' '}
-                                        <button className='btn btn-xs btn-success' id='li-botones-producto'>+ </button>
-                                        {'   '}
-                                        <button className='btn btn-xs btn-danger' id='li-botones-producto'>-</button>
-                                    </li>
-                                </ul>
-                            </div>
+                            {/* Importacoines de la lista de productos del recibo */}
+                            <ListaProductosRecibo
+                                currentCuentaActiva = {this.props.currentCuentaActiva}
+                            />
                             {/* Importacion del componente de subtotales */}
                             <Subtotal
                                 currentCuentaNumero   = {this.props.recibo.id}
