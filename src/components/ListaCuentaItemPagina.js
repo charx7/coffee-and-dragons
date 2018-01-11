@@ -1,6 +1,8 @@
 import React from  'react';
 import { connect } from 'react-redux'; // Redux para hacer sync con el almacen
 import CuentaItemPagina from './CuentaItemPagina'; // importacion del componente individual de Gasto
+import { agregarCuenta } from '../acciones/cuentas';
+import NuevaCuenta from './NuevaCuenta'; // Importaciones de componente que agrega una nueva cuenta
 
 const ListaCuentaItemPagina = (props) => (
     <div>
@@ -13,6 +15,8 @@ const ListaCuentaItemPagina = (props) => (
                         />
             })
         }
+        {/* Componente para agregar una cuenta*/}
+        <NuevaCuenta />
     </div>
 );
 

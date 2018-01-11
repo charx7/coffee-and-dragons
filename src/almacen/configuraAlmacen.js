@@ -3,6 +3,7 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux'; //
 import thunk from 'redux-thunk'; // Importacion para el middleware de thunk
 import reductorCuentas from '../reductores/reductorCuentas'; // Importacion de reductor
 import reductorProductos from '../reductores/reductorProductos'; // Importacion de reductor
+import reductorRecibos from '../reductores/reductorRecibos'; // Importacion de reductor
 // Linea para configurar el almacen con las devtools y el middleware
 const componerMejoras = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
 
@@ -14,7 +15,8 @@ export default () => {
         combineReducers({
             // Le asignamos un reductor especifico
             cuentas: reductorCuentas,
-            productos: reductorProductos
+            productos: reductorProductos,
+            recibos: reductorRecibos
         }),
         // Para utilizar el middleware
         componerMejoras(applyMiddleware(thunk))
