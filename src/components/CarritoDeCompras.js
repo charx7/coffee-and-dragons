@@ -9,7 +9,7 @@ class CarritoDeCompras extends React.Component {
             <div className="row">
                 <div className="panel panel-default">
                     <div className="panel-heading">
-                        Lista de productos de la cuenta {'   '}<i className="fa fa-shopping-bag" aria-hidden="true"></i>
+                        Lista de productos de la cuenta {this.props.recibo.id} {'   '}<i className="fa fa-shopping-bag" aria-hidden="true"></i>
                     </div>
                     <div className="panel-body">
                         <div className='row'>
@@ -32,10 +32,11 @@ class CarritoDeCompras extends React.Component {
                             </div>
                             {/* Importacion del componente de subtotales */}
                             <Subtotal
-                                currentMonto    = {this.props.recibo.monto}
-                                currentMesa     = {this.props.recibo.mesa}
-                                currentModoPago = {this.props.recibo.modoPago}
-                                currentComision = {this.props.recibo.comision}
+                                currentCuentaNumero   = {this.props.recibo.id}
+                                currentMonto          = {this.props.recibo.monto}
+                                currentMesa           = {this.props.recibo.mesa}
+                                currentModoPago       = {this.props.recibo.modoPago}
+                                currentComision       = {this.props.recibo.comision}
                             />
                         </div>
                     </div>

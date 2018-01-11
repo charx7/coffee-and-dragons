@@ -4,7 +4,7 @@ import numeral from 'numeral';
 
 const Subtotal = (props) => (
     <div className='col-md-6'>
-        {console.log(props.currentMonto)}
+        {console.log('Se esta editando el recibo: ',props.currentCuentaNumero)}
         <p>Total:  {numeral(props.currentMonto).format(('$0,0.[00]'))}</p>
         <p>SubTotal: {numeral(props.currentMonto / 1.16).format('$0,0.[00]')} </p>
         <p>Impuesto:  {numeral(props.currentMonto - (props.currentMonto / 1.16)).format(('$0,0.[00]'))}</p>
