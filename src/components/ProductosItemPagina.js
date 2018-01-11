@@ -1,8 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { agregarProducto } from '../acciones/recibos';
 
 // Componente funcional de item de mesas
 class ProductosItemPagina extends React.Component  {
+    // Metodo que empuja el producto al almacen de recibo
+    manejoAgregaProducto = () => {
+        alert('auchXD');
+        this.props.dispatch(agregarProducto( 1, { 
+            idProductos: [
+                ...this.props.currentArregloProductos,
+                this.props.currentIdProducto
+            ] 
+        }));
+    }
+    
     render () {
         return (
             <div className='col-md-2'>
@@ -14,7 +26,11 @@ class ProductosItemPagina extends React.Component  {
                     <p>{this.props.currentDescripcion}</p>
                     <p>Precio: MXN {this.props.currentPrecio}</p>
                     <div id='contenedor-boton-productos'>
-                        <button className='btn btn-success' id='boton-productos'>
+                        <button 
+                            className='btn btn-success' 
+                            id='boton-productos' 
+                            onClick={this.manejoAgregaProducto}
+                        >
                             <span className="glyphicon glyphicon-shopping-cart"></span> Agregar 
                         </button>
                     </div>
@@ -24,4 +40,5 @@ class ProductosItemPagina extends React.Component  {
     }
 }
 
-export default ProductosItemPagina;
+
+export default connect() (ProductosItemPagina);

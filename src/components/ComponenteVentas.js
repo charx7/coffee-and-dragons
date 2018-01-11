@@ -26,7 +26,9 @@ const ComponenteVentas = (props) => (
                 </div>
                 <div className="panel-body">
                     {/* Rendereo de la lista de productos de la tienda disponibles */}
-                    <ListaProductosPagina />
+                    <ListaProductosPagina
+                        currentCuentaActiva = {props.cuentaActiva.id}
+                    />
                 </div>
             </div>
         </div>

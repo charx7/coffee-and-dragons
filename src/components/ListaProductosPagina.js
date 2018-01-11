@@ -10,10 +10,12 @@ const ListaProductosPagina = (props) => (
         props.productos.map( (elemento) => {
             return <ProductosItemPagina 
                     key = {elemento.id}
-                    currentIdProducto  = {elemento.id}
-                    currentPrecio      = {elemento.precio}
-                    currentDescripcion = {elemento.descripcion}
-                    currentImagen      = {elemento.imagen}
+                    currentIdProducto       = {elemento.id}
+                    currentPrecio           = {elemento.precio}
+                    currentDescripcion      = {elemento.descripcion}
+                    currentImagen           = {elemento.imagen}
+                    currentCuentaActiva     = {props.currentCuentaActiva}
+                    currentArregloProductos = {props.recibo.idProductos}
                     />
         })
     }
@@ -21,10 +23,13 @@ const ListaProductosPagina = (props) => (
 );
 
 // Funcion que se encarga de hacer las conexiones de estado a los props que se pasaran 
-const mapeoEstadoaProps = (estado) => {
+const mapeoEstadoaProps = (estado, props) => {
     return {
         // Pasa un prop al componente ListadeProductos basado en el mapeo del almacen y filtrados con la funcion de selectorGastos
-        productos: estado.productos
+        productos: estado.productos,
+        recibo: estado.recibos.find((elemento) => {
+            return elemento.id == props.currentCuentaActiva
+        })
     };
 }; 
 
