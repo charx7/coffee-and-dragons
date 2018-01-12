@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ItemProductosRecibo from './ItemProductosRecibo';
+import uuid from 'uuid'; // Para generar los id que van a ir en las keys
 
 class ListaProductosRecibo extends React.Component {
     render() {
@@ -11,7 +12,7 @@ class ListaProductosRecibo extends React.Component {
                     {
                         this.props.recibo.idProductos.map((elemento) =>{
                             return <ItemProductosRecibo
-                                    key = {elemento}
+                                    key = {uuid()}
                                     currentIdProducto = {elemento}
                                     />
                         })

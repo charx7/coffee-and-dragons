@@ -7,7 +7,7 @@ const ItemProductosRecibo = (props) => (
         <button className='btn btn-xs btn-success' id='li-botones-producto'>+ </button>
         {'   '}
         <button className='btn btn-xs btn-danger' id='li-botones-producto'>-</button>
-        <span className="badge">2</span>
+        <span className="badge">1</span>
     </li>
 )
 
