@@ -1,6 +1,6 @@
 // Funcion que suma los montos individuales de los productos 
 // DE UN ARREGLO CON UN OBJETO DE PRODUCTOS
-export default ( elemento ) => {
+const sumaPrecioProductos = ( elemento ) => {
     // Hace un arreglo con 
     let arregloMontos = elemento.map( function(elemento) {
         return elemento.precio
@@ -11,3 +11,5 @@ export default ( elemento ) => {
     },0);
     return sumaPrecios
 }
+
+export default sumaPrecioProductos;
