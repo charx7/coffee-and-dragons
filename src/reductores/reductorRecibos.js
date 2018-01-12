@@ -4,40 +4,40 @@ const reductorRecibosDefault = [
     {
         id: 1,
         mesa: 1,
-        modoPago: 'Efectivo',
+        modoPago: 'efectivo',
         fecha: 0,
         idProductos: [
             1,2
         ],
         comision: 0,
-        monto: 100
+        monto: 0
     },
     {
         id: 2,
         mesa: 1,
-        modoPago: 'Efectivo',
+        modoPago: 'tarjeta',
         fecha: 0,
         idProductos: [],
         comision: 0,
-        monto: 50
+        monto: 0
     },
     {
         id: 3,
         mesa: 1,
-        modoPago: 'Efectivo',
+        modoPago: 'efectivo',
         fecha: 0,
         idProductos: [],
         comision: 0,
-        monto: 70
+        monto: 0
     },
     {
         id: 4,
         mesa: 1,
-        modoPago: 'Efectivo',
+        modoPago: 'efectivo',
         fecha: 0,
         idProductos: [],
         comision: 0,
-        monto: 80
+        monto: 0
     }
 ]
 

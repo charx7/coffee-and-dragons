@@ -9,3 +9,9 @@ export const agregarProducto = (id, actualizaciones) => ({
     id,
     actualizaciones 
 });
+
+export const modificaRecibo = (id, actualizaciones) => ({
+    type: 'MODIFICA_RECIBO',
+    id,
+    actualizaciones 
+});

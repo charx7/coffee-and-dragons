@@ -20,7 +20,7 @@ class NuevaCuenta extends React.Component {
                         { 
                             id: numeroId,
                             mesa: 1,
-                            modoPago: 'Efectivo',
+                            modoPago: 'efectivo',
                             fecha: 0,
                             idProductos: [],
                             comision: 0,
