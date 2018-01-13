@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { modificaRecibo } from '../acciones/recibos';
 
 const ItemProductosRecibo = (props) => (
-    <li className='list-group-item' id='li-botones-producto'>
+    <li className='list-group-item' id='li-producto'>
         Id: {props.currentIdProducto} {props.nombreProducto.descripcion}  {' '}
         {/*<button className='btn btn-xs btn-success' id='li-botones-producto'>+ </button> */}
         {'   '}
         <button 
-            className='btn btn-xs btn-danger' 
-            id='li-botones-producto'
+            className='btn btn-xs btn-danger float-right'
+            id= 'boton' 
             onClick={() => {
                 // Sacamos el elemento que vamos a quitar del arreglo de los props
                 const elementoQuitar = props.currentIdProducto;
@@ -31,7 +31,7 @@ const ItemProductosRecibo = (props) => (
             >   
             Remover
         </button>
-        <span className="badge">1</span>
+        {/*<span className="badge">1</span>*/}
     </li>
 )
 
