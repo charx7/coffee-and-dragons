@@ -14,6 +14,44 @@ class Subtotal extends React.Component {
     //         modoPago: this.props.recibo.modoPago
     //     }
     // }
+    // Metodo que se encarga de elegir mesa
+    manejaCambioMesa = (e) => {
+        const selectorMesaValor = e.target.value
+        // if ( e.target.value == '1Selector') {
+        //     this.props.dispatch(modificaRecibo(
+        //         this.props.currentCuentaNumero, { mesa: 1 }
+        // ));
+            
+        // } else {
+        //     this.props.dispatch(modificaRecibo(
+        //         this.props.currentCuentaNumero, { mesa: 2 }
+        // ));
+        switch (selectorMesaValor){
+            case '1Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 1 }
+                ))
+                return;
+            case '2Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 2 }
+                ));
+                return;
+            case '3Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 3 }
+                ));
+                return;
+            case '4Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 2 }
+                ));
+                return;
+            default:
+                alert('error no hay mesa XD');
+                return;
+        }
+    };
 
     render() {
         return (
@@ -26,11 +64,21 @@ class Subtotal extends React.Component {
                 <p>SubTotal: {numeral( sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16).format('$0,0.[00]')} </p>
                 <p>Impuesto: {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) - (sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16)).format(('$0,0.[00]'))}</p>
                 <p>Comision: {this.props.currentComision}</p>
-                <p>Mesa: {String(this.props.currentMesa)}</p>
+
+                <p>Mesa: {' '}
+                    <select 
+                        value={this.props.recibos[(this.props.currentCuentaNumero) -1 ].mesa + 'Selector'} 
+                        onChange={ this.manejaCambioMesa }>
+                        <option value='1Selector'>1</option>
+                        <option value='2Selector'>2</option>
+                        <option value='3Selector'>3</option>
+                        <option value='4Selector'>4</option>
+                    </select>
+                </p>
+                
                 <p>Fecha: 1 Ene 2018</p>
                 <p>
-                    Modo de Pago
-                    {' '}
+                    Modo de Pago {' '}
                     <select 
                         value={this.props.recibos[(this.props.currentCuentaNumero) -1 ].modoPago + 'Selector'} 
                         onChange={ (e) => {
@@ -40,7 +88,6 @@ class Subtotal extends React.Component {
                             ));
                             //this.setState(()=> ({ modoPago: 'Efectivo' }));
                         } else {
-                            alert('auch');
                             this.props.dispatch(modificaRecibo(
                                 this.props.currentCuentaNumero, { modoPago: 'tarjeta' }
                             ));
