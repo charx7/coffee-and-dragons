@@ -15,10 +15,32 @@ const MenuLateral = (props) => (
         <br/>
         {/* Aqui van las importaciones de varios componentes*/}
         <ListGroup>
-            <ListGroupItem href="#" active>Ventas</ListGroupItem>
-            <ListGroupItem href="#" disabled>Productos</ListGroupItem>
-            <ListGroupItem href="#" disabled>Historico</ListGroupItem>
-            <ListGroupItem href="#" disabled>Inventario</ListGroupItem>
+            <ListGroupItem 
+                href="#" 
+                active = {props.currentTareaActiva == 'ventas' ? true : false}
+                onClick = {(e) => {
+                    props.manejaTareaActiva('VENTAS');
+                }}>
+                Ventas
+            </ListGroupItem>
+            <ListGroupItem 
+                href="#" 
+                disabled>
+                Productos
+            </ListGroupItem>
+            <ListGroupItem 
+                href="#" 
+                active = {props.currentTareaActiva == 'historico' ? true : false}
+                onClick = {(e) => {
+                    props.manejaTareaActiva('HISTORICO');
+                }}>
+                Historico
+            </ListGroupItem>
+            <ListGroupItem 
+                href="#" 
+                disabled>
+                Inventario
+            </ListGroupItem>
         </ListGroup>
     </div>
 );
