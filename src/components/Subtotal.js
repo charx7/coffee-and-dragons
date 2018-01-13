@@ -14,18 +14,10 @@ class Subtotal extends React.Component {
     //         modoPago: this.props.recibo.modoPago
     //     }
     // }
+
     // Metodo que se encarga de elegir mesa
     manejaCambioMesa = (e) => {
         const selectorMesaValor = e.target.value
-        // if ( e.target.value == '1Selector') {
-        //     this.props.dispatch(modificaRecibo(
-        //         this.props.currentCuentaNumero, { mesa: 1 }
-        // ));
-            
-        // } else {
-        //     this.props.dispatch(modificaRecibo(
-        //         this.props.currentCuentaNumero, { mesa: 2 }
-        // ));
         switch (selectorMesaValor){
             case '1Selector':
                 this.props.dispatch(modificaRecibo(
@@ -61,7 +53,7 @@ class Subtotal extends React.Component {
                 {console.log('Se esta editando el recibo: ', this.props.currentCuentaNumero)}
                 
                 <p>Total:  {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos)).format(('$0,0.[00]'))}</p>
-                <p>SubTotal: {numeral( sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16).format('$0,0.[00]')} </p>
+                <p>SubTotal: {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16).format('$0,0.[00]')} </p>
                 <p>Impuesto: {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) - (sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16)).format(('$0,0.[00]'))}</p>
                 <p>Comision: {this.props.currentComision}</p>
 

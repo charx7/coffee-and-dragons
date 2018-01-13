@@ -12,8 +12,10 @@ class ListaProductosRecibo extends React.Component {
                     {
                         this.props.recibo.idProductos.map((elemento) =>{
                             return <ItemProductosRecibo
-                                    key = {uuid()}
-                                    currentIdProducto = {elemento}
+                                    key                           = {uuid()}
+                                    currentIdProducto             = {elemento}
+                                    currentCuentaActiva           = {this.props.currentCuentaActiva}
+                                    currentListaProductosEnRecibo = {this.props.recibo.idProductos}
                                     />
                         })
                     }
