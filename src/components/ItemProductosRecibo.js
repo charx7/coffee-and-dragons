@@ -9,7 +9,7 @@ const ItemProductosRecibo = (props) => (
         {'   '}
         <button 
             className='btn btn-xs btn-danger float-right'
-            id= 'boton' 
+            id= 'boton-en-lista' 
             onClick={() => {
                 // Sacamos el elemento que vamos a quitar del arreglo de los props
                 const elementoQuitar = props.currentIdProducto;

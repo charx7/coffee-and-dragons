@@ -6,6 +6,7 @@ import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import TituloDashboard from './TituloDashboard'; // Componente del titulo del dashboard
 import MenuLateral from './MenuLateral'; // Componente del Menu lateral
 import ComponenteVentas from './ComponenteVentas'; // Componente del Menu del POS
+import Historico from './subComponentesHistorico/Historico'; // Componente del Menu Historico
 // Prueba
 class DashboardPagina extends React.Component {
     state = {
@@ -45,10 +46,11 @@ class DashboardPagina extends React.Component {
                             currentTareaActiva = {this.state.tareaActiva}
                             manejaTareaActiva  = {this.manejaTareaActiva}
                         />
-                        {/* Importacion del Componente de Ventas POS 
-                        Nota: Aca deberia ir un switch que cambie segun lo que
-                        el usuario haya seleccionado en el menu lateral TODO*/}
-                        <ComponenteVentas/>
+                        {/* Importacion y rendereo del Componente de Ventas POS
+                            o de otros Componentes como el historico segun 
+                            el estado */}
+                        {this.state.tareaActiva == 'ventas' ? <ComponenteVentas/> : '' }
+                        {this.state.tareaActiva == 'historico' ? <Historico/>: ''}
                     </div>
                 </div>
             </div>
