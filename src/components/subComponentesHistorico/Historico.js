@@ -7,13 +7,13 @@ class Historico extends React.Component {
     state = {
         datos: {}
     }
-
+    
     // Manda una request de asyc al servidor
     cargarProductosDelServidor =  () => {
         axios.get('/api/productos')
             .then( respuesta => {
-                console.log(respuesta);
-                //this.setState({ datos: respuesta })
+                console.log(respuesta.data);
+                this.setState({ datos: respuesta.data })
             })
             .catch( (error)=>{
                 console.log(error);

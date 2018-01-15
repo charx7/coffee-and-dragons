@@ -84,7 +84,13 @@ module.exports = (env) => {
             // Establece que el routing sea client side (para dev)
             historyApiFallback: true,
             // Donde estan los assets
-            publicPath: '/dist/'
+            publicPath: '/dist/',
+            // Configuracion del proxy para que sirva el devServer y tome los datos de Localhost:3000
+            // NOTA: Tiene que estar corriendo el nodemon de server.js
+            proxy: [{
+                path: `/api/*`,
+                target: 'http://localhost:3000/'
+          }],
         }
     }
 };

@@ -29,6 +29,11 @@ if(process.env.NODE_ENV == 'development') {
 // Importando los requerimientos de esquemas de la BDD
 var productos = require("./modelos/esquemaProductos");
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 // productos.create({
 //     precio: 100,
 //     descripcion: 'aniadido desde app.js',
