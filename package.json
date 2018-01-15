@@ -14,6 +14,7 @@
     "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.1.0",
@@ -22,6 +23,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
+    "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
@@ -34,6 +36,7 @@
     "file-loader": "^1.1.6",
     "firebase": "4.2.0",
     "moment": "^2.20.1",
+    "mongoose": "^4.13.9",
     "node-sass": "^4.7.2",
     "normalize.css": "^7.0.0",
     "numeral": "^2.0.6",
