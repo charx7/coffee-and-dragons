@@ -17,7 +17,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Aniadimos la importacion de Mongoose
 var mongoose = require("mongoose");
 // Conectando a la BDD desde localhost (necesita estar el demonio corriendo y creando la BDD 
-mongoose.connect("mongodb://localhost/coffee_and_dragons_app");
+//mongoose.connect("mongodb://localhost/coffee_and_dragons_app");
+mongoose.connect("mongodb://charx:rusty@ds255797.mlab.com:55797/coffee-and-dragons");
 
 // Importando los requerimientos de esquemas de la BDD
 var productos = require("./modelos/esquemaProductos");
