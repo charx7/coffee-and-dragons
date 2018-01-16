@@ -28,6 +28,7 @@ if(process.env.NODE_ENV == 'development') {
 }
 // Importando los requerimientos de esquemas de la BDD
 var productos = require("./modelos/esquemaProductos");
+var modeloVentas = require("./modelos/esquemaVentas");
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -41,11 +42,38 @@ app.use(function(req, res, next) {
 //     categoria: 'cafeteria'
 // }, (error, resultado) => {
 //     if(error) {
-//         console.log('Error anadiendo producto')
+//         console.log('Error anadiendo producto', error);
 //     } else {
-//         console.log('Exito anadiendo ', resultado)
+//         console.log('Exito anadiendo ', resultado);
 //     }
 // });
+// modeloVentas.create({
+//     precio: 50,
+//     descripcion: 'Producto Ejemplo 3',
+//     categoria: 'cafeteria',
+//     modoPago: 'efectivo',
+//     comision: 0,
+//     fecha: 0
+// }, (error, resultadoQuery) => {
+//     if(error) {
+//         console.log('Error anadiendo venta', error);
+//     } else {
+//         console.log('Exito anadiendo ', resultadoQuery);
+//     }
+// });
+// API de VENTAS
+app.get('/api/ventas/', (req, res) => {
+    // Query a la BDD de todas las ventas
+    modeloVentas.find({}, (error, resultadoQuery) => {
+        if(error) {
+            console.log('Error obteniendo los datos', error);
+        } else {
+            console.log('Se sustrayeron los datos de todas las ventas');
+            res.json(resultadoQuery);
+        }
+    });
+});
+
 app.get('/api/productos/', (req, res) => {
     // Saca todos los productos de la BDD
     productos.find({}, (error, resultadoQuery) => {
