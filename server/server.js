@@ -62,6 +62,7 @@ app.use(function(req, res, next) {
 //     }
 // });
 // API de VENTAS
+// GET ALL
 app.get('/api/ventas/', (req, res) => {
     // Query a la BDD de todas las ventas
     modeloVentas.find({}, (error, resultadoQuery) => {
@@ -73,6 +74,24 @@ app.get('/api/ventas/', (req, res) => {
         }
     });
 });
+// POST
+app.post('/api/ventas/', (req, res) => {
+    console.log('Entro a postear una venta a la BDD');
+    console.log('El cuerpo del post es: ',req.body);
+    var nuevaVenta = {
+        precio: req.body.precio,
+        descripcion: req.body.descripcion,
+        categoria: req.body.categoria,
+        modoPago: req.body.modoPago,
+        comision: req.body.comision,
+        fecha: req.body.fecha
+    }
+    modeloVentas.create(nuevaVenta, (error, resultadoQuery) => {
+        if(!error) console.log('Venta Guardada');
+        else console.log('Error ', error);
+    });
+    res.send('done');
+})
 
 app.get('/api/productos/', (req, res) => {
     // Saca todos los productos de la BDD

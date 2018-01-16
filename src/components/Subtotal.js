@@ -5,6 +5,7 @@ import numeral from 'numeral';
 import sumaPrecioProductos from '../selectores/sumaPrecioProductos'; 
 // TODO verificar cuanto es de IVA real XD
 import { modificaRecibo } from '../acciones/recibos';
+import axios from 'axios';
 
 class Subtotal extends React.Component {
     
@@ -14,6 +15,10 @@ class Subtotal extends React.Component {
     //         modoPago: this.props.recibo.modoPago
     //     }
     // }
+
+    manejaLiquidaRecibo = () => {
+        
+    }
 
     // Metodo que se encarga de elegir mesa
     manejaCambioMesa = (e) => {
@@ -90,7 +95,12 @@ class Subtotal extends React.Component {
                         <option value='tarjetaSelector'>Tarjeta</option>
                     </select>
                 </p>
-                <button className='btn btn-primary'>Liquidar</button>
+                <button 
+                    className='btn btn-primary'
+                    onClick={this.manejaLiquidaRecibo}
+                    >
+                    Liquidar
+                </button>
                 {console.log(this.props.recibos[this.props.currentCuentaNumero -1].modoPago,'Selector')}
             </div>
         )
