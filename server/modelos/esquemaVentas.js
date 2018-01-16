@@ -8,7 +8,8 @@ var esquemaVentas = new mongoose.Schema({
     categoria: String,
     modoPago: String,
     comision: Number,
-    fecha: Number
+    fecha: Number,
+    idProducto: String
 });
 // Compilando el modelo
 var modeloVentas = mongoose.model("Venta", esquemaVentas);

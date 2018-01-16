@@ -12,10 +12,12 @@ const puertoEnv = process.env.PORT || 3000;
 // ################################################
 // Importaciones del body parser para parsear los posts methods y le decimos a express que la use
 var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json()); // Para que acepte los JSON
 
 // Aniadimos la importacion de Mongoose
 var mongoose = require("mongoose");
+
 // Conectando a la BDD desde localhost (necesita estar el demonio corriendo y creando la BDD
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // Conexion a la BDD segun si es prod o dev
@@ -30,6 +32,7 @@ if(process.env.NODE_ENV == 'development') {
 var productos = require("./modelos/esquemaProductos");
 var modeloVentas = require("./modelos/esquemaVentas");
 
+// Para el uso de CORS
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -61,6 +64,7 @@ app.use(function(req, res, next) {
 //         console.log('Exito anadiendo ', resultadoQuery);
 //     }
 // });
+
 // API de VENTAS
 // GET ALL
 app.get('/api/ventas/', (req, res) => {
@@ -84,7 +88,8 @@ app.post('/api/ventas/', (req, res) => {
         categoria: req.body.categoria,
         modoPago: req.body.modoPago,
         comision: req.body.comision,
-        fecha: req.body.fecha
+        fecha: req.body.fecha,
+        idProducto: req.body.idProducto
     }
     modeloVentas.create(nuevaVenta, (error, resultadoQuery) => {
         if(!error) console.log('Venta Guardada');
@@ -93,6 +98,7 @@ app.post('/api/ventas/', (req, res) => {
     res.send('done');
 })
 
+// GET
 app.get('/api/productos/', (req, res) => {
     // Saca todos los productos de la BDD
     productos.find({}, (error, resultadoQuery) => {

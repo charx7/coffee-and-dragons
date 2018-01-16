@@ -6,6 +6,8 @@ import sumaPrecioProductos from '../selectores/sumaPrecioProductos';
 // TODO verificar cuanto es de IVA real XD
 import { modificaRecibo } from '../acciones/recibos';
 import axios from 'axios';
+// Para que construya el arreglo de ventas a Postear a la BDD usando la API
+import construyeArregloVentas from '../selectores/constuyeArregloVentas';
 
 class Subtotal extends React.Component {
     
@@ -15,8 +17,35 @@ class Subtotal extends React.Component {
     //         modoPago: this.props.recibo.modoPago
     //     }
     // }
+    manejaPosteoVenta = (ventaAAniadir) => {
+        axios.post('/api/ventas', ventaAAniadir)
+            .then( res => {
+                console.log('Se esta anadiendo la venta: ', ventaAAniadir)
+                console.log('respuesta al posteo', res);
+            })
+            .catch(err => {
+                console.log('hubo un error en el posteo', err);
+            });
+    }
 
     manejaLiquidaRecibo = () => {
+        let ventasAPostear = construyeArregloVentas(
+             this.props.currentProductosEnCuenta
+            ,this.props.productos);
+        console.log('Entro a liquidar el arreglo: ',ventasAPostear);
+        ventasAPostear.map((elemento) => {
+            let ventaAAniadir = {
+                precio: elemento.precio,
+                descripcion: elemento.descripcion,
+                categoria: elemento.categoria,
+                modoPago: this.props.recibos[(this.props.currentCuentaNumero) -1 ].modoPago,
+                comision: this.props.currentComision,
+                fecha: 0,
+                idProducto: elemento.id
+            }
+            //console.log('El objeto a postear es: ',ventaAAniadir);
+            this.manejaPosteoVenta(ventaAAniadir);        
+        })
         
     }
 
