@@ -8,6 +8,7 @@ import DashboardPagina from '../components/DashboardPagina';
 import NoEncontradoPagina from '../components/NoEncontradoPagina';
 import Header from '../components/Header';
 import LandingPagina from '../components/LandingPagina';
+import EditarVenta from '../components/subComponentesHistorico/EditarVenta';
 
 // Componente que hace que se carguen las Rutas
 const AppRouter = () => (
@@ -19,6 +20,8 @@ const AppRouter = () => (
                 <Route path = '/' component = {LandingPagina} exact = {true}/>
                 {/* Ruta del Dashboard*/}
                 <Route path = '/dashboard' component = {DashboardPagina} exact = {true}/>
+                {/* Ruta para elemento individual*/}
+                <Route path = '/dashboard/editar/venta/:id' component = {EditarVenta} />
                 {/* Ruta para 404*/}
                 <Route component ={NoEncontradoPagina}/>
             </Switch>    

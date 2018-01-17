@@ -29,41 +29,42 @@ class ListaVentas extends React.Component {
     }
 
     render() {
-        return (
-            <div className="col-md-9">
-                <div className='row'>
-                    <div className="panel panel-default">
-                        <div className="panel-heading">
-                            Lista de Ventas
-                        </div>
-                        <div className="panel-body">
-                            <div className='row'>
-                                <div className='col-md-6'>
-                                    <input type="text" placeholder='Texto para filtrar'/>
-                                </div>
-                                <div className='col-md-6'>
-                                    <p>PlaceHolder Filtro Calendario</p>
-                                </div>
+        return (            
+            <div className='row'>
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        Lista de Ventas
+                    </div>
+                    <div className="panel-body">
+                        <div className='row'>
+                            <div className='col-md-6'>
+                                <input type="text" placeholder='Texto para filtrar'/>
                             </div>
-                            <h3>Lista de Ventas</h3>
-                            <ul className='list-group'>
-                                { (this.state.datos === undefined
-                                    ? <li>Loading</li> 
-                                    : this.state.datos.map((elemento) =>{
-                                        return <ListaVentaItem
-                                            key={elemento._id}   
-                                            currentID          = {elemento._id}
-                                            currentPrecio      = {elemento.precio}
-                                            currentModoPago    = {elemento.modoPago}
-                                            currentComision    = {elemento.comision}
-                                            currentFecha       = {elemento.fecha}
-                                            currentCategoria   = {elemento.categoria}
-                                            currentDescripcion = {elemento.descripcion}
-                                        />
-                                    }))}
-                            </ul>
-                            {/* Comentario */}
+                            <div className='col-md-6'>
+                                <p>PlaceHolder Filtro Calendario</p>
+                            </div>
                         </div>
+                        <h3>Lista de Ventas</h3>
+                        <ul className='list-group'>
+                            {(this.state.datos === undefined
+                                ? <li>Loading</li> 
+                                : this.state.datos.map((elemento) =>{
+                                    return <ListaVentaItem
+                                        key={elemento._id}   
+                                        currentID          = {elemento._id}
+                                        currentPrecio      = {elemento.precio}
+                                        currentModoPago    = {elemento.modoPago}
+                                        currentComision    = {elemento.comision}
+                                        currentFecha       = {elemento.fecha}
+                                        currentCategoria   = {elemento.categoria}
+                                        currentDescripcion = {elemento.descripcion}
+                                    />
+                                }))}
+                        </ul>
+                        {/* Aqui va el boton para exportar a excel la seleccion */}
+                        <button className='btn btn-lg btn-success'>
+                                Exportar a Excel
+                        </button>
                     </div>
                 </div>
             </div>
