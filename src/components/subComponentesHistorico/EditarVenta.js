@@ -2,15 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { mostrarVenta } from '../../acciones/ventas';
 
 class EditarVenta extends React.Component {
 
+    manejaNoMostrarVenta = () => {
+        // Para quitar la venta mostrada del alamacen de redux y que se re-rendere el componente
+        console.log('Entro a sacar venta del alamacen');
+        this.props.dispatch(mostrarVenta(undefined));
+        this.props.actualizaComponente();
+    }
 
     eliminarVentaDelServidor = (idEliminar) => {
         axios.delete('/api/ventas/' + idEliminar)
             .then( res => {
                 console.log('Se esta eliminando la venta: ', idEliminar);
                 console.log('Respuesta del servidor: ', res);
+                this.manejaNoMostrarVenta();
             })
             .catch( err => {
                 console.log('Hubo un error: ', err);
@@ -26,7 +34,10 @@ class EditarVenta extends React.Component {
             <div className="row">
                 <div className="panel panel-default">
                     <div className="panel-heading">
-                        Detalles de la Venta... X
+                        Detalles de la Venta {
+                            this.props.ventaMostrada &&
+                            this.props.ventaMostrada.id
+                        }
                     </div>
                     <div className="panel-body">
                         <h4>{this.props.ventaMostrada && this.props.ventaMostrada.descripcion}</h4>    

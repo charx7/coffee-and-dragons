@@ -106,7 +106,8 @@ app.delete('/api/ventas/:id', (req, res) => {
     modeloVentas.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
         if(!error) console.log('Venta Eliminada', resultadoQuery);
         else console.log('Error ', error);
-    })
+    });
+    res.send('done');
 })
 
 // GET

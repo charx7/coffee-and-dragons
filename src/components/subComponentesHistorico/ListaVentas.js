@@ -21,11 +21,17 @@ class ListaVentas extends React.Component {
             });
     };
 
+    // Manda a cargar datos cuando hay una actualizacion de los props que recibe
+    componentWillReceiveProps = () => {
+        this.cargarVentasDelServidor();
+        console.log('Entro a actualizar la lista de datos');
+    }
+
     componentDidMount () {
         console.log('Empezo a hacer la request');
         // Llama al metodo que carga los datos del servidor
         this.cargarVentasDelServidor();
-        console.log(this.state.datos);
+        console.log('Los datos del servidor son: ',this.state.datos);
     }
 
     render() {
@@ -33,7 +39,7 @@ class ListaVentas extends React.Component {
             <div className='row'>
                 <div className="panel panel-default">
                     <div className="panel-heading">
-                        Lista de Ventas
+                        Lista de Ventas {this.props.ventaMostrada && this.props.ventaMostrada.id}
                     </div>
                     <div className="panel-body">
                         <div className='row'>
@@ -46,18 +52,18 @@ class ListaVentas extends React.Component {
                         </div>
                         <h3>Lista de Ventas</h3>
                         <ul className='list-group'>
-                            {(this.state.datos === undefined
+                            {(this.state.datos === undefined || this.state.ventaMostrada
                                 ? <li>Loading</li> 
                                 : this.state.datos.map((elemento) =>{
                                     return <ListaVentaItem
                                         key={elemento._id}   
-                                        currentID          = {elemento._id}
-                                        currentPrecio      = {elemento.precio}
-                                        currentModoPago    = {elemento.modoPago}
-                                        currentComision    = {elemento.comision}
-                                        currentFecha       = {elemento.fecha}
-                                        currentCategoria   = {elemento.categoria}
-                                        currentDescripcion = {elemento.descripcion}
+                                        currentID            = {elemento._id}
+                                        currentPrecio        = {elemento.precio}
+                                        currentModoPago      = {elemento.modoPago}
+                                        currentComision      = {elemento.comision}
+                                        currentFecha         = {elemento.fecha}
+                                        currentCategoria     = {elemento.categoria}
+                                        currentDescripcion   = {elemento.descripcion}
                                     />
                                 }))}
                         </ul>
@@ -73,4 +79,11 @@ class ListaVentas extends React.Component {
 
 }
 
-export default ListaVentas;
+
+const mapeoEstadoAProps = (estado) => {
+    return {
+        ventaMostrada: estado.ventas[0]
+    }
+}
+
+export default connect(mapeoEstadoAProps)(ListaVentas);
