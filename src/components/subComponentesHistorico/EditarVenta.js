@@ -1,10 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class EditarVenta extends React.Component {
-    manejaEliminarVenta = () => {
-        alert('AUCHXD');
+
+
+    eliminarVentaDelServidor = (idEliminar) => {
+        axios.delete('/api/ventas/' + idEliminar)
+            .then( res => {
+                console.log('Se esta eliminando la venta: ', idEliminar);
+                console.log('Respuesta del servidor: ', res);
+            })
+            .catch( err => {
+                console.log('Hubo un error: ', err);
+            })
+    }
+    
+    manejaEliminarVenta = (idEliminar) => {
+        this.eliminarVentaDelServidor(idEliminar);
     }
 
     render() {
@@ -23,7 +37,9 @@ class EditarVenta extends React.Component {
                             {this.props.ventaMostrada && 
                             <button 
                                 className='btn btn-danger'
-                                onClick={this.manejaEliminarVenta}
+                                onClick={() => {
+                                    this.manejaEliminarVenta(this.props.ventaMostrada.id)
+                                }}
                             >
                                 ELIMINAR
                             </button>}

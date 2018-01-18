@@ -87,10 +87,12 @@ module.exports = (env) => {
             publicPath: '/dist/',
             // Configuracion del proxy para que sirva el devServer y tome los datos de Localhost:3000
             // NOTA: Tiene que estar corriendo el nodemon de server.js
-            proxy: [{
-                path: `/api/*`,
-                target: 'http://localhost:3000/'
-          }],
+            proxy: {
+                '/api':{
+                target: 'http://localhost:3000/',
+                secure: false
+            }
+          }
         }
     }
 };

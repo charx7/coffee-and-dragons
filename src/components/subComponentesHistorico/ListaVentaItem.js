@@ -25,7 +25,7 @@ class ListaVentaItem extends React.Component {
     render() {
         return (
             <li className='list-group-item' id='li-producto'>
-                <Link to="#" onClick={this.manejaClickEnVenta}>
+                <Link to="#" onClick={() => {this.manejaClickEnVenta()}}>
                     {this.props.currentDescripcion}
                 </Link>
                 <p id= 'boton-en-lista'>

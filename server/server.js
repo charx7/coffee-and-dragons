@@ -36,6 +36,7 @@ var modeloVentas = require("./modelos/esquemaVentas");
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
 // productos.create({
@@ -78,6 +79,7 @@ app.get('/api/ventas/', (req, res) => {
         }
     });
 });
+
 // POST
 app.post('/api/ventas/', (req, res) => {
     console.log('Entro a postear una venta a la BDD');
@@ -96,6 +98,15 @@ app.post('/api/ventas/', (req, res) => {
         else console.log('Error ', error);
     });
     res.send('done');
+})
+
+// DELETE
+app.delete('/api/ventas/:id', (req, res) => {
+    console.log('Entro a borrar un registro de ventas', req.params);
+    modeloVentas.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
+        if(!error) console.log('Venta Eliminada', resultadoQuery);
+        else console.log('Error ', error);
+    })
 })
 
 // GET
