@@ -10,18 +10,26 @@ import axios from 'axios';
 import construyeArregloVentas from '../selectores/constuyeArregloVentas';
 
 class Subtotal extends React.Component {
-    
     // constructor(props) {
     //     super(props)
     //     this.state = {
     //         modoPago: this.props.recibo.modoPago
     //     }
     // }
+    manejaResetearRecibo = () => {
+        // Hacemos reset de los items que estaban en la cuenta para dejarlos como un arreglo vacio
+        this.props.dispatch(modificaRecibo(
+            this.props.currentCuentaNumero, { idProductos: [] }
+        ));
+    }
+
     manejaPosteoVenta = (ventaAAniadir) => {
         axios.post('/api/ventas', ventaAAniadir)
             .then( res => {
                 console.log('Se esta anadiendo la venta: ', ventaAAniadir)
                 console.log('respuesta al posteo', res);
+                // Llamada al metodo que resetear la lista de productos del recibo
+                this.manejaResetearRecibo();
             })
             .catch(err => {
                 console.log('hubo un error en el posteo', err);
@@ -33,6 +41,7 @@ class Subtotal extends React.Component {
              this.props.currentProductosEnCuenta
             ,this.props.productos);
         console.log('Entro a liquidar el arreglo: ',ventasAPostear);
+        if(ventasAPostear.length < 1) alert('No se puede liquidar una cuenta vacia');
         ventasAPostear.map((elemento) => {
             let ventaAAniadir = {
                 precio: elemento.precio,
