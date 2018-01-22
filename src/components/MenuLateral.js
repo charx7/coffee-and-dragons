@@ -24,8 +24,12 @@ const MenuLateral = (props) => (
                 Ventas
             </ListGroupItem>
             <ListGroupItem 
-                href="#" 
-                disabled>
+                href="#"
+                active = {props.currentTareaActiva == 'productos' ? true : false}
+                onClick = {(e) => {
+                    props.manejaTareaActiva('PRODUCTOS');
+                }}
+                >
                 Productos
             </ListGroupItem>
             <ListGroupItem 

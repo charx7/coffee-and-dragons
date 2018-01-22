@@ -7,6 +7,7 @@ import TituloDashboard from './TituloDashboard'; // Componente del titulo del da
 import MenuLateral from './MenuLateral'; // Componente del Menu lateral
 import ComponenteVentas from './ComponenteVentas'; // Componente del Menu del POS
 import Historico from './subComponentesHistorico/Historico'; // Componente del Menu Historico
+import Productos from './subComponentesProductos/Productos'; // Componente del Menu de Productos
 // Prueba
 class DashboardPagina extends React.Component {
     state = {
@@ -26,6 +27,13 @@ class DashboardPagina extends React.Component {
                 this.setState(() => {
                     return ({
                         tareaActiva: 'historico'
+                    })
+                });
+            return;
+            case 'PRODUCTOS':
+                this.setState(() => {
+                    return ({
+                        tareaActiva: 'productos'
                     })
                 });
             return;
@@ -51,6 +59,7 @@ class DashboardPagina extends React.Component {
                             el estado */}
                         {this.state.tareaActiva == 'ventas' ? <ComponenteVentas/> : '' }
                         {this.state.tareaActiva == 'historico' ? <Historico/>: ''}
+                        {this.state.tareaActiva == 'productos' ? <Productos/>: ''}
                     </div>
                 </div>
             </div>
