@@ -110,6 +110,7 @@ app.delete('/api/ventas/:id', (req, res) => {
     res.send('done');
 })
 
+// API de productos
 // GET
 app.get('/api/productos/', (req, res) => {
     // Saca todos los productos de la BDD
