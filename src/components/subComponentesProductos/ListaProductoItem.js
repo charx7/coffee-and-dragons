@@ -1,6 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { empiezaSetMostrarProducto } from '../../acciones/productos';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 class ListaProductoItem extends React.Component {
+    
+    manejaEditarDatos = (respuestaQuery) => {
+        this.props.manejaProductoSeleccionado(respuestaQuery);
+    }
+
+    manejaClickEnProducto = (currentIdProducto) => {
+        // Accion de dispatch un query de buscar un el currentIdProducto
+        axios.get(`/api/productos/${currentIdProducto}`)
+        .then((respuesta) => {
+            console.log(respuesta.data);
+            this.manejaEditarDatos(respuesta.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     render() {
         return(
             <div className='col-md-2'>
@@ -9,7 +30,12 @@ class ListaProductoItem extends React.Component {
                         className='img-thumbnail' 
                         alt=" Producto C&D"
                     />
-                    <p>{this.props.currentDescripcion}</p>
+                    <Link to="#" onClick={() => {this.manejaClickEnProducto(this.props.currentIdProducto)}}>
+                        {this.props.currentDescripcion}
+                    </Link>
+                    <p>
+                        <strong>{this.props.currentCategoria}</strong>                        
+                    </p>
                     <p>Precio: MXN {this.props.currentPrecio}</p>
                 </div>
             </div>
@@ -17,4 +43,4 @@ class ListaProductoItem extends React.Component {
     }
 }
 
-export default ListaProductoItem;
+export default connect()(ListaProductoItem);

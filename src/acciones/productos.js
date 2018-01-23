@@ -21,3 +21,24 @@ export const empiezaAgregarProducto = () => {
             });
     }
 };
+
+// Accion Editar un producto
+export const editarProducto = (id, actualizaciones) => ({
+    type: 'EDITAR_PRODUCTO',
+    id,
+    actualizaciones
+});
+
+// Codigo para que haga un edit a la BDD de Mongo
+export const empiezaEditarProducto = (id, actualizaciones) => {
+    return (dispatch) => {
+        return axios.put(`/api/productos/${id}`)
+            .then( (respuesta) => {
+                console.log(respuesta.data);
+                dispatch(editarProducto(id, actualizaciones));
+            })
+            .catch( (error) => {
+                console.log(error);
+            });  
+        }
+};

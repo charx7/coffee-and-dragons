@@ -37,11 +37,13 @@ class ListaProductos extends React.Component {
                         {
                             this.props.productos.map((elemento) => {
                                 return <ListaProductoItem
-                                    key                     = {elemento._id}
-                                    currentIdProducto       = {elemento._id}
-                                    currentPrecio           = {elemento.precio}
-                                    currentDescripcion      = {elemento.descripcion}
-                                    currentImagen           = {elemento.imagen}
+                                    key                        = {elemento._id}
+                                    currentIdProducto          = {elemento._id}
+                                    currentPrecio              = {elemento.precio}
+                                    currentDescripcion         = {elemento.descripcion}
+                                    currentImagen              = {elemento.imagen}
+                                    currentCategoria           = {elemento.categoria}
+                                    manejaProductoSeleccionado = {this.props.manejaProductoSeleccionado}
                                 />
                             })
                         }

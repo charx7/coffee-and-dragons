@@ -110,7 +110,9 @@ app.delete('/api/ventas/:id', (req, res) => {
     res.send('done');
 })
 
-// API de productos
+// ##############################################
+// API DE PRODUCTOS
+// ##############################################
 // GET
 app.get('/api/productos/', (req, res) => {
     // Saca todos los productos de la BDD
@@ -122,6 +124,19 @@ app.get('/api/productos/', (req, res) => {
             console.log('Entro a pedir productos');
             res.json(resultadoQuery);
         }
+    });
+});
+
+// SHOW un solo elemento de productos
+app.get('/api/productos/:id', (req, res) => {
+    console.log('Entro a hacer un query de un solo elemento de productos', req.params);
+    var idActual = req.params.id;
+    productos.findById(idActual, (error, resultadoQuery) => {
+        if(!error) {
+            console.log('Producto Econtrado', resultadoQuery);
+            res.json(resultadoQuery);
+        }
+        else console.log('Error', error);
     });
 });
 
