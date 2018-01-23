@@ -10,6 +10,7 @@ import AppRouter from './routers/AppRouter';
 import configuraAlmacen from './almacen/configuraAlmacen'; // Importacion del Almacen REDUX y su modelo con reducers
 //import './firebase/firebase'; // Importaciones de Firebase para que corra //Por Ahora no usaremos Firebase
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css'; // Imports de BS
+import { empiezaAgregarProducto } from './acciones/productos'; // Import accion que toma los datos de la BDD
 
 // acceso al modelo del almacen con REDUX
 const almacen = configuraAlmacen();
@@ -24,7 +25,11 @@ const jsx  = (
 );
 
 // Rendereo de un mensaje de cargando...
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<p>Cargando...</p>, document.getElementById('app'));
+
+almacen.dispatch(empiezaAgregarProducto()).then(() => { 
+    ReactDOM.render(jsx, document.getElementById('app'));
+});
 
 // almacen.dispatch(empiezaSetGastos()).then(() => { 
 //     // Esta accion se renderea cuando hay un exito en el async task de recuperar los datos de firebase

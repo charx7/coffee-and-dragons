@@ -9,8 +9,8 @@ const ListaProductosPagina = (props) => (
     {
         props.productos.map( (elemento) => {
             return <ProductosItemPagina 
-                    key = {elemento.id}
-                    currentIdProducto       = {elemento.id}
+                    key                     = {elemento._id}
+                    currentIdProducto       = {elemento._id}
                     currentPrecio           = {elemento.precio}
                     currentDescripcion      = {elemento.descripcion}
                     currentImagen           = {elemento.imagen}

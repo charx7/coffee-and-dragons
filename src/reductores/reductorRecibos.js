@@ -6,9 +6,7 @@ const reductorRecibosDefault = [
         mesa: 1,
         modoPago: 'efectivo',
         fecha: 0,
-        idProductos: [
-            1,2
-        ],
+        idProductos: [],
         comision: 0,
         monto: 0
     },

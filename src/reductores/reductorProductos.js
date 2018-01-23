@@ -8,10 +8,7 @@
 //                                     {id: 5, precio: 10, descripcion: 'Nombre del producto 5', imagen:'URL4', categoria: 'categoria 5'},
 //                                     {id: 6, precio: 10, descripcion: 'Nombre del producto 6', imagen:'URL4', categoria: 'categoria 6'}
 //                                 ];
-const reductorProductosDefault = [
-    {id: 1, precio: 100, descripcion: 'Nombre del producto 1', imagen:'URL1', categoria: 'categoria1'},
-    {id: 2, precio: 200, descripcion: 'Nombre del producto 2', imagen:'URL2', categoria: 'categoria2'}
-];
+const reductorProductosDefault = [];
 // Definimos el reductor como una funcion pura
 const redutorProductos = (estado = reductorProductosDefault, accion) => {
     switch (accion.type){
