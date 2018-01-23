@@ -30,13 +30,19 @@ class ListaProductos extends React.Component {
                                 <input type="text" placeholder='Texto para filtrar'/>
                             </div>
                             <div className='col-md-6'>
-                                <p>PlaceHolder Filtro Calendario</p>
+                                <p>PlaceHolder Filtro Categoria</p>
                             </div>
                         </div>
                         <h3>Productos Disponibles</h3>
                         {
                             this.props.productos.map((elemento) => {
-                                return <ListaProductoItem/>
+                                return <ListaProductoItem
+                                    key                     = {elemento._id}
+                                    currentIdProducto       = {elemento._id}
+                                    currentPrecio           = {elemento.precio}
+                                    currentDescripcion      = {elemento.descripcion}
+                                    currentImagen           = {elemento.imagen}
+                                />
                             })
                         }
                     </div>

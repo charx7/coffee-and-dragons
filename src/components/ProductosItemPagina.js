@@ -14,14 +14,16 @@ class ProductosItemPagina extends React.Component  {
             ] 
         }));
     }
-    
+    // Imagen de Catan
+    // https://cf.geekdo-images.com/mvqw7ruqcaYmwp1vxhYOGa0On5c=/fit-in/1200x630/pic2838574.jpg
+
     render () {
         return (
             <div className='col-md-2'>
                 <div className='thumbnail'>
-                    <img src="https://cf.geekdo-images.com/mvqw7ruqcaYmwp1vxhYOGa0On5c=/fit-in/1200x630/pic2838574.jpg" 
+                    <img src={this.props.currentImagen} 
                         className='img-thumbnail' 
-                        alt="cinque terre"
+                        alt="Producto C&D"
                     />
                     <p>{this.props.currentDescripcion}</p>
                     <p>Precio: MXN {this.props.currentPrecio}</p>

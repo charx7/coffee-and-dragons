@@ -40,9 +40,9 @@ app.use(function(req, res, next) {
     next();
 });
 // productos.create({
-//     precio: 100,
-//     descripcion: 'aniadido desde app.js',
-//     imagen: 'linda url',
+//     precio: 20,
+//     descripcion: 'aniadido desde app.js 4',
+//     imagen: 'http://www.pizzaspiccolo.com.co/wp-content/uploads/2016/02/Malteadas-prod.jpg',
 //     categoria: 'cafeteria'
 // }, (error, resultado) => {
 //     if(error) {
