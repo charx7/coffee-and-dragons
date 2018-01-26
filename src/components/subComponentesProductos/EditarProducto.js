@@ -2,11 +2,58 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { empiezaEditarProducto } from '../../acciones/productos';
 
 class EditarProducto extends React.Component {
+    constructor(props) {
+    super(props);        
+        this.state = {
+            descripcion: this.props.currentProducto.descripcion ? this.props.currentProducto.descripcion : '',
+            precio: this.props.currentProducto.precio ? this.props.currentProducto.precio : '',
+            imagen: this.props.currentProducto.imagen ? this.props.currentProducto.imagen : '',
+            categoria: this.props.currentProducto.categoria ? this.props.categoria : ''
+        }
+    }
+    
+
+    manjeaCambioCategoria = (e) => {
+        const categoriaForma = e.target.value;
+        this.setState(() => ({ categoria: categoriaForma }));
+    }
+
+    manejaCambioImagen = (e) => {
+        const imagenForma = e.target.value;
+        this.setState (() => ({ imagen: imagenForma }));
+    }
+
+    manejaCambioPrecio = (e) => {
+        const precioForma = e.target.value;
+        this.setState(() => ({ precio: precioForma }));
+    }
+
+    manejaCambioDescripcion = (e) => {
+        // Recuperar el valor del input
+        const descripcionForma = e.target.value;
+        // Cambio del estado del componente con el objeto de la descripcion
+        this.setState(() => ({
+            descripcion: descripcionForma
+        }));
+    }
+
     manejaEliminarVenta = () => {
         alert('AuchXD');
         // Accion de dispatch un query de delete
+    }
+
+    submitForma = (e) => {
+        e.preventDefault();
+        console.log('Forma Submited sin Default');
+        this.props.dispatch(empiezaEditarProducto(this.props.currentProducto._id, {
+            descripcion: this.state.descripcion,
+            precio: this.state.precio,
+            imagen: this.state.imagen,
+            categoria: this.state.categoria
+        }));
     }
 
     render() {
@@ -14,30 +61,43 @@ class EditarProducto extends React.Component {
             <div className="row">
                 <div className="panel panel-default">
                     <div className="panel-heading">
-                        Detalles del producto {
-                    
+                        Detalles del producto: {
+                            this.props.currentProducto ? this.props.currentProducto.descripcion : ''
                         }
                     </div>
                     <div className="panel-body">
-                        <form action="/algo" method='PUT'>
+                        <form onSubmit={this.submitForma}>
                             <div className='form-group'>
-                                <input className='form-control' type="text" placeholder='Descripcion'
-                                    value = {this.props.currentProducto.descripcion}
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={this.props.currentProducto.descripcion ? this.props.currentProducto.descripcion : 'Descripcion'}
+                                    value    = {this.state.descripcion}
+                                    onChange = {this.manejaCambioDescripcion}
                                 />
                             </div>
                             <div className='form-group'>
-                                <input className='form-control' type="text" placeholder='Precio'
-                                    value = {this.props.currentProducto.precio}
+                                <input className='form-control'
+                                    type="text" 
+                                    placeholder={this.props.currentProducto.precio ? this.props.currentProducto.precio: 'Precio'}
+                                    value    = {this.state.precio}
+                                    onChange = {this.manejaCambioPrecio}
                                 />
                             </div>
                             <div className='form-group'>
-                                <input className='form-control' type="text" placeholder='URL Imagen'
-                                    value = {this.props.currentProducto.imagen}
+                                <input className='form-control'
+                                    type="text" 
+                                    placeholder={this.props.currentProducto.imagen ? this.props.currentProducto.imagen : 'URL Imagen'}
+                                    value    = {this.state.imagen}
+                                    onChange = {this.manejaCambioImagen}
                                 />
                             </div>
                             <div className='form-group'>
-                                <input className='form-control' type="text" placeholder='Categoria'
-                                    value = {this.props.currentProducto.categoria}
+                                <input className='form-control'
+                                    type="text" 
+                                    placeholder= {this.props.currentProducto.categoria ? this.props.currentProducto.categoria : 'Categoria'}
+                                    value    = {this.state.categoria}
+                                    onChange = {this.manjeaCambioCategoria}
                                 />
                             </div>
                             <div className='form-group'>
@@ -59,4 +119,4 @@ class EditarProducto extends React.Component {
     }
 }
 
-export default EditarProducto;
+export default connect()(EditarProducto);

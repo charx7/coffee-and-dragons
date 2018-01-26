@@ -32,7 +32,8 @@ export const editarProducto = (id, actualizaciones) => ({
 // Codigo para que haga un edit a la BDD de Mongo
 export const empiezaEditarProducto = (id, actualizaciones) => {
     return (dispatch) => {
-        return axios.put(`/api/productos/${id}`)
+        console.log('entro a editar', id);
+        return axios.put(`/api/productos/${id}`, actualizaciones)
             .then( (respuesta) => {
                 console.log(respuesta.data);
                 dispatch(editarProducto(id, actualizaciones));

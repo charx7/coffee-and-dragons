@@ -140,6 +140,22 @@ app.get('/api/productos/:id', (req, res) => {
     });
 });
 
+// EDIT ruta para editar un producto
+app.put('/api/productos/:id', (req, res) => {
+    console.log('Entro a editar un producto de la BDD', req.params.id);
+    console.log('Informacion nueva: ', req.body)
+    var actualizacionesAplicar = req.body;
+    var idActual = req.params.id;
+    productos.findByIdAndUpdate( idActual, actualizacionesAplicar, (error, resultadoQuery) => {
+        if(!error) {
+            console.log('Exito editando el registro', resultadoQuery);
+            res.json(resultadoQuery);
+        } else {
+            console.log('Error Editando')
+        }
+    });  
+});
+
 // ##################################################
 // Esto es lo que hace que sea estatico o no
 if(process.env.NODE_ENV == 'development'){
