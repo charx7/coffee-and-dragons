@@ -6,19 +6,21 @@ const ListaProductosPagina = (props) => (
     <div>
     <p>Aqui va un filtro de productos por texto</p>
     <p>Aqui va un filtro de productos por categoria</p>
-    {
-        props.productos.map( (elemento) => {
-            return <ProductosItemPagina 
-                    key                     = {elemento._id}
-                    currentIdProducto       = {elemento._id}
-                    currentPrecio           = {elemento.precio}
-                    currentDescripcion      = {elemento.descripcion}
-                    currentImagen           = {elemento.imagen}
-                    currentCuentaActiva     = {props.currentCuentaActiva}
-                    currentArregloProductos = {props.recibo.idProductos}
-                    />
-        })
-    }
+    <div className='row' id='contenedorProductos'>
+        {
+            props.productos.map( (elemento) => {
+                return <ProductosItemPagina 
+                        key                     = {elemento._id}
+                        currentIdProducto       = {elemento._id}
+                        currentPrecio           = {elemento.precio}
+                        currentDescripcion      = {elemento.descripcion}
+                        currentImagen           = {elemento.imagen}
+                        currentCuentaActiva     = {props.currentCuentaActiva}
+                        currentArregloProductos = {props.recibo.idProductos}
+                        />
+            })
+        }
+    </div>
     </div>
 );
 

@@ -43,3 +43,18 @@ export const empiezaEditarProducto = (id, actualizaciones) => {
             });  
         }
 };
+
+export const empiezaNuevoProducto = (productoAAgregar) => {
+    return(dispatch) => {
+        console.log('Entro a agregar un producto a la BDD',productoAAgregar);
+        return axios.post('/api/productos', productoAAgregar)
+            .then(res => {
+                console.log('Se agrego un producto a la BDD', res);
+                // Agrega el producto aniadido a la BDD al almacen de redux
+                dispatch(agregarProducto(res.data));
+            })
+            .catch( err => {
+                console.log('Error Agregando Producto', err);
+            })
+    }
+}

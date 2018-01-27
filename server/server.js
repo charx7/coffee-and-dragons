@@ -127,6 +127,27 @@ app.get('/api/productos/', (req, res) => {
     });
 });
 
+// POST DE CREAR UN NUEVO PRODUCTO
+app.post('/api/productos/', (req, res) => {
+    console.log('Entro a postear un producto a la BDD');
+    console.log('El cuerpo del post es: ',req.body);
+    var nuevoProducto = {
+        descripcion: req.body.descripcion,
+        precio: req.body.precio,
+        imagen: req.body.imagen,
+        categoria: req.body.categoria
+    }
+    productos.create(nuevoProducto, (error, resultadoQuery) => {
+        if(!error) {
+            res.json(resultadoQuery)
+            console.log('Producto Guardado', resultadoQuery);
+        }
+        else console.log('Error ', error);
+    });
+    
+    //res.send('done');
+})
+
 // SHOW un solo elemento de productos
 app.get('/api/productos/:id', (req, res) => {
     console.log('Entro a hacer un query de un solo elemento de productos', req.params);

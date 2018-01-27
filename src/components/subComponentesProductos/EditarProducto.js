@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { empiezaEditarProducto } from '../../acciones/productos';
+import {empiezaEditarProducto,
+        empiezaNuevoProducto } from '../../acciones/productos';
 
 class EditarProducto extends React.Component {
     
@@ -61,12 +62,24 @@ class EditarProducto extends React.Component {
     submitForma = (e) => {
         e.preventDefault();
         console.log('Forma Submited sin Default');
-        this.props.dispatch(empiezaEditarProducto(this.props.currentProducto._id, {
-            descripcion: this.state.descripcion,
-            precio: this.state.precio,
-            imagen: this.state.imagen,
-            categoria: this.state.categoria
-        }));
+
+        if(!this.props.currentProducto._id){
+            // Aqui faltan validaciones de los input de los datos
+            console.log('Se esta salvando un nuevo producto a la BDD');
+            this.props.dispatch(empiezaNuevoProducto({
+                descripcion: this.state.descripcion,
+                precio: this.state.precio,
+                imagen: this.state.imagen,
+                categoria: this.state.categoria
+            }));
+        } else {
+            this.props.dispatch(empiezaEditarProducto(this.props.currentProducto._id, {
+                descripcion: this.state.descripcion,
+                precio: this.state.precio,
+                imagen: this.state.imagen,
+                categoria: this.state.categoria
+            }));
+        }
     }
 
     render() {

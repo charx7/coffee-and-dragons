@@ -34,6 +34,7 @@ class ListaProductos extends React.Component {
                             </div>
                         </div>
                         <h3>Productos Disponibles</h3>
+                        <div className='row' id='contenedorProductos'>
                         {
                             this.props.productos.map((elemento) => {
                                 return <ListaProductoItem
@@ -47,6 +48,19 @@ class ListaProductos extends React.Component {
                                 />
                             })
                         }
+                        <div className='col-md-2'>
+                            <div className='thumbnail'>
+                                <img src='https://cdn0.iconfinder.com/data/icons/cosmo-work/40/document_new-512.png' 
+                                    className='img-thumbnail' 
+                                    alt=" Producto C&D"
+                                    onClick = {this.props.manejaNuevoProducto}
+                                />
+                                <p>
+                                    <strong>Nuevo Producto</strong>                        
+                                </p>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
