@@ -5,16 +5,29 @@ import axios from 'axios';
 import { empiezaEditarProducto } from '../../acciones/productos';
 
 class EditarProducto extends React.Component {
+    
     constructor(props) {
     super(props);        
         this.state = {
             descripcion: this.props.currentProducto.descripcion ? this.props.currentProducto.descripcion : '',
             precio: this.props.currentProducto.precio ? this.props.currentProducto.precio : '',
             imagen: this.props.currentProducto.imagen ? this.props.currentProducto.imagen : '',
-            categoria: this.props.currentProducto.categoria ? this.props.categoria : ''
+            categoria: this.props.currentProducto.categoria ? this.props.currentProducto.categoria : '' 
         }
     }
     
+    // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
+    componentDidUpdate(previousProps, previousState) {
+        // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
+        if(previousProps.currentProducto.descripcion !== this.props.currentProducto.descripcion) {
+          this.setState({ 
+            descripcion: this.props.currentProducto.descripcion,
+            precio: this.props.currentProducto.precio,
+            imagen: this.props.currentProducto.imagen,
+            categoria: this.props.currentProducto.categoria
+        })
+        }
+      } 
 
     manjeaCambioCategoria = (e) => {
         const categoriaForma = e.target.value;
