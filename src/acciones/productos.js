@@ -69,9 +69,15 @@ export const empiezaEliminarProducto = (idEliminar) => {
             console.log('Se esta eliminando el producto: ', idEliminar);
             console.log('Respuesta del servidor: ', res);
             // Call de dispatch para eliminar registro del almacen
+            dispatch(eliminarProducto(res.data._id));
         })
         .catch( err => {
             console.log('Hubo un error: ', err);
         });
     }
 }
+
+export const eliminarProducto = (idEliminar) => ({
+    type: 'ELIMINAR_PRODUCTO',
+    idEliminar
+});

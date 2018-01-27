@@ -29,7 +29,11 @@ const redutorProductos = (estado = reductorProductosDefault, accion) => {
                     return elemento;
                 }
             });
-            
+        case 'ELIMINAR_PRODUCTO':
+            console.log('Id a eliminar de la accion es: ', accion.idEliminar);
+            return estado.filter(({ _id }) => {
+                return _id != accion.idEliminar;
+            });     
         default:
         return estado; 
     }
