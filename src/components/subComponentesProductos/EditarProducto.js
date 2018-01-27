@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {empiezaEditarProducto,
-        empiezaNuevoProducto } from '../../acciones/productos';
+        empiezaNuevoProducto,
+        empiezaEliminarProducto } from '../../acciones/productos';
 
 class EditarProducto extends React.Component {
     
@@ -55,8 +56,13 @@ class EditarProducto extends React.Component {
     }
 
     manejaEliminarVenta = () => {
-        alert('AuchXD');
+        console.log('Intentara Eliminar un Producto');
         // Accion de dispatch un query de delete
+        if(!this.props.currentProducto._id) {
+            alert('Tiene que escoger un producto para eliminar');
+        } else {
+            this.props.dispatch(empiezaEliminarProducto(this.props.currentProducto._id));
+        }
     }
 
     submitForma = (e) => {

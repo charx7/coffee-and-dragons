@@ -44,6 +44,7 @@ export const empiezaEditarProducto = (id, actualizaciones) => {
         }
 };
 
+// Para hacer un Create a la BDD de Mongo
 export const empiezaNuevoProducto = (productoAAgregar) => {
     return(dispatch) => {
         console.log('Entro a agregar un producto a la BDD',productoAAgregar);
@@ -56,5 +57,21 @@ export const empiezaNuevoProducto = (productoAAgregar) => {
             .catch( err => {
                 console.log('Error Agregando Producto', err);
             })
+    }
+}
+
+// Para hacer un DELETE a la BDd de Mongo
+export const empiezaEliminarProducto = (idEliminar) => {
+    return(dispatch) => {
+        console.log('Entro a eliminar el producto con el id: ', idEliminar);
+        return axios.delete('/api/productos/' + idEliminar)
+        .then( res => {
+            console.log('Se esta eliminando el producto: ', idEliminar);
+            console.log('Respuesta del servidor: ', res);
+            // Call de dispatch para eliminar registro del almacen
+        })
+        .catch( err => {
+            console.log('Hubo un error: ', err);
+        });
     }
 }

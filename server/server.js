@@ -98,7 +98,7 @@ app.post('/api/ventas/', (req, res) => {
         else console.log('Error ', error);
     });
     res.send('done');
-})
+});
 
 // DELETE
 app.delete('/api/ventas/:id', (req, res) => {
@@ -108,11 +108,12 @@ app.delete('/api/ventas/:id', (req, res) => {
         else console.log('Error ', error);
     });
     res.send('done');
-})
+});
 
 // ##############################################
 // API DE PRODUCTOS
 // ##############################################
+
 // GET
 app.get('/api/productos/', (req, res) => {
     // Saca todos los productos de la BDD
@@ -146,7 +147,7 @@ app.post('/api/productos/', (req, res) => {
     });
     
     //res.send('done');
-})
+});
 
 // SHOW un solo elemento de productos
 app.get('/api/productos/:id', (req, res) => {
@@ -175,6 +176,18 @@ app.put('/api/productos/:id', (req, res) => {
             console.log('Error Editando')
         }
     });  
+});
+
+// DELETE de un elemento especifico de la BDD
+app.delete('/api/productos/:id', (req, res) => {
+    console.log('Entro a borrar un registro de productos', req.params);
+    productos.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
+        if(!error){
+            console.log('Producto Eliminado', resultadoQuery);
+            res.json(resultadoQuery);  
+        } 
+        else console.log('Error ', error);
+    });
 });
 
 // ##################################################
