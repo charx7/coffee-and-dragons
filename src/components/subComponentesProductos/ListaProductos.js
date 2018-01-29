@@ -8,7 +8,8 @@ class ListaProductos extends React.Component {
     state = {
         datos: undefined,
         actualizo: false,
-        filtroProductosTexto: ''
+        filtroProductosTexto: '',
+        filtroProductosCategoria: ''
     }
 
     componentDidMount () {
@@ -25,6 +26,30 @@ class ListaProductos extends React.Component {
         this.setState({
             filtroProductosTexto: textoForma
         });
+    }
+
+    manejaCambioFiltroCategoria = (e) => {
+        const valorSelectorFiltroCategoria = e.target.value;
+        switch (valorSelectorFiltroCategoria) {
+            case 'tienda':
+                this.setState({
+                    filtroProductosCategoria: 'tienda'
+                });
+                return;
+            case 'cafeteria':
+                this.setState({
+                    filtroProductosCategoria: 'cafeteria'
+                });
+                return;
+            case 'todos':
+                this.setState({
+                    filtroProductosCategoria: ''
+                });
+                return;
+            default:
+                alert('No selecciono nada');
+                return;
+        }
     }
 
     render() {
@@ -45,14 +70,23 @@ class ListaProductos extends React.Component {
                                     />
                             </div>
                             <div className='col-md-6'>
-                                <p>PlaceHolder Filtro Categoria</p>
+                                Seleccione Categoria:
+                                {' '}
+                                <select 
+                                    value={this.state.filtroProductosCategoria} 
+                                    onChange={ this.manejaCambioFiltroCategoria }>
+                                    <option value='tienda'>   Tienda</option>
+                                    <option value='cafeteria'>Cafeteria</option>
+                                    <option value='todos'>    Sin Filtro</option>
+                                </select>
                             </div>
                         </div>
                         <h3>Productos Disponibles</h3>
                         <div className='row' id='contenedorProductos'>
                         {
                             obtenerProductosVisibles(this.props.productos,
-                                this.state.filtroProductosTexto).map((elemento) => {
+                                this.state.filtroProductosTexto,
+                                this.state.filtroProductosCategoria).map((elemento) => {
                                     return <ListaProductoItem
                                         key                        = {elemento._id}
                                         currentIdProducto          = {elemento._id}
