@@ -70,14 +70,20 @@ class EditarProducto extends React.Component {
         console.log('Forma Submited sin Default');
 
         if(!this.props.currentProducto._id){
-            // Aqui faltan validaciones de los input de los datos
-            console.log('Se esta salvando un nuevo producto a la BDD');
-            this.props.dispatch(empiezaNuevoProducto({
-                descripcion: this.state.descripcion,
-                precio: this.state.precio,
-                imagen: this.state.imagen,
-                categoria: this.state.categoria
-            }));
+            // Validacion del formulario rudimentaria
+            if(!this.state.descripcion || !this.state.precio || !this.state.categoria) {
+                // Mandar un Alert al usuario que llene bien el formulario
+                alert('Faltan datos favor de completar!');
+            } else {
+                // Aqui faltan validaciones de los input de los datos
+                console.log('Se esta salvando un nuevo producto a la BDD');
+                this.props.dispatch(empiezaNuevoProducto({
+                    descripcion: this.state.descripcion,
+                    precio: this.state.precio,
+                    imagen: this.state.imagen,
+                    categoria: this.state.categoria
+                }));
+            }
         } else {
             this.props.dispatch(empiezaEditarProducto(this.props.currentProducto._id, {
                 descripcion: this.state.descripcion,
