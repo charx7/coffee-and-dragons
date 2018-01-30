@@ -7,6 +7,9 @@ import moment from 'moment';
 // Importaciones del calendario
 import { DateRangePicker } from 'react-dates'; // Importaciones para el picker de las fechas
 import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
+// Importaciones de File-saver
+import FileSaver from 'file-saver';
+import json2scv from 'json2csv'; // Importacion para convertir los objetos de JSON en csv's
 
 class ListaVentas extends React.Component {
     // Definimos estado vacio
@@ -16,6 +19,28 @@ class ListaVentas extends React.Component {
         focusCalendario: null,
         fechaInicial: moment(),
         fechaFinal: moment()
+    }
+
+    // Metodo que se encarga de exportar a excel el resultado
+    manejaExportarExcel = () => {
+        const fields = [
+            '_id',
+            'descripcion',
+            'categoria',
+            'precio',
+            'modoPago',
+            'comision',
+            'fecha'
+        ]
+        
+        const queryExportar = obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '',
+        this.state.fechaInicial,this.state.fechaFinal); 
+        // Tranformar a CSV
+        const datosCSV = json2scv({ data: queryExportar, fields: fields });
+
+        // Metodos para que el usuario baje el archivo a su pc
+        const blob = new Blob([datosCSV], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(blob, 'datosConsulta.csv');
     }
 
     // Metodo encargado de la logica del cambio de fechas
@@ -120,7 +145,10 @@ class ListaVentas extends React.Component {
                                 }))}
                         </ul>
                         {/* Aqui va el boton para exportar a excel la seleccion */}
-                        <button className='btn btn-lg btn-success'>
+                        <button 
+                            className ='btn btn-lg btn-success'
+                            onClick   = {this.manejaExportarExcel}
+                        >
                                 Exportar a Excel
                         </button>
                     </div>
