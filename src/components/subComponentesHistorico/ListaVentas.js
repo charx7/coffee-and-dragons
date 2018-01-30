@@ -3,13 +3,34 @@ import { connect } from 'react-redux';
 import ListaVentaItem from './ListaVentaItem';
 import axios from 'axios';
 import obtenerVentasVisibles from './../../selectores/selectorVentas';
+import moment from 'moment';
+// Importaciones del calendario
+import { DateRangePicker } from 'react-dates'; // Importaciones para el picker de las fechas
+import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 
 class ListaVentas extends React.Component {
     // Definimos estado vacio
     state = {
         datos: undefined,
-        filtroTextoVentas: ''
+        filtroTextoVentas: '',
+        focusCalendario: null,
+        fechaInicial: moment(),
+        fechaFinal: moment()
     }
+
+    // Metodo encargado de la logica del cambio de fechas
+    onDateChange = ( { startDate, endDate } ) => {
+        // Llamamos a las acciones que modifican las fechas de los filtros en el almacen
+        this.setState({
+            fechaInicial: startDate,
+            fechaFinal: endDate
+        });
+    };
+
+    // Metodo de cambio de foco del calendario picker
+    onFocusChange = (focusCalendario) => {
+        this.setState(() => ({focusCalendario: focusCalendario}));
+    };
 
     // Manejador del filtro
     manejaCambioFiltroVentas = (e) => {
@@ -54,6 +75,7 @@ class ListaVentas extends React.Component {
                     <div className="panel-body">
                         <div className='row'>
                             <div className='col-md-6'>
+                                <p>Filtro Nombre Del Producto</p>
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -63,14 +85,27 @@ class ListaVentas extends React.Component {
                                 />
                             </div>
                             <div className='col-md-6'>
-                                <p>PlaceHolder Filtro Calendario</p>
+                                <p>Seleccione Periodo Para Desplegar:</p>
+                                <DateRangePicker
+                                    startDate     = {this.state.fechaInicial}
+                                    endDate       = {this.state.fechaFinal}
+                                    onDatesChange = {this.onDateChange}
+                                    focusedInput  = {this.state.focusCalendario}
+                                    onFocusChange = {this.onFocusChange}
+                                    showClearDates = {true}
+                                    numberOfMonths = {1}
+                                    isOutsideRange = {() => false}
+                                    startDateId   = {'startDate'}
+                                    endDateId     = {'endDate'}
+                                />
                             </div>
                         </div>
                         <h3>Lista de Ventas</h3>
                         <ul className='list-group'>
                             {(this.state.datos === undefined || this.state.ventaMostrada
                                 ? <li>Loading</li> 
-                                : obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '')
+                                : obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '',
+                                  this.state.fechaInicial,this.state.fechaFinal)
                                   .map((elemento) => {
                                     return <ListaVentaItem
                                         key={elemento._id}   
