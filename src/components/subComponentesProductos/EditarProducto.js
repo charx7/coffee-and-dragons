@@ -31,7 +31,7 @@ class EditarProducto extends React.Component {
         }
       } 
 
-    manjeaCambioCategoria = (e) => {
+    manejaCambioCategoria = (e) => {
         const categoriaForma = e.target.value;
         this.setState(() => ({ categoria: categoriaForma }));
     }
@@ -131,12 +131,18 @@ class EditarProducto extends React.Component {
                                 />
                             </div>
                             <div className='form-group'>
-                                <input className='form-control'
+                                {/*<input className='form-control'
                                     type="text" 
                                     placeholder= {this.props.currentProducto.categoria ? this.props.currentProducto.categoria : 'Categoria'}
                                     value    = {this.state.categoria}
-                                    onChange = {this.manjeaCambioCategoria}
-                                />
+                                    onChange = {this.manejaCambioCategoria}
+                                />*/}
+                                <select 
+                                    value={this.state.categoria} 
+                                    onChange={ this.manejaCambioCategoria }>
+                                    <option value='tienda'>   Tienda</option>
+                                    <option value='cafeteria'>Cafeteria</option>
+                                </select>
                             </div>
                             <div className='form-group'>
                                 <input className="btn btn-lg btn-primary btn-block" type="submit" value="Guardar"/>

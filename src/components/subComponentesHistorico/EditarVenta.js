@@ -41,7 +41,8 @@ class EditarVenta extends React.Component {
                         }
                     </div>
                     <div className="panel-body">
-                        <h4>{this.props.ventaMostrada && this.props.ventaMostrada.descripcion}</h4>    
+                        <h4>Nombre del Producto: {this.props.ventaMostrada && this.props.ventaMostrada.descripcion}</h4>
+                        <h4>Categoria: {this.props.ventaMostrada && this.props.ventaMostrada.categoria}</h4>    
                         <h4>Precio: {this.props.ventaMostrada && this.props.ventaMostrada.precio}</h4>
                         <h4>Modo Pago: {this.props.ventaMostrada && this.props.ventaMostrada.modoPago}</h4>
                         <h4>Comision: {this.props.ventaMostrada && this.props.ventaMostrada.comision}</h4>

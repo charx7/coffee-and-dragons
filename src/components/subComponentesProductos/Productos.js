@@ -22,7 +22,7 @@ class Productos extends React.Component {
                 descripcion: "Nueva Descripcion",
                 precio: 'Nuevo Precio',
                 imagen: 'URL Imagen',
-                categoria: 'Seleccione categoria'
+                categoria: 'tienda'
             }
         });
     }

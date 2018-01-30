@@ -2,11 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ListaVentaItem from './ListaVentaItem';
 import axios from 'axios';
+import obtenerVentasVisibles from './../../selectores/selectorVentas';
 
 class ListaVentas extends React.Component {
     // Definimos estado vacio
     state = {
-        datos: undefined
+        datos: undefined,
+        filtroTextoVentas: ''
+    }
+
+    // Manejador del filtro
+    manejaCambioFiltroVentas = (e) => {
+        const inputTextoFiltro = e.target.value;
+        this.setState({
+            filtroTextoVentas: inputTextoFiltro
+        });
     }
 
     // Manda una request de asyc al servidor
@@ -44,7 +54,13 @@ class ListaVentas extends React.Component {
                     <div className="panel-body">
                         <div className='row'>
                             <div className='col-md-6'>
-                                <input type="text" placeholder='Texto para filtrar'/>
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={'Texto para filtrar'}
+                                    value    = {this.state.filtroTextoVentas}
+                                    onChange = {this.manejaCambioFiltroVentas}
+                                />
                             </div>
                             <div className='col-md-6'>
                                 <p>PlaceHolder Filtro Calendario</p>
@@ -54,7 +70,8 @@ class ListaVentas extends React.Component {
                         <ul className='list-group'>
                             {(this.state.datos === undefined || this.state.ventaMostrada
                                 ? <li>Loading</li> 
-                                : this.state.datos.map((elemento) =>{
+                                : obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '')
+                                  .map((elemento) => {
                                     return <ListaVentaItem
                                         key={elemento._id}   
                                         currentID            = {elemento._id}
