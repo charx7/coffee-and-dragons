@@ -2,7 +2,7 @@ export default (precios, productos) => {
     let resultadoFinal = [];
     precios.forEach((elemento) =>{
         let coincidencia = productos.filter((elementoInterno) => {
-            return elemento == elementoInterno.id
+            return elemento == elementoInterno._id
         });
         console.log(coincidencia);
         resultadoFinal = [...resultadoFinal,

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { mostrarVenta } from '../../acciones/ventas';
+import moment from 'moment';
 
 class EditarVenta extends React.Component {
 
@@ -44,7 +45,7 @@ class EditarVenta extends React.Component {
                         <h4>Precio: {this.props.ventaMostrada && this.props.ventaMostrada.precio}</h4>
                         <h4>Modo Pago: {this.props.ventaMostrada && this.props.ventaMostrada.modoPago}</h4>
                         <h4>Comision: {this.props.ventaMostrada && this.props.ventaMostrada.comision}</h4>
-                        <h4>Fecha: {this.props.ventaMostrada && this.props.ventaMostrada.fecha }</h4>
+                        <h4>Fecha: {this.props.ventaMostrada && moment(this.props.ventaMostrada.fecha).format('MMM Do, YYYY') }</h4>
                             {this.props.ventaMostrada && 
                             <button 
                                 className='btn btn-danger'

@@ -8,14 +8,38 @@ import { modificaRecibo } from '../acciones/recibos';
 import axios from 'axios';
 // Para que construya el arreglo de ventas a Postear a la BDD usando la API
 import construyeArregloVentas from '../selectores/constuyeArregloVentas';
+import moment from 'moment'; // Importacion de momentos
+import { SingleDatePicker } from 'react-dates'; // Importacion de React Dates
+import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
+
+// Creamos un objeto de la libreria moment
+const now = moment();
+console.log(now.format('MMM Do, YYYY'));
 
 class Subtotal extends React.Component {
+
+    state = {
+        calendarFocused: false,
+        creadoEn: moment()
+    }
     // constructor(props) {
     //     super(props)
     //     this.state = {
     //         modoPago: this.props.recibo.modoPago
     //     }
     // }
+    
+    // Metodo que se encarga de manipular el estado de Fecha segun el calendario chevere de la libreria 3rd party
+    manejaCambioFecha = (creadoEnForma) => {
+        if(creadoEnForma) {
+            this.setState(() => ({ creadoEn: creadoEnForma }));
+        }
+    };
+    // Metodo de cambio de focus cuando se manipula el calendarito chevere
+    enCambioCalendarFocused = ({ focused }) => {
+        this.setState( () => ({ calendarFocused: focused }));
+    };
+    
     manejaResetearRecibo = () => {
         // Hacemos reset de los items que estaban en la cuenta para dejarlos como un arreglo vacio
         this.props.dispatch(modificaRecibo(
@@ -49,7 +73,7 @@ class Subtotal extends React.Component {
                 categoria: elemento.categoria,
                 modoPago: this.props.recibos[(this.props.currentCuentaNumero) -1 ].modoPago,
                 comision: this.props.currentComision,
-                fecha: 0,
+                fecha: this.state.creadoEn.valueOf(),
                 idProducto: elemento.id
             }
             //console.log('El objeto a postear es: ',ventaAAniadir);
@@ -111,7 +135,6 @@ class Subtotal extends React.Component {
                     </select>
                 </p>
                 
-                <p>Fecha: 1 Ene 2018</p>
                 <p>
                     Modo de Pago {' '}
                     <select 
@@ -133,6 +156,18 @@ class Subtotal extends React.Component {
                         <option value='tarjetaSelector'>Tarjeta</option>
                     </select>
                 </p>
+                
+                {/* Importaciones del componente de Single date picker de react-dates*/}
+                <SingleDatePicker
+                    // Props necesarios para que funcione el calendario
+                    date           = {this.state.creadoEn}
+                    onDateChange   = {this.manejaCambioFecha}
+                    focused        = {this.state.calendarFocused}
+                    onFocusChange  = {this.enCambioCalendarFocused}
+                    numberOfMonths = {1}
+                    isOutsideRange = {(day) => false }
+                />
+                <p></p>
                 <button 
                     className='btn btn-primary'
                     onClick={this.manejaLiquidaRecibo}
