@@ -69,7 +69,7 @@ class Subtotal extends React.Component {
     manejaResetearRecibo = () => {
         // Hacemos reset de los items que estaban en la cuenta para dejarlos como un arreglo vacio
         this.props.dispatch(modificaRecibo(
-            this.props.currentCuentaNumero, { idProductos: [] }
+            this.props.currentCuentaNumero, { idProductos: [], comision: 0 }
         ));
     }
 
@@ -92,13 +92,18 @@ class Subtotal extends React.Component {
             ,this.props.productos);
         console.log('Entro a liquidar el arreglo: ',ventasAPostear);
         if(ventasAPostear.length < 1) alert('No se puede liquidar una cuenta vacia');
+        // Verificacion que la comision no sea un blanco
+        let comisionCapturar = this.props.currentComision;
+        if( this.props.currentComision == '') {
+            comisionCapturar = 0;
+        }
         ventasAPostear.map((elemento) => {
             let ventaAAniadir = {
                 precio: elemento.precio,
                 descripcion: elemento.descripcion,
                 categoria: elemento.categoria,
                 modoPago: this.props.recibos[(this.props.currentCuentaNumero) -1 ].modoPago,
-                comision: this.props.currentComision,
+                comision: comisionCapturar,
                 fecha: this.state.creadoEn.valueOf(),
                 idProducto: elemento.id
             }
@@ -107,6 +112,15 @@ class Subtotal extends React.Component {
         })
         
     }
+
+    manejaCambioComision = (e) => {
+        const comisionInput = e.target.value;
+        if(!comisionInput || comisionInput.match(/^\d{1,2}$/)){
+            this.props.dispatch(modificaRecibo(
+                this.props.currentCuentaNumero, { comision: comisionInput }
+            ));
+        }
+    };
 
     // Metodo que se encarga de elegir mesa
     manejaCambioMesa = (e) => {
@@ -129,7 +143,37 @@ class Subtotal extends React.Component {
                 return;
             case '4Selector':
                 this.props.dispatch(modificaRecibo(
-                    this.props.currentCuentaNumero, { mesa: 2 }
+                    this.props.currentCuentaNumero, { mesa: 4 }
+                ));
+                return;
+            case '5Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 5 }
+                ));
+                return;
+            case '6Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 6 }
+                ));
+                return;
+            case '7Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 7 }
+                ));
+                return;
+            case '8Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 8 }
+                ));
+                return;
+            case '9Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 9 }
+                ));
+                return;
+            case '10Selector':
+                this.props.dispatch(modificaRecibo(
+                    this.props.currentCuentaNumero, { mesa: 10 }
                 ));
                 return;
             default:
@@ -148,8 +192,15 @@ class Subtotal extends React.Component {
                 <p>Total:  {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos)).format(('$0,0.[00]'))}</p>
                 <p>SubTotal: {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16).format('$0,0.[00]')} </p>
                 <p>Impuesto: {numeral(sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) - (sumaPrecioProductos(this.props.currentProductosEnCuenta,this.props.productos) / 1.16)).format(('$0,0.[00]'))}</p>
-                <p>Comision: {this.props.currentComision}</p>
-
+                <p>Comision: 
+                    <input 
+                        type        = "text"
+                        placeholder = 'Comision'
+                        size        = '1'
+                        onChange    = {this.manejaCambioComision}
+                        value       = {this.props.recibos[(this.props.currentCuentaNumero)-1].comision}
+                    />
+                </p>
                 <p>Mesa: {' '}
                     <select 
                         value={this.props.recibos[(this.props.currentCuentaNumero) -1 ].mesa + 'Selector'} 
@@ -158,6 +209,12 @@ class Subtotal extends React.Component {
                         <option value='2Selector'>2</option>
                         <option value='3Selector'>3</option>
                         <option value='4Selector'>4</option>
+                        <option value='5Selector'>5</option>
+                        <option value='6Selector'>6</option>
+                        <option value='7Selector'>7</option>
+                        <option value='8Selector'>8</option>
+                        <option value='9Selector'>9</option>
+                        <option value='10Selector'>10</option>
                     </select>
                 </p>
                 

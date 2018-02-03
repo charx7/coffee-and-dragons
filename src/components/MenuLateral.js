@@ -9,10 +9,6 @@ const MenuLateral = (props) => (
             DASHBOARD
         </NavLink>
         <br/>
-        <div>
-            <Button bsStyle='primary'>Picame</Button>
-        </div>
-        <br/>
         {/* Aqui van las importaciones de varios componentes*/}
         <ListGroup>
             <ListGroupItem 
