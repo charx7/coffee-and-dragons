@@ -42,8 +42,22 @@ const reductorCuentas = (estado = reductorCuentasDefault, accion) => {
                     return elemento;
                 }
             });
+        case 'ELIMINAR_CUENTA':
+            console.log('Eliminando la cuenta', accion.id)
+            return estado.filter(({ id }) => {
+                return id != accion.id
+            });
+        case 'MODIFICA_INDICES':
+            return estado.map((elemento, contador) => {
+                contador = contador + 1;
+                console.log('El id a asignar es: ' ,contador);
+                return {
+                    ...elemento,
+                    ...elemento.id = contador
+                } 
+            });
         default: 
-            return estado; 
+            return estado;
     }
 };
 

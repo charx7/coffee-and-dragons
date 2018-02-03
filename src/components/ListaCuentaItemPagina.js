@@ -9,8 +9,8 @@ const ListaCuentaItemPagina = (props) => (
         {
             props.cuentas.map( (elemento) => {
                 return <CuentaItemPagina 
-                        key = {elemento.id}
-                        currentIdCuenta = {elemento.id}
+                        key                 = {elemento.id}
+                        currentIdCuenta     = {elemento.id}
                         currentActivaCuenta = {elemento.activa}
                         />
             })

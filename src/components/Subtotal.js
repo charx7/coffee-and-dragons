@@ -3,14 +3,20 @@ import { connect } from 'react-redux';
 import numeral from 'numeral'; 
 // Importacion de la funcion que suma los montos de los precios
 import sumaPrecioProductos from '../selectores/sumaPrecioProductos'; 
-// TODO verificar cuanto es de IVA real XD
-import { modificaRecibo } from '../acciones/recibos';
+// TODO verificar cuanto es de IVA real XD //Acciones de los recibos
+import {modificaRecibo,
+        eliminaRecibo,
+        modificaIndicesRecibos} from '../acciones/recibos';
 import axios from 'axios';
 // Para que construya el arreglo de ventas a Postear a la BDD usando la API
 import construyeArregloVentas from '../selectores/constuyeArregloVentas';
 import moment from 'moment'; // Importacion de momentos
 import { SingleDatePicker } from 'react-dates'; // Importacion de React Dates
 import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
+// Acciones de las cuentas
+import {eliminarCuenta,
+        activaCuenta,
+        modificaIndicesCuentas } from '../acciones/cuentas';
 
 // Creamos un objeto de la libreria moment
 const now = moment();
@@ -29,6 +35,26 @@ class Subtotal extends React.Component {
     //     }
     // }
     
+    manejaCancelarCuenta = () => {
+        console.log('se va a cancelar',this.props.recibos[(this.props.currentCuentaNumero) -1 ].id);
+        // Saca la cuenta activa en una variable
+        const cuentaEliminar = this.props.recibos[(this.props.currentCuentaNumero) -1 ].id;
+        if(cuentaEliminar == 1) {
+            alert('No se puede eliminar la primera cuenta!');
+            return
+        }
+        // Activa la cuenta 1 que siempre va a existir
+        this.props.dispatch(activaCuenta( 1 , { activa: true } ));
+        // Elimina la cuenta actual del almacen
+        this.props.dispatch(eliminarCuenta(cuentaEliminar));
+        // Redimensionamiento de los indices del arreglo de Cuentas
+        this.props.dispatch(modificaIndicesCuentas());
+        // Eliminamos el recibo
+        this.props.dispatch(eliminaRecibo(cuentaEliminar));
+        // Redimensionamiento de los indices del arreglo de Recibos
+        this.props.dispatch(modificaIndicesRecibos());
+    }
+
     // Metodo que se encarga de manipular el estado de Fecha segun el calendario chevere de la libreria 3rd party
     manejaCambioFecha = (creadoEnForma) => {
         if(creadoEnForma) {
@@ -173,6 +199,13 @@ class Subtotal extends React.Component {
                     onClick={this.manejaLiquidaRecibo}
                     >
                     Liquidar
+                </button>
+                {' '}
+                <button
+                    className='btn btn-danger'
+                    onClick = {this.manejaCancelarCuenta}
+                    >
+                    Cancelar
                 </button>
                 {console.log(this.props.recibos[this.props.currentCuentaNumero -1].modoPago,'Selector')}
             </div>

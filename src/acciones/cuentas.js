@@ -17,3 +17,14 @@ export const desActivaCuenta = (id, cuentaADesactivar) => ({
     id,
     cuentaADesactivar
 });
+
+// Accion para eliminar/cancelar una cuenta del almacen
+export const eliminarCuenta = (id) => ({
+    type: 'ELIMINAR_CUENTA',
+    id
+});
+
+// Accion que modifica los ids de las cuentas existentes para reconstruid el arreglo
+export const modificaIndicesCuentas = () => ({
+    type: 'MODIFICA_INDICES'
+}) 

@@ -15,3 +15,14 @@ export const modificaRecibo = (id, actualizaciones) => ({
     id,
     actualizaciones 
 });
+
+// Para eliminar el recibo
+export const eliminaRecibo =  (id) => ({
+    type: 'ELIMINA_RECIBO',
+    id
+});
+
+// Accion que modifica los ids de los recibos existentes para reconstruid el arreglo
+export const modificaIndicesRecibos = () => ({
+    type: 'MODIFICA_INDICES'
+}) 
