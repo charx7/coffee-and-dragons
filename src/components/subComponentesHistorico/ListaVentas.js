@@ -122,6 +122,7 @@ class ListaVentas extends React.Component {
                                     isOutsideRange = {() => false}
                                     startDateId   = {'startDate'}
                                     endDateId     = {'endDate'}
+                                    minimumNights = {0}
                                 />
                             </div>
                         </div>

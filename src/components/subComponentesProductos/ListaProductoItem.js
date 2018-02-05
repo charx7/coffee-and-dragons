@@ -25,14 +25,17 @@ class ListaProductoItem extends React.Component {
     render() {
         return(
             <div className='col-md-2'>
-                <div className='thumbnail'>
+                <div className='thumbnail' id='contenedorThumbnailCatalogo'>
                     <img src={this.props.currentImagen} 
                         className='img-thumbnail' 
                         alt=" Producto C&D"
+                        id= 'imagenProductoCatalogo'
                     />
-                    <Link to="#" onClick={() => {this.manejaClickEnProducto(this.props.currentIdProducto)}}>
-                        {this.props.currentDescripcion}
-                    </Link>
+                    <p id='contenedorDescripcionCatalogo'>
+                        <Link to="#" onClick={() => {this.manejaClickEnProducto(this.props.currentIdProducto)}}>
+                            {this.props.currentDescripcion}
+                        </Link>
+                    </p>
                     <p>
                         <strong>{this.props.currentCategoria}</strong>                        
                     </p>

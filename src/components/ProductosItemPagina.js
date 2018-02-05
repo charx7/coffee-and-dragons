@@ -20,13 +20,14 @@ class ProductosItemPagina extends React.Component  {
     render () {
         return (
             <div className='col-md-2'>
-                <div className='thumbnail'>
+                <div className='thumbnail' id='contenedorThumbnail'>
                     <img src={this.props.currentImagen} 
-                        className='img-thumbnail' 
-                        alt="Producto C&D"
+                        className ='img-thumbnail' 
+                        alt       ="Producto C&D"
+                        id        ='imagenProducto'
                     />
-                    <p>{this.props.currentDescripcion}</p>
-                    <p>Precio: MXN {this.props.currentPrecio}</p>
+                    <p id= 'contenedorDescripcion'>{this.props.currentDescripcion}</p>
+                    <p id= 'contenedorPrecio'>Precio: MXN {this.props.currentPrecio}</p>
                     <div id='contenedor-boton-productos'>
                         <button 
                             className='btn btn-success' 

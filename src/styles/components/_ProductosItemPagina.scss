@@ -1,3 +1,24 @@
 #contenedor-boton-productos {
     text-align: center;
 }
+
+#imagenProducto {
+    min-height:80px;
+    height:80px;
+    min-width: 50px;
+    width: 110px
+}
+
+#contenedorThumbnail {
+    height: 245px
+}
+
+#contenedorDescripcion{
+    width: 110px;
+    height: 60px
+}
+
+#contenedorPrecio {
+    width: 110px;
+    height: 39px
+}

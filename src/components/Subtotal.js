@@ -260,7 +260,8 @@ class Subtotal extends React.Component {
                 {' '}
                 <button
                     className='btn btn-danger'
-                    onClick = {this.manejaCancelarCuenta}
+                    /* onClick = {this.manejaCancelarCuenta} */
+                    onClick = {this.manejaResetearRecibo}
                     >
                     Cancelar
                 </button>
