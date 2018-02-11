@@ -95,20 +95,41 @@ class EditarProducto extends React.Component {
             } else {
                 // Aqui faltan validaciones de los input de los datos
                 console.log('Se esta salvando un nuevo producto a la BDD');
-                this.props.dispatch(empiezaNuevoProducto({
-                    descripcion: this.state.descripcion,
-                    precio: this.state.precio,
-                    imagen: this.state.imagen,
-                    categoria: this.state.categoria
-                }));
+                // Jalo del estado la cadena a procesar
+                let cadenaPrecio = this.state.precio;
+                let precioSinEspacios = Number(this.state.precio.toString().trim());
+                console.log('la cadena convertida es: ',precioSinEspacios);
+                if(!isNaN(precioSinEspacios)) {
+                    this.props.dispatch(empiezaNuevoProducto({
+                        descripcion: this.state.descripcion,
+                        precio: precioSinEspacios,
+                        imagen: this.state.imagen,
+                        categoria: this.state.categoria
+                    }));
+                } else {
+                    alert('El precio introducido es invalido (Solo numeros)');
+                }
             }
         } else {
-            this.props.dispatch(empiezaEditarProducto(this.props.currentProducto._id, {
-                descripcion: this.state.descripcion,
-                precio: this.state.precio,
-                imagen: this.state.imagen,
-                categoria: this.state.categoria
-            }));
+            if(!this.state.descripcion) {
+                alert('Faltan datos favor de completar!');
+            } else {
+                // Jalo del estado la cadena
+                let cadenaPrecio = this.state.precio;
+                // Le quito los espacios
+                let precioSinEspacios = Number(cadenaPrecio.toString().trim());
+                console.log('la cadena convertida es: ',precioSinEspacios);
+                if(!isNaN(precioSinEspacios)) {
+                    this.props.dispatch(empiezaEditarProducto(this.props.currentProducto._id, {
+                        descripcion: this.state.descripcion,
+                        precio: precioSinEspacios,
+                        imagen: this.state.imagen,
+                        categoria: this.state.categoria
+                    }));
+                } else {
+                    alert('El precio introducido es invalido (Solo numeros)');
+                }
+            }
         }
     }
 
