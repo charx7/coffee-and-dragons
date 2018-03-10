@@ -10,6 +10,7 @@ import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 // Importaciones de File-saver
 import FileSaver from 'file-saver';
 import json2scv from 'json2csv'; // Importacion para convertir los objetos de JSON en csv's
+import sumaPrecioProductos from './../../selectores/playgroundselector';
 
 class ListaVentas extends React.Component {
     // Definimos estado vacio
@@ -33,7 +34,7 @@ class ListaVentas extends React.Component {
             'fecha'
         ]
         
-        const queryExportar = obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '',
+        const queryExportar = obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
         this.state.fechaInicial,this.state.fechaFinal); 
         // Tranformar a CSV
         const datosCSV = json2scv({ data: queryExportar, fields: fields });
@@ -126,11 +127,76 @@ class ListaVentas extends React.Component {
                                 />
                             </div>
                         </div>
+                        {/* Texto que muestra el total de las ventas por efectivo y por tarjeta */}
+                        <p>Total Ventas Mostradas: ${
+                            (this.state.datos === undefined || this.state.ventaMostrada
+                                ? <p>Loading</p> 
+                                : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
+                                  this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                            )}
+
+                            (Cafeteria) ${
+                                (this.state.datos === undefined || this.state.ventaMostrada
+                                    ? <p>Loading</p> 
+                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'cafeteria','',
+                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                            )}
+
+                            (Tienda) ${
+                                (this.state.datos === undefined || this.state.ventaMostrada
+                                    ? <p>Loading</p> 
+                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','',
+                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                            )}
+                        </p>
+
+                        <p>Total Ventas Efectivo : ${
+                            (this.state.datos === undefined || this.state.ventaMostrada
+                                ? <p>Loading</p> 
+                                : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','efectivo',
+                                  this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                            )}
+
+                            (Cafeteria) : ${
+                                (this.state.datos === undefined || this.state.ventaMostrada
+                                    ? <p>Loading</p> 
+                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'cafeteria','efectivo',
+                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                                )}
+                            (Tienda) : ${
+                                (this.state.datos === undefined || this.state.ventaMostrada
+                                    ? <p>Loading</p> 
+                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','efectivo',
+                                        this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                                )}
+                        </p>
+
+                        <p>Total Ventas Tarjeta : ${
+                            (this.state.datos === undefined || this.state.ventaMostrada
+                                ? <p>Loading</p> 
+                                : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','tarjeta',
+                                  this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                            )}
+
+                            (Cafeteria) : ${
+                                (this.state.datos === undefined || this.state.ventaMostrada
+                                    ? <p>Loading</p> 
+                                    : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'cafeteria','tarjeta',
+                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                                )}
+                            (Tienda) : ${
+                                (this.state.datos === undefined || this.state.ventaMostrada
+                                    ? <p>Loading</p> 
+                                    : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','tarjeta',
+                                        this.state.fechaInicial,this.state.fechaFinal))} </strong>
+                                )}
+                        </p>
+
                         <h3>Lista de Ventas</h3>
                         <ul className='list-group'>
                             {(this.state.datos === undefined || this.state.ventaMostrada
                                 ? <li>Loading</li> 
-                                : obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '',
+                                : obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
                                   this.state.fechaInicial,this.state.fechaFinal)
                                   .map((elemento) => {
                                     return <ListaVentaItem
