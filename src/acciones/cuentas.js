@@ -28,3 +28,10 @@ export const eliminarCuenta = (id) => ({
 export const modificaIndicesCuentas = () => ({
     type: 'MODIFICA_INDICES'
 }) 
+
+// Accion que modifica el nombre de la cuenta activa
+export const modificaNombreCuenta = (id, nombreAModificar) => ({
+    type: 'MODIFICA_NOMBRES',
+    id,
+    nombreAModificar
+})

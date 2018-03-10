@@ -1,9 +1,9 @@
 // Reducer de los gastos
 // Definimos el estado default del estado
-const reductorCuentasDefault = [{id: 1, activa: true},
-                              {id: 2, activa: false},
-                              {id: 3, activa: false},
-                              {id: 4, activa: false}];
+const reductorCuentasDefault = [{id: 1, activa: true, nombreCuenta: ''},
+                              {id: 2, activa: false, nombreCuenta: ''},
+                              {id: 3, activa: false, nombreCuenta: ''},
+                              {id: 4, activa: false, nombreCuenta: ''}];
 // Definimos el reductor como una funcion pura
 const reductorCuentas = (estado = reductorCuentasDefault, accion) => {
     switch (accion.type){
@@ -56,6 +56,18 @@ const reductorCuentas = (estado = reductorCuentasDefault, accion) => {
                     ...elemento.id = contador
                 } 
             });
+        case 'MODIFICA_NOMBRES':
+            console.log('Cambiando el nombre de la cuenta: ',accion.id, 'actualizacion: ', accion.nombreAModificar)
+                return estado.map((elemento) => {
+                    if(elemento.id === accion.id) {
+                        return {
+                            ...elemento,
+                            ...accion.nombreAModificar
+                        }
+                    } else {
+                        return elemento;
+                    }
+                });
         default: 
             return estado;
     }

@@ -1,12 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { activaCuenta } from '../acciones/cuentas';
+import { activaCuenta, modificaNombreCuenta } from '../acciones/cuentas';
 // Componente funcional de item de mesas
 class CuentaItemPagina extends React.Component  {
     
-    // state = {
-    //    wellActivo: this.props.currentActivaMesa
-    // }
+    state = {
+        // wellActivo: this.props.currentActivaMesa
+        nombre: this.props.cuentas[this.props.currentIdCuenta-1].nombreCuenta
+    }
+
+    manejaCambioNombreCuenta = (e) => {
+        const nombreCuentaInput = e.target.value;
+        // Dispatch al almacen de la accion
+        this.props.dispatch(modificaNombreCuenta( this.props.currentIdCuenta, { nombreCuenta: nombreCuentaInput }));
+    }
 
     render() {
         return (
@@ -22,6 +29,13 @@ class CuentaItemPagina extends React.Component  {
                         <i className="fa fa-coffee" aria-hidden="true"></i> Cuenta {this.props.currentIdCuenta}
                         {/* Activa: {this.props.currentActivaMesa ? 'si' : 'no' } */} 
                     </h2>
+                    <input 
+                        type="text" 
+                        id='nombre-usuario' 
+                        size='16'
+                        value    = {this.props.cuentas[this.props.currentIdCuenta-1].nombreCuenta}
+                        onChange = {this.manejaCambioNombreCuenta}
+                    />
                 </div>                        
             </div>
         )

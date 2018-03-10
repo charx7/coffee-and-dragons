@@ -16,7 +16,8 @@ import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 // Acciones de las cuentas
 import {eliminarCuenta,
         activaCuenta,
-        modificaIndicesCuentas } from '../acciones/cuentas';
+        modificaIndicesCuentas,
+        modificaNombreCuenta } from '../acciones/cuentas';
 
 // Creamos un objeto de la libreria moment
 const now = moment();
@@ -71,6 +72,8 @@ class Subtotal extends React.Component {
         this.props.dispatch(modificaRecibo(
             this.props.currentCuentaNumero, { idProductos: [], comision: 0, modoPago: 'efectivo' }
         ));
+        // Hacemos reset tambien al nombre de la cuenta
+        this.props.dispatch(modificaNombreCuenta( this.props.currentCuentaNumero, { nombreCuenta:''}));
     }
 
     manejaPosteoVenta = (ventaAAniadir) => {

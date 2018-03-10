@@ -12,6 +12,7 @@ const ListaCuentaItemPagina = (props) => (
                         key                 = {elemento.id}
                         currentIdCuenta     = {elemento.id}
                         currentActivaCuenta = {elemento.activa}
+                        currentNombreCuenta = {elemento.nombreCuenta}
                         />
             })
         }

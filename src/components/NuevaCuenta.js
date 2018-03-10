@@ -15,7 +15,7 @@ class NuevaCuenta extends React.Component {
                     // Saca el numero de lementos en el arreglo de Cuentas y le suma uno
                     let numeroId = this.props.cuentas.length + 1;
                     // Agrega una cuenta mas al almacen con id de longitud + 1
-                    this.props.dispatch(agregarCuenta({ id: numeroId, activa: false }));
+                    this.props.dispatch(agregarCuenta({ id: numeroId, activa: false, nombreCuenta:'' }));
                     this.props.dispatch(agregarRecibo(
                         { 
                             id: numeroId,
