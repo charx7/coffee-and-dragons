@@ -69,7 +69,7 @@ class Subtotal extends React.Component {
     manejaResetearRecibo = () => {
         // Hacemos reset de los items que estaban en la cuenta para dejarlos como un arreglo vacio
         this.props.dispatch(modificaRecibo(
-            this.props.currentCuentaNumero, { idProductos: [], comision: 0 }
+            this.props.currentCuentaNumero, { idProductos: [], comision: 0, modoPago: 'efectivo' }
         ));
     }
 
