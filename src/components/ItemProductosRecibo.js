@@ -4,9 +4,6 @@ import { modificaRecibo } from '../acciones/recibos';
 
 const ItemProductosRecibo = (props) => (
     <li className='list-group-item' id='li-producto'>
-        Id: {/*props.currentIdProducto*/} {props.nombreProducto.descripcion}  {' '}
-        {/*<button className='btn btn-xs btn-success' id='li-botones-producto'>+ </button> */}
-        {'   '}
         <button 
             className='btn btn-xs btn-danger float-right'
             id= 'boton-en-lista' 
@@ -31,6 +28,14 @@ const ItemProductosRecibo = (props) => (
             >   
             Remover
         </button>
+
+        {/* Codigo que despliega las caracteristicas del producto!  props.currentIdProducto*/} 
+        {props.nombreProducto.descripcion} 
+        <span id = 'precio-en-lista'>
+            {' $'}{props.nombreProducto.precio}
+        </span>
+
+        {/*<button className='btn btn-xs btn-success' id='li-botones-producto'>+ </button> */}
         {/*<span className="badge">1</span>*/}
     </li>
 )
