@@ -1,7 +1,11 @@
 // Importamos path
-const path =  require('path');
+const path          =  require('path');
 // Imporamos express
-const express = require('express');
+const express       = require('express');
+// Importaciones para el modulo de seguridad
+const passport      = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 // Iniciamos una instacia de express
 const app = express();
 // Establecemos el path de la app le decimos que en el directorio publico se encuentran todos nuestros assets
@@ -14,6 +18,15 @@ const puertoEnv = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
 //app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); // Para que acepte los JSON
+
+// Aniadimos la importacion de express que nos permitira hacer uso de sesiones con Passport
+app.use(require('express-session')({
+    secret: 'clave super secreta para decodificar sesiones',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Aniadimos la importacion de Mongoose
 var mongoose = require("mongoose");
@@ -189,6 +202,12 @@ app.delete('/api/productos/:id', (req, res) => {
         else console.log('Error ', error);
     });
 });
+
+// Configuracion de Passport
+const Usuario = require('./modelos/esquemaUsuarios');
+passport.use(new LocalStrategy(Usuario.authenticate()));
+passport.serializeUser(Usuario.serializeUser());
+passport.deserializeUser(Usuario.deserializeUser());
 
 // ##################################################
 // Esto es lo que hace que sea estatico o no
