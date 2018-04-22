@@ -28,6 +28,25 @@ class LandingPagina extends React.Component  {
         }));
     }
 
+    // Manejador asincrono del login de un usuario
+    async manejaLogin(datosUsuario) {
+        const respuestaLogeo = await fetch(
+            // Direccion a donde nos vamos a conectar **DEBO DE HACER QUE EL API PASE POR EL PROXY EN WEBPACK^^
+            '/api/autenticacion/login',
+            // Que vamos a mandar
+            {
+                method: 'POST',
+                body: JSON.stringify(datosUsuario),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'same-origin'
+            }
+        );
+        // logeo en la consola
+        console.log('Respuesta al logeo es: ', respuestaLogeo)
+    }
+
     render() {
         return (
             <div className="container">
@@ -70,7 +89,13 @@ class LandingPagina extends React.Component  {
                                     <button onClick = { () => {
                                         // Redirige a la pagina del Dashboard
                                         //window.location = '/dashboard';
-                                        this.props.history.push('/dashboard');
+                                        //this.props.history.push('/dashboard');
+                                        this.manejaLogin(
+                                            {
+                                                email:    this.state.infoPanelUsuario, // Por ahora tenemos las dos opciones 
+                                                username: this.state.infoPanelUsuario,
+                                                password: this.state.infoPanelPassword
+                                            })
                                         }}
                                     className="btn btn-default btn-lg"
                                     >

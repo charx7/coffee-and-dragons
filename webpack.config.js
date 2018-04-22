@@ -21,8 +21,10 @@ module.exports = (env) => {
     console.log('env ', env); 
 
     return {
-        // Donde WebPack debe buscar el archivo de entrada
-        entry: './src/app.js',
+        // Donde WebPack debe buscar el archivo de entrada ahora con polyfill para async await
+        entry: {
+            app: ['babel-polyfill','./src/app.js']
+        },
         // Donde va el archivo de salida
         output: {
             path: path.join(__dirname,'public', 'dist'),
@@ -88,7 +90,7 @@ module.exports = (env) => {
             // Configuracion del proxy para que sirva el devServer y tome los datos de Localhost:3000
             // NOTA: Tiene que estar corriendo el nodemon de server.js
             proxy: {
-                '/api':{
+                '/api/**':{
                 target: 'http://localhost:3000/',
                 secure: false
             }

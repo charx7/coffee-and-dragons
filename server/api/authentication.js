@@ -1,10 +1,14 @@
 // Importaciones
 const express           = require('express');
+const mongoose          = require('mongoose');
 const passport          = require('passport');
 const modeloUsuarios    = require('../modelos/esquemaUsuarios');
 
 // Inicializacion del routeador de express para exportalo al servidor
 const router = express.Router();
+
+// Configuracion de las promesas de mongoose para usar las globales
+mongoose.Promise = global.Promise;
 
 // Definicion de la ruta de POST /registro
 router.post('/registro', (req, res) => {
@@ -24,12 +28,24 @@ router.post('/registro', (req, res) => {
 });
 
 // Definiciones de la ruta POST de /login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
+    // Verificar a un usuario por su email en la BDD
+    const query = modeloUsuarios.findOne({ 
+        email: req.body.email
+    });
+
+    // Una vez que tengamos el resultado del query devolvemos su nombre de usuario
+    // para asi poder procesar el login con passport
+    const usuarioEncontrado = await query.exec();
+    // Si existen tendran un nombre de Usuario asi que lo aniadimos al cuerpo del request
+    if(usuarioEncontrado) { req.body.username = usuarioEncontrado.username; }
+
     // Llamamos al metodo local de passport para autenticar
     passport.authenticate('local')(req, res, () => {
         //console.log('datos del req', req.user)
         // Si hay exito en el logeo mandar la info del usuario que esta en el request.user
         if(req.user) {
+            console.log('Exito al logearte!');
             return res.send(JSON.stringify(req.user));
         } else {
             // Respondemos con un error
