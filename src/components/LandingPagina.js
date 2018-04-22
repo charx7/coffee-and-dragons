@@ -1,7 +1,10 @@
 // Importaciones de React
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { Redirect } from 'react-router-dom';
+// Importaciones de las acciones del almacen y de REDUX
+import { connect } from 'react-redux';
+import {intentoLogeo, fallidoLogeo, exitoLogeo } from '../acciones/authentication';
 
 class LandingPagina extends React.Component  {
     // Constructor y estado del componente de landing
@@ -9,8 +12,9 @@ class LandingPagina extends React.Component  {
         super(props);
         this.state = {
             infoPanelUsuario:  '',
-            infoPanelPassword: ''
-        }
+            infoPanelPassword: '',
+            redirect:          false
+        };
     }
 
     // Metodos manejadores de cambios de los datos de login
@@ -30,6 +34,9 @@ class LandingPagina extends React.Component  {
 
     // Manejador asincrono del login de un usuario
     async manejaLogin(datosUsuario) {
+        // Cambio en el estado para indicarle a redux que no estamos logeando
+        this.props.dispatch(intentoLogeo());
+
         const respuestaLogeo = await fetch(
             // Direccion a donde nos vamos a conectar **DEBO DE HACER QUE EL API PASE POR EL PROXY EN WEBPACK^^
             '/api/autenticacion/login',
@@ -42,9 +49,35 @@ class LandingPagina extends React.Component  {
                 },
                 credentials: 'same-origin'
             }
-        );
-        // logeo en la consola
-        console.log('Respuesta al logeo es: ', respuestaLogeo)
+        ).then((respuestaAlLogeo) => {
+            if(respuestaAlLogeo.status === 200) {
+                console.log('La respuesta del servidor fue: ', respuestaAlLogeo);        
+                // Regresamos la respuesta de JSON que manda el servidor con los datos de usuario
+                return respuestaAlLogeo.json();
+            }
+            return null;
+            // Una vez que hayamos obtenido la respuesta la procesamos
+        }).then((json) => {
+            if(json) {
+                // Verificamos cuales fueron los datos mandados por el servidor, despues se debe borrar esta linea en prod
+                console.log('Los datos del logeo son: ', json)
+                // Mandamos la accion de exito de logeo al almacen de redux 
+                this.props.dispatch(exitoLogeo(json));
+                // Modificamos el estado de la app donde hacemos el redirect
+                this.setState({ redirect: true });
+                } else {
+                    // Verificamos cuales fueron los datos mandados por el servidor, despues se debe borrar esta linea en prod
+                    console.log('Los datos del logeo son: ', json)
+                    this.props.dispatch(fallidoLogeo(new Error('Autenticacion fallida')));
+                }
+            }).catch((error) =>{
+                // Si hay un error lo handleamos
+                this.props.dispatch(fallidoLogeo(new Error(error)));
+            }).then(() => {
+                // Al final cuando acaba todo redirigimos a la pagina del dashboard
+                console.log('Termino proceso de logeo');
+                this.props.history.push('/dashboard');
+            });
     }
 
     render() {
@@ -95,7 +128,7 @@ class LandingPagina extends React.Component  {
                                                 email:    this.state.infoPanelUsuario, // Por ahora tenemos las dos opciones 
                                                 username: this.state.infoPanelUsuario,
                                                 password: this.state.infoPanelPassword
-                                            })
+                                            });
                                         }}
                                     className="btn btn-default btn-lg"
                                     >
@@ -111,4 +144,8 @@ class LandingPagina extends React.Component  {
     }
 }
 
-export default LandingPagina;
+// const mapeoEstadoToProps = (estado) => {
+//     return null
+// }
+
+export default connect() (LandingPagina);
