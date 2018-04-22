@@ -7,7 +7,7 @@
                  0px 18px 23px rgba(0, 0, 0, 0.1); 
 }
 
-body{
+body {
     background: url(https://scontent.fmex7-1.fna.fbcdn.net/v/t31.0-8/15392751_224045374703120_783096250521416071_o.jpg?_nc_cat=0&oh=732801823f04c66182bc870a1406b0a6&oe=5B9D3D31);
     background-size: cover;
     background-position: center; 
@@ -22,4 +22,10 @@ h1 {
 html {
     height: 100%;
 }
- 
+
+#panel-login {
+    // Comandos para alinear verticalmente el panel de login y dejarlo centrado
+    width: 50%;
+    position: absolute;
+    left: 25%
+}

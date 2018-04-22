@@ -79,6 +79,15 @@ app.use(function(req, res, next) {
 //     }
 // });
 
+// IMPORTANTE !!!!!!!!!!!!!!!!!!!!!!!
+// ##################################
+// Routeador de la API de usuarios (importacion)
+const usuarios = require('./api/usuarios');
+// Uso del Routeador
+app.use('/api/usuarios', usuarios)
+// ###################################
+
+
 // API de VENTAS
 // GET ALL
 app.get('/api/ventas/', (req, res) => {

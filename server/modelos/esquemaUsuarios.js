@@ -6,7 +6,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 // Instalacion del Schema de la BDD
 var esquemaUsuarios = new mongoose.Schema({
     usuario: String,
-    password: String,
+    // Para que asi no devuelva los password a la API que les hara Query
+    password: { type: String, select: false },
     nombre: String,
     apellido: String
 });
