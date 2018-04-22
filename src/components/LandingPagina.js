@@ -47,7 +47,9 @@ class LandingPagina extends React.Component  {
                                     </h3>
                                 </div>
                                 <div className='panel-body'>
-                                    <input 
+                                    <label htmlFor="userNameInput">Nombre de Usuario</label>
+                                    <input
+                                        id = 'usernameInput' 
                                         className='form-control' 
                                         type="text"
                                         placeholder = {'Username'}
@@ -55,7 +57,9 @@ class LandingPagina extends React.Component  {
                                         onChange    = {this.manejaCambiosUsername}
                                     />
                                     <br/>
+                                    <label htmlFor="passwordInput">Password</label>
                                     <input 
+                                        id = 'passwordInput'
                                         className='form-control' 
                                         type="text"
                                         placeholder = {'Password'}

@@ -1,15 +1,16 @@
 // Importando el modulo de mongoose para que se pueda hacer el esquema
 var mongoose                = require("mongoose");
 // Importaciones para modelo de usuarios de passport
-var passportLocalMongoose = require('passport-local-mongoose');
+var passportLocalMongoose   = require('passport-local-mongoose');
 
 // Instalacion del Schema de la BDD
 var esquemaUsuarios = new mongoose.Schema({
-    usuario: String,
+    username: String,
     // Para que asi no devuelva los password a la API que les hara Query
     password: { type: String, select: false },
     nombre: String,
-    apellido: String
+    apellido: String,
+    email: String
 });
 
 // Plugin de passport

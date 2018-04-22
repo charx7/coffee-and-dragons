@@ -82,9 +82,11 @@ app.use(function(req, res, next) {
 // IMPORTANTE !!!!!!!!!!!!!!!!!!!!!!!
 // ##################################
 // Routeador de la API de usuarios (importacion)
-const usuarios = require('./api/usuarios');
+const usuarios      = require('./api/usuarios');
+const autenticacion = require('./api/authentication');  
 // Uso del Routeador
-app.use('/api/usuarios', usuarios)
+app.use('/api/usuarios', usuarios);
+app.use('/api/autenticacion', autenticacion);
 // ###################################
 
 
