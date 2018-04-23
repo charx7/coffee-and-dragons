@@ -22,7 +22,7 @@ export default () => {
             ventas: reductorVentas,
             authentication: reductorAuthentication
         }),
-        // Para utilizar el middleware
+        // Para utilizar el middleware de thunk que conecta connect con dispatch()
         componerMejoras(applyMiddleware(thunk))
         // ANTIGUO Linea para configurar las Redux Dev tools
         //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

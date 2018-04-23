@@ -23,17 +23,28 @@ router.get('/verificasesion', (req, res) => {
 
 // Definicion de la ruta de POST /registro
 router.post('/registro', (req, res) => {
-    // Crea un nuevo objeto de usuario para guardar usando valores del JSON que recibiremos
-    const nuevoUsuario = new modeloUsuarios(req.body);
-    
-    // Guardamos el usuario via passport para que hashee el password
-    modeloUsuarios.register(nuevoUsuario, req.body.password, (err, respuestaQuery) => {
-        // Si hay un error regresa un JSON con el error
+    // Primero verificamos que el email de usuario ya exista en la BDD
+    modeloUsuarios.findOne({ email: req.body.email }, (err, respuestaQuery) =>{
         if(err) {
             return res.send(JSON.stringify({ error: err }));
         } else {
-            // Si no hay error entonces mandamos un JSON con la info del usuario
-            return res.send(JSON.stringify(respuestaQuery));
+            console.log('Respuesta fue: ', respuestaQuery);
+            if(!respuestaQuery) {
+                // Crea un nuevo objeto de usuario para guardar usando valores del JSON que recibiremos
+                const nuevoUsuario = new modeloUsuarios(req.body);    
+                // Guardamos el usuario via passport para que hashee el password
+                modeloUsuarios.register(nuevoUsuario, req.body.password, (err, respuestaQuery) => {
+                    // Si hay un error regresa un JSON con el error
+                    if(err) {
+                        return res.send(JSON.stringify({ error: err }));
+                    } else {
+                        // Si no hay error entonces mandamos un JSON con la info del usuario
+                        return res.send(JSON.stringify(respuestaQuery));
+                    }
+                });
+            } else {
+                return res.send(JSON.stringify({ error: 'Email que quiere registrar ya existe en la BDD'}));
+            }
         }
     });
 });
