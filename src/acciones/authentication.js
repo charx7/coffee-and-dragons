@@ -20,3 +20,12 @@ export const exitoVerificarSesion = (json) => ({
     type: 'EXITO_VERIFICAR_SESION',
     json
 });
+
+export const exitoLogOut = () => ({
+    type: 'INTENTO_LOGOUT_EXITO'
+});
+
+export const fallidoLogOut = (error) => ({
+    type: 'INTENTO_LOGOUT_FALLIDO',
+    error
+});

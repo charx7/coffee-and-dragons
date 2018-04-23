@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Importaciones de Ruteo
-import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom'; // Importaciones Necesarias para establecer el routeo
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'; // Importaciones Necesarias para establecer el routeo
 // Importaciones de los componentes indivicuales
 import DashboardPagina from '../components/DashboardPagina';
 import NoEncontradoPagina from '../components/NoEncontradoPagina';
@@ -14,7 +14,9 @@ import EditarVenta from '../components/subComponentesHistorico/EditarVenta';
 const AppRouter = () => (
     <BrowserRouter>
         <div>
-            <Header/>
+            {/* Se necesita wrappear el componente dentro de un <Route/> para que este obtenga
+            acceso al browser history y pueda redireccionar */}
+            <Route component = { Header } />
             <Switch>
                 {/* Ruta del Landing*/}
                 <Route path = '/' component = {LandingPagina} exact = {true}/>

@@ -27,10 +27,13 @@ const reductorAuthentication = (estado = estadoInicial, accion) => {
         //     };
         //     return nuevoEstado;
         // }
+        // Se ponen asi porque usan el mismo codigo que la de abajo!
         case 'INTENGO_LOGEO_FALLIDO':
-        case 'FALLO_VERIFICAR_SESION': {
+        case 'FALLO_VERIFICAR_SESION': 
+        case 'INTENTO_LOGOUT_EXITO': {
+            console.log('Entro en el caso de logeo out');
             const nuevoEstado = Object.assign({}, estadoInicial);
-            return nuevoEstado
+            return nuevoEstado;
         }
         case 'INTENTO_LOGEO_EXITO': 
         case 'EXITO_VERIFICAR_SESION': {
@@ -42,6 +45,10 @@ const reductorAuthentication = (estado = estadoInicial, accion) => {
             nuevoEstado.apellido     = accion.json.apellido;
             nuevoEstado.username     = accion.json.username;
             return nuevoEstado;
+        }
+        case 'INTENTO_LOGOUT_FALLIDO': {
+            // Hacer un error handler
+            return estado;
         }
         default: {
             return estado;

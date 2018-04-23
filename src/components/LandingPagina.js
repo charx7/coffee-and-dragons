@@ -75,7 +75,7 @@ class LandingPagina extends React.Component  {
                 this.props.dispatch(fallidoLogeo(new Error(error)));
             }).then(() => {
                 // Al final cuando acaba todo redirigimos a la pagina del dashboard
-                console.log('Termino proceso de logeo');
+                console.log('Termino proceso de logeo', this.props);
                 this.props.history.push('/dashboard');
             });
     }
