@@ -2,47 +2,72 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom'; 
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-const MenuLateral = (props) => (
-    <div className="col-md-3">
-        <NavLink to = "/" activeClassName = "esta-activo" exact={true}>
-            DASHBOARD
-        </NavLink>
-        <br/>
-        {/* Aqui van las importaciones de varios componentes*/}
-        <ListGroup>
-            <ListGroupItem 
-                href="#" 
-                active = {props.currentTareaActiva == 'ventas' ? true : false}
-                onClick = {(e) => {
-                    props.manejaTareaActiva('VENTAS');
-                }}>
-                Ventas
-            </ListGroupItem>
-            <ListGroupItem 
-                href="#"
-                active = {props.currentTareaActiva == 'productos' ? true : false}
-                onClick = {(e) => {
-                    props.manejaTareaActiva('PRODUCTOS');
-                }}
-                >
-                Productos
-            </ListGroupItem>
-            <ListGroupItem 
-                href="#" 
-                active = {props.currentTareaActiva == 'historico' ? true : false}
-                onClick = {(e) => {
-                    props.manejaTareaActiva('HISTORICO');
-                }}>
-                Historico
-            </ListGroupItem>
-            <ListGroupItem 
-                href="#" 
-                disabled>
-                Inventario
-            </ListGroupItem>
-        </ListGroup>
-    </div>
-);
+class MenuLateral extends React.Component  {
+    render() {
+        return(
+            <div className="col-md-3">
+                {/* 
+                <NavLink to = "/" activeClassName = "esta-activo" exact={true}>
+                    DASHBOARD
+                </NavLink>
+                */}
+                <br/>
+                {/* Aqui van las importaciones de varios componentes*/}
+                <ListGroup>
+                    <ListGroupItem 
+                        href="#" 
+                        active = {this.props.currentTareaActiva == 'ventas' ? true : false}
+                        onClick = {(e) => {
+                            this.props.manejaTareaActiva('VENTAS');
+                        }}>
+                        Ventas
+                    </ListGroupItem>
+                    <ListGroupItem 
+                        href="#"
+                        active = {this.props.currentTareaActiva == 'productos' ? true : false}
+                        onClick = {(e) => {
+                            this.props.manejaTareaActiva('PRODUCTOS');
+                        }}
+                        >
+                        Productos
+                    </ListGroupItem>
+                    <ListGroupItem 
+                        href="#" 
+                        active = {this.props.currentTareaActiva == 'historico' ? true : false}
+                        onClick = {(e) => {
+                            this.props.manejaTareaActiva('HISTORICO');
+                        }}>
+                        Historico
+                    </ListGroupItem>
+                    {/* Rendereo Condicional del componente de Contabilidad segun si la persona
+                        logeada es admin o no*/}
+                    {   
+                        this.props.authentication.esAdmin == true 
+                        ?
+                            <ListGroupItem 
+                                href="#" >
+                                Contabilidad
+                            </ListGroupItem>
+                        :   
+                            <ListGroupItem
+                                href="#"
+                                disabled>
+                                Contabilidad
+                            </ListGroupItem>
+                    }           
+                    
+                </ListGroup>
+            </div>
+        );
+    }
+}
 
-export default MenuLateral;
+const mapeoEstadoToProps = (estado) => {
+    return {
+        authentication: estado.authentication
+    }
+}
+
+export default connect (mapeoEstadoToProps) (MenuLateral);

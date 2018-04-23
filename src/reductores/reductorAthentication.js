@@ -4,7 +4,8 @@ const estadoInicial = {
     estaLogeado: false,
     estaLogeando: false,
     apellido: '',
-    username: ''
+    username: '',
+    esAdmin: false
 };
 
 const reductorAuthentication = (estado = estadoInicial, accion) => {
@@ -44,6 +45,7 @@ const reductorAuthentication = (estado = estadoInicial, accion) => {
             nuevoEstado.estaLogeando = false;
             nuevoEstado.apellido     = accion.json.apellido;
             nuevoEstado.username     = accion.json.username;
+            nuevoEstado.esAdmin      = accion.json.esAdmin;
             return nuevoEstado;
         }
         case 'INTENTO_LOGOUT_FALLIDO': {

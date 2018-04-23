@@ -10,7 +10,8 @@ var esquemaUsuarios = new mongoose.Schema({
     password: { type: String, select: false },
     nombre: String,
     apellido: String,
-    email: String
+    email: String,
+    esAdmin: Boolean 
 });
 
 // Plugin de passport
