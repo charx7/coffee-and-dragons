@@ -8,7 +8,8 @@ import MenuLateral from './MenuLateral'; // Componente del Menu lateral
 import ComponenteVentas from './ComponenteVentas'; // Componente del Menu del POS
 import Historico from './subComponentesHistorico/Historico'; // Componente del Menu Historico
 import Productos from './subComponentesProductos/Productos'; // Componente del Menu de Productos
-// Prueba
+import { connect } from 'react-redux'; // Importacion para acceder al almacen de redux
+
 class DashboardPagina extends React.Component {
     state = {
         tareaActiva: 'ventas'
@@ -46,6 +47,7 @@ class DashboardPagina extends React.Component {
         return(
             <div>
                 {/* Importacion del titulo del dashboard */}
+                { console.log('Actualmente esta logeado: ', this.props.authentication.nombre) }
                 <TituloDashboard/>
                 <div className="container">
                     <div className="row">
@@ -67,4 +69,11 @@ class DashboardPagina extends React.Component {
     }
 }
 
-export default DashboardPagina;
+const mapeoEstadoToProps = (estado, props) => {
+    return {
+        // Pasamos el prop de datos del usuario Logeado o anonimo
+        authentication: estado.authentication
+    };
+}
+
+export default connect(mapeoEstadoToProps)(DashboardPagina);

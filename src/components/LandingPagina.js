@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
 // Importaciones de las acciones del almacen y de REDUX
 import { connect } from 'react-redux';
-import {intentoLogeo, fallidoLogeo, exitoLogeo } from '../acciones/authentication';
+import {intentoLogeo, fallidoLogeo, exitoLogeo, falloVerificarSesion, exitoVerificarSesion } from '../acciones/authentication';
 
 class LandingPagina extends React.Component  {
     // Constructor y estado del componente de landing
@@ -144,8 +144,10 @@ class LandingPagina extends React.Component  {
     }
 }
 
-// const mapeoEstadoToProps = (estado) => {
-//     return null
-// }
+const mapeoEstadoToProps = (estado) => {
+     return {
+         authentication: estado.authentication
+     }
+}
 
-export default connect() (LandingPagina);
+export default connect(mapeoEstadoToProps) (LandingPagina);

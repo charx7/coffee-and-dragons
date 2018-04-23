@@ -1,5 +1,5 @@
 const estadoInicial = {
-    nombre: 'anonimo',
+    nombre: 'Anonimo',
     id: '',
     estaLogeado: false,
     estaLogeando: false,
@@ -16,18 +16,24 @@ const reductorAuthentication = (estado = estadoInicial, accion) => {
             return nuevoEstado;
         }
         /* eslint-enable */
-        case 'INTENTO_LOGEO_FALLIDO': {
-            const nuevoEstado = {
-                nombre: 'anonimo',
-                id: '',
-                estaLogeado: false,
-                estaLogeando: false,
-                apellido: '',
-                username: ''
-            };
-            return nuevoEstado;
+        // case 'INTENTO_LOGEO_FALLIDO': {
+        //     const nuevoEstado = {
+        //         nombre: 'Anonimo',
+        //         id: '',
+        //         estaLogeado: false,
+        //         estaLogeando: false,
+        //         apellido: '',
+        //         username: ''
+        //     };
+        //     return nuevoEstado;
+        // }
+        case 'INTENGO_LOGEO_FALLIDO':
+        case 'FALLO_VERIFICAR_SESION': {
+            const nuevoEstado = Object.assign({}, estadoInicial);
+            return nuevoEstado
         }
-        case 'INTENTO_LOGEO_EXITO': {
+        case 'INTENTO_LOGEO_EXITO': 
+        case 'EXITO_VERIFICAR_SESION': {
             const nuevoEstado        = Object.assign({}, estado);
             nuevoEstado.nombre       = accion.json.nombre;
             nuevoEstado.id           = accion.json._id;

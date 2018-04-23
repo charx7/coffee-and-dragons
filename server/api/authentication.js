@@ -10,6 +10,17 @@ const router = express.Router();
 // Configuracion de las promesas de mongoose para usar las globales
 mongoose.Promise = global.Promise;
 
+// Definicion de la ruta GET para verificarlasesion
+router.get('/verificasesion', (req, res) => {
+    // Verificamos si hay un usuario con sesion activa de 'express-session' esto le aniade un objeto de user
+    // a todas las request para la duracion de la sesion usando un cookie del navegador
+    if(req.user) {
+        return res.send(JSON.stringify(req.user));
+    } else {
+        return res.send(JSON.stringify({}));
+    }
+});
+
 // Definicion de la ruta de POST /registro
 router.post('/registro', (req, res) => {
     // Crea un nuevo objeto de usuario para guardar usando valores del JSON que recibiremos
