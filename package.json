@@ -62,6 +62,7 @@
     "redux-thunk": "2.2.0",
     "router-express": "^1.5.2",
     "sass-loader": "^6.0.6",
+    "serve-favicon": "^2.5.0",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "uuid": "^3.1.0",

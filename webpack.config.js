@@ -64,6 +64,11 @@ module.exports = (env) => {
                     sourceMap: true,
                     limit: 10000
                 }
+            },{
+                    // Agregamos el icono
+                    test: /\.(ico)$/,
+                    use: 'file-loader?name=./favicon.ico'
+                  
             }]
         },
         // Definimos los plugins de webpack

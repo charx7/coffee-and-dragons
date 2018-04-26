@@ -113,7 +113,7 @@ class LandingPagina extends React.Component  {
                                     <input 
                                         id = 'passwordInput'
                                         className='form-control' 
-                                        type="text"
+                                        type="password"
                                         placeholder = {'Password'}
                                         value       = {this.state.infoPanelPassword}
                                         onChange    = {this.manejaCambiosPassword}
