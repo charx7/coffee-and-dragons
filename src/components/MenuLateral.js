@@ -56,8 +56,34 @@ class MenuLateral extends React.Component  {
                                 disabled>
                                 Contabilidad
                             </ListGroupItem>
-                    }           
-                    
+                    }
+
+                    <ListGroupItem
+                        href ='#'
+                        active = {false}
+                        onClick = {(e) => {
+                            this.props.manejaTareaActiva('CATALOGOEGRESOS');
+                        }}>
+                        Catalogo de Egresos
+                    </ListGroupItem>
+
+                    <ListGroupItem
+                        href ='#'
+                        active = {false}
+                        onClick = {(e) => {
+                            this.props.manejaTareaActiva('COMPRAS');
+                        }}>
+                        Compras
+                    </ListGroupItem>
+
+                    <ListGroupItem
+                        href ='#'
+                        active = {false}
+                        onClick = {(e) => {
+                            this.props.manejaTareaActiva('HISTORICOCOMPRAS');
+                        }}>
+                        Historico Compras
+                    </ListGroupItem>
                 </ListGroup>
             </div>
         );

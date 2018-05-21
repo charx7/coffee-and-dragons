@@ -8,6 +8,9 @@ import MenuLateral from './MenuLateral'; // Componente del Menu lateral
 import ComponenteVentas from './ComponenteVentas'; // Componente del Menu del POS
 import Historico from './subComponentesHistorico/Historico'; // Componente del Menu Historico
 import Productos from './subComponentesProductos/Productos'; // Componente del Menu de Productos
+import CatalogoEgresos from './subComponentesCatalogoEgresos/CatalogoEgresos'; // Componente del Menu de Catalogo de Egresos
+import Compras from './subComponentesCompras/Compras'; // Componente del Menu de Compras
+import HistoricoCompras from './subComponentesHistoricoCompras/HistoricoCompras'; // Componente del Menu del Historico de Compras
 import { connect } from 'react-redux'; // Importacion para acceder al almacen de redux
 
 class DashboardPagina extends React.Component {
@@ -15,7 +18,8 @@ class DashboardPagina extends React.Component {
         tareaActiva: 'ventas'
     };
 
-    manejaTareaActiva = (menuSeleccion) =>{
+    // Uso del Case para renderear el componente al que se le esta dando click del menu lateral
+    manejaTareaActiva = (menuSeleccion) => {
         switch (menuSeleccion) {
             case 'VENTAS':
                 this.setState((estadoAnterior) => {
@@ -35,6 +39,27 @@ class DashboardPagina extends React.Component {
                 this.setState(() => {
                     return ({
                         tareaActiva: 'productos'
+                    })
+                });
+            return;
+            case 'CATALOGOEGRESOS':
+                this.setState(() => {
+                    return({
+                        tareaActiva: 'catalogoEgresos'
+                    })
+                });
+            return;
+            case 'COMPRAS':
+                this.setState(() => {
+                    return({
+                        tareaActiva: 'compras'
+                    })
+                });
+            return;
+            case 'HISTORICOCOMPRAS':
+                this.setState(() => {
+                    return({
+                        tareaActiva: 'historicoCompras'
                     })
                 });
             return;
@@ -62,6 +87,9 @@ class DashboardPagina extends React.Component {
                         {this.state.tareaActiva == 'ventas' ? <ComponenteVentas/> : '' }
                         {this.state.tareaActiva == 'historico' ? <Historico/>: ''}
                         {this.state.tareaActiva == 'productos' ? <Productos/>: ''}
+                        {this.state.tareaActiva == 'catalogoEgresos' ? <CatalogoEgresos/>: ''}
+                        {this.state.tareaActiva == 'compras' ? <Compras/>: ''}
+                        {this.state.tareaActiva == 'historicoCompras' ? <HistoricoCompras/>: ''}
                     </div>
                 </div>
             </div>
