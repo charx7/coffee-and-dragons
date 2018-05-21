@@ -102,11 +102,11 @@ class ListaProductos extends React.Component {
                                 <div className = 'thumbnail'>
                                     <img src = 'https://cdn0.iconfinder.com/data/icons/cosmo-work/40/document_new-512.png' 
                                         className = 'img-thumbnail' 
-                                        alt = "Egreso C&D"
+                                        alt = "Producto C&D"
                                         onClick = {this.props.manejaNuevoProducto}
                                     />
                                     <p>
-                                        <strong>Nuevo Egreso</strong>                        
+                                        <strong>Nuevo Producto</strong>                        
                                     </p>
                                 </div>
                             </div>

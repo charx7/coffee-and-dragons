@@ -60,7 +60,7 @@ class MenuLateral extends React.Component  {
 
                     <ListGroupItem
                         href ='#'
-                        active = {false}
+                        active = {this.props.currentTareaActiva == 'catalogoEgresos' ? true : false }
                         onClick = {(e) => {
                             this.props.manejaTareaActiva('CATALOGOEGRESOS');
                         }}>
@@ -69,7 +69,7 @@ class MenuLateral extends React.Component  {
 
                     <ListGroupItem
                         href ='#'
-                        active = {false}
+                        active = {this.props.currentTareaActiva == 'compras' ? true : false }
                         onClick = {(e) => {
                             this.props.manejaTareaActiva('COMPRAS');
                         }}>
@@ -78,7 +78,7 @@ class MenuLateral extends React.Component  {
 
                     <ListGroupItem
                         href ='#'
-                        active = {false}
+                        active = {this.props.currentTareaActiva == 'historicoCompras' ? true : false }
                         onClick = {(e) => {
                             this.props.manejaTareaActiva('HISTORICOCOMPRAS');
                         }}>
