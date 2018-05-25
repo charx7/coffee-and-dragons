@@ -83,9 +83,11 @@ app.use(function(req, res, next) {
 // ##################################
 // Routeador de la API de usuarios (importacion)
 const usuarios      = require('./api/usuarios');
-const autenticacion = require('./api/authentication');  
+const autenticacion = require('./api/authentication');
+const egresos       = require('./api/egresos');  
 // Uso del Routeador
 app.use('/api/usuarios', usuarios);
+app.use('/api/', egresos);
 app.use('/api/autenticacion', autenticacion);
 // ###################################
 
@@ -155,7 +157,7 @@ app.get('/api/productos/', (req, res) => {
 // POST DE CREAR UN NUEVO PRODUCTO
 app.post('/api/productos/', (req, res) => {
     console.log('Entro a postear un producto a la BDD');
-    console.log('El cuerpo del post es: ',req.body);
+    console.log('El cuerpo del post es: ', req.body);
     var nuevoProducto = {
         descripcion: req.body.descripcion,
         precio: req.body.precio,
@@ -169,7 +171,6 @@ app.post('/api/productos/', (req, res) => {
         }
         else console.log('Error ', error);
     });
-    
     //res.send('done');
 });
 
