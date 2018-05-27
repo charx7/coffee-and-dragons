@@ -11,6 +11,7 @@ import configuraAlmacen from './almacen/configuraAlmacen'; // Importacion del Al
 //import './firebase/firebase'; // Importaciones de Firebase para que corra //Por Ahora no usaremos Firebase
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css'; // Imports de BS
 import { empiezaAgregarProducto } from './acciones/productos'; // Import accion que toma los datos de la BDD
+import { empiezaAgregarEgresos } from './acciones/egresos'; // Import de la accion que hace query a la BDD y los pone en el almacen
 
 // acceso al modelo del almacen con REDUX
 const almacen = configuraAlmacen();
@@ -27,9 +28,11 @@ const jsx  = (
 // Rendereo de un mensaje de cargando...
 ReactDOM.render(<p>Cargando...</p>, document.getElementById('app'));
 
-almacen.dispatch(empiezaAgregarProducto()).then(() => { 
+almacen.dispatch(empiezaAgregarProducto())
+    .then(almacen.dispatch(empiezaAgregarEgresos())
+    .then(() => { 
     ReactDOM.render(jsx, document.getElementById('app'));
-});
+}));
 
 // almacen.dispatch(empiezaSetGastos()).then(() => { 
 //     // Esta accion se renderea cuando hay un exito en el async task de recuperar los datos de firebase

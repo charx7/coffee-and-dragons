@@ -6,6 +6,7 @@ import reductorProductos from '../reductores/reductorProductos'; // Importacion 
 import reductorRecibos from '../reductores/reductorRecibos'; // Importacion de reductor
 import reductorVentas from  '../reductores/reductorVentas'; // Importacion de reductor
 import reductorAuthentication from '../reductores/reductorAthentication'; // Importacion de reductor
+import reductorEgresos from '../reductores/reductorEgresos'; // Importacion de reductor
 // Linea para configurar el almacen con las devtools y el middleware
 const componerMejoras = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
 
@@ -20,7 +21,8 @@ export default () => {
             productos: reductorProductos,
             recibos: reductorRecibos,
             ventas: reductorVentas,
-            authentication: reductorAuthentication
+            authentication: reductorAuthentication,
+            egresos: reductorEgresos
         }),
         // Para utilizar el middleware de thunk que conecta connect con dispatch()
         componerMejoras(applyMiddleware(thunk))

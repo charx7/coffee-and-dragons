@@ -1,8 +1,24 @@
 import React from 'react';
 import ListaEgrososItem from './ListaEgresosItem';
+import { connect } from 'react-redux';
 
 class ListaEgresos extends React.Component {
     
+    state = {
+        datos:                  undefined,
+        actualizo:              false,
+        filtroEgresosTexto:     '',
+        filtroEgresosCategoria: ''   
+    }
+
+    componentDidMount () {
+        console.log('Empezo a jalar la lista de egresos del almacen');
+        // Llamado al metodo que carga los datos del servidor
+        this.setState = (() => {
+            return { datos: this.props.egresos }
+        });
+    }
+
     render() {
         return (
             <div className = 'row'>
@@ -56,4 +72,13 @@ class ListaEgresos extends React.Component {
     }
 }
 
-export default ListaEgresos
+// Funcion que hace la conexion de estado del componente a los props para que se desplieguen los egresos de la BDd
+const mapeoEstadoToProps = (estado, props) => {
+    return {
+        // Pasamos un prop llamado 'egresos' que contiene todos los egresos registrados de la BDD
+        egresos: estado.egresos
+    };
+};
+
+
+export default connect(mapeoEstadoToProps) (ListaEgresos);

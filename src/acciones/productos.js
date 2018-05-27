@@ -16,7 +16,7 @@ export const empiezaAgregarProducto = () => {
                     dispatch(agregarProducto(elemento));
                 });
             })
-            .catch( (error) => {
+            .catch((error) => {
                 console.log(error);
             });
     }
