@@ -1,5 +1,5 @@
 import React from 'react';
-import ListaEgrososItem from './ListaEgresosItem';
+import ListaEgresosItem from './ListaEgresosItem';
 import { connect } from 'react-redux';
 
 class ListaEgresos extends React.Component {
@@ -49,8 +49,23 @@ class ListaEgresos extends React.Component {
                             Lista de Egresos
                         </h3>
                         <div className='row' id='contenedorProductos'>
-                            
-                            <ListaEgrososItem/>
+
+                            {
+                                this.props.egresos.map((elemento) => {
+                                    return <ListaEgresosItem
+                                        key                         = {elemento._id}
+                                        currentIdEgreso             = {elemento._id}
+                                        currentPrecio               = {elemento.precio}
+                                        currentDescripcion          = {elemento.descripcion}
+                                        currentImagen               = {elemento.imagen}
+                                        currentProveedor            = {elemento.proveedor}
+                                        currentTipoEgreso           = {elemento.tipoEgreso}
+                                        currentUsoDestino           = {elemento.usoDestino}
+                                        currentIva                  = {elemento.iva}
+                                        currentUnidadPresentacion   = {elemento.unidadPresentacion}
+                                    />
+                                })
+                            }
 
                             <div className='col-md-2'>
                                 <div className='thumbnail'>

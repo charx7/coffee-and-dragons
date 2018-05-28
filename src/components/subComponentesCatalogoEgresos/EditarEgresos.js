@@ -18,6 +18,41 @@ class EditarEgresos extends React.Component {
                                     placeholder={'Descripcion'}
                                 />
                             </div>
+                            <div className='form-group'>                                
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={'URL Imagen'}
+                                />
+                            </div>
+                            <div className='form-group'>                                
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={'Precio'}
+                                />                    
+                            </div>
+                            <div className='form-group'>            
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={'Unidad de Presentacion'}
+                                />
+                            </div>
+                            <div className='form-group'>
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={'Tipo de Egreso'}
+                                />
+                            </div>
+                            <div className='form-group'>
+                                <input 
+                                    className='form-control' 
+                                    type="text"
+                                    placeholder={'Cantidad IVA'}
+                                />
+                            </div>
                             <div className = 'form-group'>
                                 <select>
                                     <option value='valor1'>   Sams</option>
