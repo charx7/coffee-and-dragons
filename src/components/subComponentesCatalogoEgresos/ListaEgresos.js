@@ -63,6 +63,7 @@ class ListaEgresos extends React.Component {
                                         currentUsoDestino           = {elemento.usoDestino}
                                         currentIva                  = {elemento.iva}
                                         currentUnidadPresentacion   = {elemento.unidadPresentacion}
+                                        manejaEgresoSeleccionado    = {this.props.manejaEgresoSeleccionado}
                                     />
                                 })
                             }

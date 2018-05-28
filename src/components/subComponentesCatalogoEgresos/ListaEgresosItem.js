@@ -1,7 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class ListaEgresosItem extends React.Component {
+    // Metodos que vamos a pasar en los links y hacer query a la BDD de un egreso especifico 
+    manejaEditarDatos = (respuestaQuery) => {
+        this.props.manejaEgresoSeleccionado(respuestaQuery);
+    }
+
+    manejaClickEnEgreso = (currentIdEgreso) => {
+        // Accion de dispatch un query de buscar un el currentIdProducto
+        axios.get(`/api/egresos/${currentIdEgreso}`)
+        .then((respuesta) => {
+            console.log(respuesta.data);
+            this.manejaEditarDatos(respuesta.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     render () {
         return(
             <div className='col-md-2'>
@@ -12,7 +30,7 @@ class ListaEgresosItem extends React.Component {
                         id= 'imagenProductoCatalogo'
                     />
                     <p id = 'contenedorDescripcionCatalogo'>
-                        <Link to="#">
+                        <Link to="#" onClick = { () => {this.manejaClickEnEgreso(this.props.currentIdEgreso)}} >
                             {this.props.currentDescripcion}
                         </Link>
                     </p>
