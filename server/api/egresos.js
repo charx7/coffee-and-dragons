@@ -66,5 +66,17 @@ router.put('/egresos/:id', (req, res) => {
     });  
 });
 
+// DELETE de un elemento especifico de la BDD
+router.delete('/egresos/:id', (req, res) => {
+    console.log('Entro a borrar un registro de egresos ', req.params);
+    modeloEgresos.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
+        if(!error){
+            console.log('Egreso Eliminado', resultadoQuery);
+            res.json(resultadoQuery);  
+        } 
+        else console.log('Error ', error);
+    });
+});
+
 // Exportaciones de la ruta
 module.exports= router;

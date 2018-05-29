@@ -23,6 +23,11 @@ const reductorEgresos = (estado = reductorEgresosDefault, accion) => {
                     return elemento;
                 }
             });
+        case 'ELIMINAR_EGRESO':
+            console.log('Id a elminar de la accion es: ', accion.idEliminar)
+            return estado.filter(({ _id }) => {
+                return _id != accion.idEliminar;
+            });
         default: 
         return estado;
     }

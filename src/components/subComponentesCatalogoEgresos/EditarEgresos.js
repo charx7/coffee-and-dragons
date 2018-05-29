@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { 
     empiezaEditarEgreso,
-    empiezaNuevoEgreso
+    empiezaNuevoEgreso,
+    empiezaEliminarEgreso
 } from '../../acciones/egresos';
 
 class EditarEgresos extends React.Component {
@@ -160,6 +161,36 @@ class EditarEgresos extends React.Component {
         }
     }
 
+    // Metodo de eliminar egreso sera corregido en cuento hagamos el componente de compras
+    manejaEliminarEgreso = () => {
+        console.log('Intentara Eliminar un Egreso');
+        // Accion de dispatch un query de delete
+        if(!this.props.currentEgreso._id) {
+            alert('Tiene que escoger un egreso para eliminar');
+        } else {
+            // Verifica si el id a eliminar esta agregado en un recibo para salir de la funcion
+            /* let condicionEliminar = this.props.recibos.some((elemento) => {
+                let condicionExit = elemento.idProductos.some((elementoInterno) => {
+                    if (elementoInterno == this.props.currentProducto._id){
+                        alert('No se puede eliminar un producto que esta actualmente en un recibo!');
+                        return true;
+                    }
+                });
+                console.log('Condicion para no hacer el borrado: ', condicionExit)
+                if (condicionExit == true) {
+                    return true
+                }  
+            });
+            console.log('La autorizacion final para no eliminar es:', condicionEliminar);
+            // Verifica si se puede eliminar o no el producto en funcion si es usado en algun recibo
+            if(!condicionEliminar) {
+            // Hace la eliminacio en la BDD
+            */
+            this.props.dispatch(empiezaEliminarEgreso(this.props.currentEgreso._id));
+            }
+        }
+    /* } */
+
     render() {
         return (
             <div className="row">
@@ -254,8 +285,9 @@ class EditarEgresos extends React.Component {
                                 <input className="btn btn-lg btn-primary btn-block" type="submit" value="Guardar"/>
                             </div>
                         </form> 
-                        <button 
-                            className='btn btn-danger btn-lg btn-block'
+                        <button  
+                            className ='btn btn-danger btn-lg btn-block'
+                            onClick = {() => {this.manejaEliminarEgreso();}}
                         >
                             Eliminar
                         </button>

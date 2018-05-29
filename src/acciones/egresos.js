@@ -60,3 +60,25 @@ export const empiezaNuevoEgreso = (egresoAAgregar) => {
             })
     }
 };
+
+// Para hacer un DELETE a la BDd de Mongo
+export const empiezaEliminarEgreso = (idEliminar) => {
+    return(dispatch) => {
+        console.log('Entro a eliminar el egreso con el id: ', idEliminar);
+        return axios.delete('/api/egresos/' + idEliminar)
+        .then( res => {
+            console.log('Se esta eliminando el egreso: ', idEliminar);
+            console.log('Respuesta del servidor: ', res);
+            // Call de dispatch para eliminar registro del almacen
+            dispatch(eliminarEgreso(res.data._id));
+        })
+        .catch( err => {
+            console.log('Hubo un error: ', err);
+        });
+    }
+}
+
+export const eliminarEgreso = (idEliminar) => ({
+    type: 'ELIMINAR_EGRESO',
+    idEliminar
+});
