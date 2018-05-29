@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { 
+    empiezaEditarEgreso
+} from '../../acciones/egresos';
 
 class EditarEgresos extends React.Component {
 
@@ -75,22 +79,56 @@ class EditarEgresos extends React.Component {
     manejaCambioIva = (e) => {
         const ivaForma = e.target.value;
         this.setState(() => ({
-            tipoEgreso: ivaForma
+            iva: ivaForma
         }));
     }
 
     manejaCambioUsoDestino = (e) => {
         const usoDestinoForma = e.target.value;
         this.setState(() => ({
-            tipoEgreso: usoDestinoForma
+            usoDestino: usoDestinoForma
         }));
     }
 
     manejaCambioImagen = (e) => {
         const imagenForma = e.target.value;
         this.setState(() => ({
-            tipoEgreso: imagenForma
+            imagen: imagenForma
         }));
+    }
+
+    // Metodo que se encarga del boton de guardar o modificar un egreso
+    submitForma = (e) => {
+        e.preventDefault();
+        console.log('Forma Submited sin Default');
+
+        if(!this.props.currentEgreso._id){
+            alert('Placeholder de Nuevo Egreso');
+        } else {
+            if(!this.state.descripcion || !this.state.imagen || !this.state.precio || !this.state.proveedor || !this.state.unidadPresentacion || !this.state.tipoEgreso || !this.state.iva || !this.state.usoDestino) {
+                alert('Faltan datos favor de completar! No entro');
+            } else {
+                // Jalo del estado la cadena
+                let cadenaPrecio = this.state.precio;
+                // Le quito los espacios
+                let precioSinEspacios = Number(cadenaPrecio.toString().trim());
+                console.log('la cadena convertida es: ',precioSinEspacios);
+                if(!isNaN(precioSinEspacios)) {
+                    this.props.dispatch(empiezaEditarEgreso(this.props.currentEgreso._id, {
+                        descripcion: this.state.descripcion,
+                        precio: precioSinEspacios,
+                        imagen: this.state.imagen,
+                        proveedor: this.state.proveedor,
+                        unidadPresentacion: this.state.unidadPresentacion,
+                        tipoEgreso: this.state.tipoEgreso,
+                        iva: this.state.iva,
+                        usoDestino: this.state.usoDestino
+                    }));
+                } else {
+                    alert('El precio introducido es invalido (Solo numeros)');
+                }
+            }
+        }
     }
 
     render() {
@@ -103,7 +141,7 @@ class EditarEgresos extends React.Component {
                         }
                     </div>
                     <div className="panel-body">
-                        <form>
+                        <form onSubmit={this.submitForma}>
                             <div className='form-group'>
                                 <input 
                                     className='form-control' 
@@ -199,4 +237,4 @@ class EditarEgresos extends React.Component {
     }
 }
 
-export default EditarEgresos;
+export default connect() (EditarEgresos);

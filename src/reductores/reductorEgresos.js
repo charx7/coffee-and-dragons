@@ -12,6 +12,17 @@ const reductorEgresos = (estado = reductorEgresosDefault, accion) => {
                 ...estado,
                 accion.egreso
             ];
+        case 'EDITAR_EGRESO':
+            return estado.map((elemento) => {
+                if(elemento._id == accion.id) {
+                    return {
+                        ...elemento,
+                        ...accion.actualizaciones
+                    };
+                } else {
+                    return elemento;
+                }
+            });
         default: 
         return estado;
     }

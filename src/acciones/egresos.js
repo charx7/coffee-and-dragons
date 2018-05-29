@@ -22,3 +22,25 @@ export const agregarEgreso = (egresoAAgregar) => ({
     type: 'AGREGA_EGRESO',
     egreso: egresoAAgregar
 });
+
+// Codigo para que haga un edit a la BDD de Mongo
+export const empiezaEditarEgreso = (id, actualizaciones) => {
+    return (dispatch) => {
+        console.log('Entro a editar', id);
+        return axios.put(`/api/egresos/${id}`, actualizaciones)
+            .then((respuesta) => {
+                console.log(respuesta.data);
+                dispatch(editarEgreso(id, actualizaciones));
+            })
+            .catch((error) => {
+                console.log(error);
+            });  
+        }
+};
+
+// Accion Editar un egreso
+export const editarEgreso = (id, actualizaciones) => ({
+    type: 'EDITAR_EGRESO',
+    id,
+    actualizaciones
+});

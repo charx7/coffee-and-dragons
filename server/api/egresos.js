@@ -50,5 +50,21 @@ router.get('/egresos/:id', (req, res) => {
     });
 });
 
+// EDIT ruta para editar un egreso
+router.put('/egresos/:id', (req, res) => {
+    console.log('Entro a editar un egreso de la BDD', req.params.id);
+    console.log('Informacion nueva: ', req.body)
+    var actualizacionesAplicar = req.body;
+    var idActual = req.params.id;
+    modeloEgresos.findByIdAndUpdate( idActual, actualizacionesAplicar, { 'new': true } /* Para que devuelva el nuevo registro en lugar del viejo */, (error, resultadoQuery) => {
+        if(!error) {
+            console.log('Exito editando el registro', resultadoQuery);
+            return res.json(resultadoQuery);
+        } else {
+            console.log('Error Editando');
+        }
+    });  
+});
+
 // Exportaciones de la ruta
 module.exports= router;
