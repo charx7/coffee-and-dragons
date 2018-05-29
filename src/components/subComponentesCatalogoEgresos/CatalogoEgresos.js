@@ -16,12 +16,29 @@ class CatalogoEgresos extends  React.Component {
         });
     }
 
+    manejaNuevoEgreso = () => {
+        // Hace que los props que se pasen al componente de detalles de producto sean para un producto nuevo
+        this.setState({
+            currentEgreso: {
+                descripcion: "Nueva Descripcion",
+                precio: 'Nuevo Precio',
+                imagen: 'URL Imagen',
+                proveedor: 'Sams',
+                tipoEgreso: 'Nuevo Tipo Egreso',
+                unidadPresentacion: 'Nueva Unidad Presentacion',
+                usoDestino: 'Nuevo Uso Destino',
+                iva: 'Inserte IVA'
+            }
+        });
+    }
+
     render() {
         return (
             <div className = 'col-md-9'>
                 {/* Importamos la lista de Egresos*/}
                 <ListaEgresos
                     manejaEgresoSeleccionado = {this.manejaEgresoSeleccionado}
+                    manejaNuevoEgreso        = {this.manejaNuevoEgreso}
                 />
                 {/* Importaciones del componente que edita el egreso especifico */}
                 <EditarEgresos

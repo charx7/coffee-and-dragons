@@ -44,3 +44,19 @@ export const editarEgreso = (id, actualizaciones) => ({
     id,
     actualizaciones
 });
+
+// Para hacer un Create a la BDD de Mongo
+export const empiezaNuevoEgreso = (egresoAAgregar) => {
+    return(dispatch) => {
+        console.log('Entro a agregar un egreso a la BDD ', egresoAAgregar);
+        return axios.post('/api/egresos', egresoAAgregar)
+            .then(res => {
+                console.log('Se agrego un egreso a la BDD', res);
+                // Agrega el producto aniadido a la BDD al almacen de redux
+                dispatch(agregarEgreso(res.data));
+            })
+            .catch( err => {
+                console.log('Error Agregando Egreso', err);
+            })
+    }
+};

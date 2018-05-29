@@ -72,8 +72,8 @@ class ListaEgresos extends React.Component {
                                 <div className='thumbnail'>
                                     <img src='https://cdn0.iconfinder.com/data/icons/cosmo-work/40/document_new-512.png' 
                                         className='img-thumbnail' 
-                                        alt=" Egreso C&D"
-                                        onClick = {this.props.manejaNuevoProducto}
+                                        alt="Egreso C&D"
+                                        onClick = {this.props.manejaNuevoEgreso}
                                     />
                                     <p>
                                         <strong>Nuevo Egreso</strong>                        

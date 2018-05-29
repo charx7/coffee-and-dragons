@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { 
-    empiezaEditarEgreso
+    empiezaEditarEgreso,
+    empiezaNuevoEgreso
 } from '../../acciones/egresos';
 
 class EditarEgresos extends React.Component {
@@ -96,14 +97,42 @@ class EditarEgresos extends React.Component {
             imagen: imagenForma
         }));
     }
-
+    // TODO - BUG no cambia detalles del titulo del egreso/producto cuando se modifica la descripcion
     // Metodo que se encarga del boton de guardar o modificar un egreso
     submitForma = (e) => {
         e.preventDefault();
         console.log('Forma Submited sin Default');
-
         if(!this.props.currentEgreso._id){
-            alert('Placeholder de Nuevo Egreso');
+            // Validacion del formulario rudimentaria
+            if(!this.state.descripcion || !this.state.precio || !this.state.proveedor) {
+                // Mandar un Alert al usuario que llene bien el formulario
+                alert('Faltan datos favor de completar!');
+            } else {
+                // Aqui faltan validaciones de los input de los datos
+                console.log('Se esta salvando un nuevo egreso a la BDD');
+                // Jalo del estado la cadena a procesar
+                let cadenaPrecio = this.state.precio;
+                let precioSinEspacios = Number(this.state.precio.toString().trim());
+                console.log('la cadena convertida de precio es: ', precioSinEspacios);
+                // Ahora hacemos la misma verificacion pero para el IVA
+                let ivaSinEspacios = Number(this.state.iva.toString().trim());
+                console.log('La cadena convertida de iva es: ', ivaSinEspacios);
+                // Condicion que nos deja proceder a crear el registro si se cumplieron las condiciones
+                if(!isNaN(precioSinEspacios) && !isNaN(ivaSinEspacios)) {
+                    this.props.dispatch(empiezaNuevoEgreso({
+                        descripcion: this.state.descripcion,
+                        precio: precioSinEspacios,
+                        imagen: this.state.imagen,
+                        proveedor: this.state.proveedor,
+                        unidadPresentacion: this.state.unidadPresentacion,
+                        tipoEgreso: this.state.tipoEgreso,
+                        iva: ivaSinEspacios,
+                        usoDestino: this.state.usoDestino
+                    }));
+                } else {
+                    alert('El precio o el IVA introducido es invalido (Solo numeros)');
+                }
+            }
         } else {
             if(!this.state.descripcion || !this.state.imagen || !this.state.precio || !this.state.proveedor || !this.state.unidadPresentacion || !this.state.tipoEgreso || !this.state.iva || !this.state.usoDestino) {
                 alert('Faltan datos favor de completar! No entro');
@@ -137,7 +166,7 @@ class EditarEgresos extends React.Component {
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         Detalles del egreso: {
-                            this.props.currentEgreso ? this.props.currentEgreso.descripcion : ''
+                            this.props.currentEgreso ? this.state.descripcion : ''
                         }
                     </div>
                     <div className="panel-body">
