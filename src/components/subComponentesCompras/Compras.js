@@ -4,6 +4,7 @@ import ListaEgresos from './ListaEgresos';
 import carritoDeCompras from './CarritoDeCompras';
 import CarritoDeCompras from './CarritoDeCompras';
 import ReciboDeCompras from './ReciboDeCompras';
+import { connect } from 'react-redux';
 
 class Compras extends  React.Component {
     state = {
@@ -44,6 +45,19 @@ class Compras extends  React.Component {
         });
     }
 
+    // Manejador de suma de los precios segun los items en el recibo
+    manejaSumaPrecioEgresos = () => {
+        let precioTotal = 0;
+        this.state.carritoDeCompras.map((elemento) => {
+            let precioProducto = this.props.egresos.find((elementoInterno) => {
+                return elementoInterno._id == elemento;
+            });
+            //console.log(precioProducto);
+            precioTotal = precioTotal + precioProducto.precio;
+        });
+        return precioTotal;
+    }
+
     render() {
         return (
             <div className ='col-md-9'>
@@ -70,7 +84,10 @@ class Compras extends  React.Component {
                                 carritoDeCompras   = {this.state.carritoDeCompras}
                                 manejaQuitarEgreso = {this.manejaQuitarEgreso}
                             />
-                            <ReciboDeCompras/>
+                            <ReciboDeCompras
+                                carritoDeCompras         = {this.state.carritoDeCompras}
+                                manejaSumaPreciosEgresos = {this.manejaSumaPrecioEgresos}
+                            />
                         </div>
                     </div>
                 </div>
@@ -79,4 +96,11 @@ class Compras extends  React.Component {
     }
 }
 
-export default Compras
+const mapeoEstadoToProps = (estado, props) => {
+    return {
+        // Pasamos el nombre de producto como un prop cuando lo encontramos en el estado
+        egresos: estado.egresos
+    };
+};
+
+export default connect(mapeoEstadoToProps)(Compras);
