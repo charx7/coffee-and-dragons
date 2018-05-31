@@ -84,13 +84,14 @@ app.use(function(req, res, next) {
 // Routeador de la API de usuarios (importacion)
 const usuarios      = require('./api/usuarios');
 const autenticacion = require('./api/authentication');
-const egresos       = require('./api/egresos');  
+const egresos       = require('./api/egresos');
+const compras       = require('./api/compras');  
 // Uso del Routeador
 app.use('/api/usuarios', usuarios);
 app.use('/api/', egresos);
+app.use('/api/', compras);
 app.use('/api/autenticacion', autenticacion);
 // ###################################
-
 
 // API de VENTAS
 // GET ALL
