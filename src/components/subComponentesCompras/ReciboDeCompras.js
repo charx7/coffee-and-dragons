@@ -4,11 +4,16 @@ import { SingleDatePicker } from 'react-dates'; // Importacion de React Dates
 import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 import numeral from 'numeral'; // Importacion de Numeral para formato de $
 
+// Creamos un objeto de la libreria moment
+const now = moment();
+console.log(now.format('MMM Do, YYYY'));
+
 class ReciboDeCompras extends React.Component {
     
     state = {
         calendarFocused: false,
-        creadoEn: moment()
+        creadoEn: moment(),
+        modoPago: 'efectivo'
     }
     
     // Metodo que se encarga de manipular el estado de Fecha segun el calendario chevere de la libreria 3rd party
@@ -21,6 +26,19 @@ class ReciboDeCompras extends React.Component {
     enCambioCalendarFocused = ({ focused }) => {
         this.setState( () => ({ calendarFocused: focused }));
     };
+
+    // Metodo que maneja el cambio en el modo de pago
+    manejaCambioModoPago = (e) => {
+        const modoPagoForma = e.target.value;
+        this.setState(() => ({ modoPago: modoPagoForma }));
+    }
+
+    // Metodo que llama al liquidador de carrito de compras
+    empiezaManejaLiquitarCarrito = () => {
+        let modoPago = this.state.modoPago;
+        let fecha    = this.state.creadoEn.valueOf();
+        this.props.manejaLiquidarCarrito(modoPago, fecha);
+    }
 
     render() {
         return(
@@ -36,9 +54,13 @@ class ReciboDeCompras extends React.Component {
                 </p> */}
                 <p>
                     <strong> Modo de Pago: </strong>
-                    <select>
-                        <option value='efectivoSelector'>Efectivo</option>
-                        <option value='tarjetaSelector'>Tarjeta</option>
+                    <select
+                        value    = {this.state.modoPago}
+                        onChange = {this.manejaCambioModoPago}
+                    >
+                        <option value='efectivo'>      Efectivo</option>
+                        <option value='tarjeta'>       Tarjeta</option>
+                        <option value="transferencia"> Transferencia</option>
                     </select>
                 </p>
                 <p>
@@ -56,13 +78,15 @@ class ReciboDeCompras extends React.Component {
                 />
                 <p></p>
                 <button 
-                    className='btn btn-primary'
+                    className ='btn btn-primary'
+                    onClick   = {this.empiezaManejaLiquitarCarrito}
                 >
                     Liquidar
                 </button>
                 {' '}
                 <button
-                    className='btn btn-danger'
+                    className = 'btn btn-danger'
+                    onClick   = {this.props.manejaVaciarCarrito}
                 >
                     Cancelar
                 </button>

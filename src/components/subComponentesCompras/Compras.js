@@ -5,6 +5,7 @@ import carritoDeCompras from './CarritoDeCompras';
 import CarritoDeCompras from './CarritoDeCompras';
 import ReciboDeCompras from './ReciboDeCompras';
 import { connect } from 'react-redux';
+import { empiezaNuevaCompra } from '../../acciones/compras';
 
 class Compras extends  React.Component {
     state = {
@@ -58,6 +59,52 @@ class Compras extends  React.Component {
         return precioTotal;
     }
 
+    // Manejador de liquidacion del carrito de compras
+    manejaLiquidarCarrito = (modoPago, fecha) => {
+        let arregloDatosCompras = [];
+        this.state.carritoDeCompras.map((elemento) => {
+            let datosCompra = this.props.egresos.find((elementoInterno) => {
+                return elementoInterno._id == elemento;
+            });
+            // Lo agregamos al arreglo
+            arregloDatosCompras = [
+                ...arregloDatosCompras,
+                datosCompra
+            ]
+        });
+        // Verificamos que no esta vacio el arreglo
+        if(arregloDatosCompras.length < 1) alert('No se puede liquidar una cuenta vacia');
+        console.log(arregloDatosCompras);
+        arregloDatosCompras.map((elemento) => {
+            let compraToAniadir = {
+                idCompra:           elemento._id,           
+                precio:             elemento.precio,
+                descripcion:        elemento.descripcion,
+                iva:                elemento.iva,
+                proveedor:          elemento.proveedor,
+                tipoEgreso:         elemento.tipoEgreso,
+                unidadPresentacion: elemento.unidadPresentacion,
+                usoDestino:         elemento.usoDestino,
+                modoPago: modoPago,
+                fecha: fecha,
+            }
+            console.log('Va a liquidar la/las compras: ', compraToAniadir);
+            this.props.dispatch(empiezaNuevaCompra(compraToAniadir));
+            // Reseteo del carrito de compras
+            this.manejaVaciarCarritoDeCompras();
+                    
+        });
+    }
+
+    manejaVaciarCarritoDeCompras = () => {
+        // Hacemos un push al estado con un conjunto vacio
+        this.setState((prevState) => {
+            return {
+                carritoDeCompras: []
+            };
+        });
+    }
+
     render() {
         return (
             <div className ='col-md-9'>
@@ -87,6 +134,8 @@ class Compras extends  React.Component {
                             <ReciboDeCompras
                                 carritoDeCompras         = {this.state.carritoDeCompras}
                                 manejaSumaPreciosEgresos = {this.manejaSumaPrecioEgresos}
+                                manejaLiquidarCarrito    = {this.manejaLiquidarCarrito}
+                                manejaVaciarCarrito      = {this.manejaVaciarCarritoDeCompras}
                             />
                         </div>
                     </div>
