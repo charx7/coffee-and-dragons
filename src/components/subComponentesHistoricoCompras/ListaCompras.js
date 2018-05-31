@@ -1,5 +1,6 @@
 import React from 'react';
 import ListaComprasItem from "./ListaComprasItem";
+import uuid from 'uuid'; // Para generar los id que van a ir en las keys
 
 class ListaCompras extends React.Component {
     render () {
@@ -25,13 +26,20 @@ class ListaCompras extends React.Component {
 
                         </div>
                         <p>
-                            Cargando Compras
+                            Cargando Compras...
                         </p>
                         <h3>
                             Lista Compras
                         </h3>
                         <ul className = 'list-group'>
-                            <ListaComprasItem/>
+                            {this.props.compras.map((elemento) => {
+                                return <ListaComprasItem
+                                    key                      = {uuid()}
+                                    currentCompraId          = {elemento._id}
+                                    currentCompraDescripcion = {elemento.descripcion}
+                                    currentCompraPrecio      = {elemento.precio}
+                                />
+                            })}
                         </ul>
 
                         <button 

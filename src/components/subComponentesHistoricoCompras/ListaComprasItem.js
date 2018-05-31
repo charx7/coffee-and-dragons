@@ -7,11 +7,11 @@ class ListaComprasItem extends React.Component {
         return (
             <li className='list-group-item' id='li-producto'>
                 <Link to="#">
-                    {'Holi soy un egreso'}
+                    {this.props.currentCompraDescripcion}
                 </Link>
             <p id= 'boton-en-lista'>
                 <strong>
-                    {numeral(100.255).format('$0,0.[00]')}
+                    {numeral(this.props.currentCompraPrecio).format('$0,0.[00]')}
                 </strong>
             </p>
         </li>
