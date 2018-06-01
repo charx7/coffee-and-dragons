@@ -38,6 +38,7 @@ class ListaCompras extends React.Component {
                                     currentCompraId          = {elemento._id}
                                     currentCompraDescripcion = {elemento.descripcion}
                                     currentCompraPrecio      = {elemento.precio}
+                                    manejaEditarCompra       = {this.props.manejaEditarCompra}
                                 />
                             })}
                         </ul>

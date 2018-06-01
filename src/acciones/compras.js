@@ -38,3 +38,25 @@ export const empiezaNuevaCompra = (compraToAgregar) => {
             })
     };
 };
+
+// Para hacer un DELETE a la BDd de Mongo
+export const empiezaEliminarCompra = (idEliminar) => {
+    return(dispatch) => {
+        console.log('Entro a eliminar la compra con el id: ', idEliminar);
+        return axios.delete('/api/compras/' + idEliminar)
+        .then( res => {
+            console.log('Se esta eliminando la compra: ', idEliminar);
+            console.log('Respuesta del servidor: ', res);
+            // Call de dispatch para eliminar registro del almacen
+            dispatch(eliminarCompra(res.data._id));
+        })
+        .catch( err => {
+            console.log('Hubo un error: ', err);
+        });
+    }
+}
+
+export const eliminarCompra = (idEliminar) => ({
+    type: 'ELIMINAR_COMPRA',
+    idEliminar
+});

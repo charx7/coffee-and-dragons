@@ -19,6 +19,19 @@ router.get('/compras', (request, response) => {
     });
 });
 
+// Show de un solo elemento de compras
+router.get('/compras/:id', (req, res) => {
+    console.log('Entro a hacer un query de un solo elemento de compras', req.params);
+    let idActual = req.params.id;
+    modeloCompras.findById(idActual, (error, resultadoQuery) => {
+        if(!error) {
+            console.log('Compra Econtrada', resultadoQuery);
+            return res.send(JSON.stringify(resultadoQuery));
+        }
+        else console.log('Error', error);
+    });
+});
+
 // POST de crear un nuevo egreso
 router.post('/compras', (req, res) => {
     console.log('Entra a crear una compra nueVa la BDD');
@@ -34,6 +47,18 @@ router.post('/compras', (req, res) => {
             // De otro modo mandamos el error
             return res.send(JSON.stringify({ error: error }));
         }
+    });
+});
+
+// DELETE de un elemento especifico de la BDD
+router.delete('/compras/:id', (req, res) => {
+    console.log('Entro a borrar un registro de compras ', req.params);
+    modeloCompras.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
+        if(!error){
+            console.log('Compra Eliminada', resultadoQuery);
+            res.json(resultadoQuery);  
+        } 
+        else console.log('Error ', error);
     });
 });
 
