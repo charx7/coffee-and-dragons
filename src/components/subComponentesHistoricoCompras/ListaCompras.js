@@ -5,6 +5,8 @@ import moment from 'moment';
 import { DateRangePicker } from 'react-dates'; // Importaciones para el picker de las fechas
 import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 import obtenerComprasVisibles from '../../selectores/selectorCompras';
+import json2scv from 'json2csv'; // Importacion para convertir los objetos de JSON en csv's
+import FileSaver from 'file-saver';
 
 class ListaCompras extends React.Component {
     
@@ -35,6 +37,32 @@ class ListaCompras extends React.Component {
         this.setState({
             filtroTextoCompras: inputTextoFiltro
         });
+    }
+
+    // Metodo que se encarga de exportar a excel el resultado
+    manejaExportarExcel = () => {
+        const fields = [
+            '_id',
+            'precio',
+            'descripcion',
+            'proveedor',
+            'modoPago',
+            'iva',
+            'fecha',
+            'idCompra',
+            'tipoEgreso',
+            'unidadPresentacion',
+            'usoDestino'
+        ]
+        
+        const queryExportar = obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras, '','',
+        this.state.fechaInicial,this.state.fechaFinal); 
+        // Tranformar a CSV
+        const datosCSV = json2scv({ data: queryExportar, fields: fields });
+
+        // Metodos para que el usuario baje el archivo a su pc
+        const blob = new Blob([datosCSV], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(blob, 'datosConsulta.csv');
     }
 
     render () {
@@ -94,6 +122,7 @@ class ListaCompras extends React.Component {
 
                         <button 
                             className ='btn btn-lg btn-success'
+                            onClick   = {this.manejaExportarExcel}
                         >
                                 Exportar a Excel
                         </button>
