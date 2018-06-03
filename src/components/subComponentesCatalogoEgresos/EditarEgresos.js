@@ -274,13 +274,14 @@ class EditarEgresos extends React.Component {
                                     onChange    = {this.manejaCambioImagen}
                                 />
                             </div>
+                            {/*
                             <div className = 'form-group'>
                                 <select>
                                     <option value='valor1'>   Sams</option>
                                     <option value='valor2'>Cotsco</option>
                                     <option value='valor3'>  Otro</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className='form-group'>
                                 <input className="btn btn-lg btn-primary btn-block" type="submit" value="Guardar"/>
                             </div>
