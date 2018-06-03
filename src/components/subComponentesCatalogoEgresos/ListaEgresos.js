@@ -1,6 +1,7 @@
 import React from 'react';
 import ListaEgresosItem from './ListaEgresosItem';
 import { connect } from 'react-redux';
+import obtenerEgresosVisibles from '../../selectores/selectorEgresos';
 
 class ListaEgresos extends React.Component {
     
@@ -8,14 +9,31 @@ class ListaEgresos extends React.Component {
         datos:                  undefined,
         actualizo:              false,
         filtroEgresosTexto:     '',
-        filtroEgresosCategoria: ''   
+        filtroEgresosProveedor: ''   
     }
 
     componentDidMount () {
         console.log('Empezo a jalar la lista de egresos del almacen');
         // Llamado al metodo que carga los datos del servidor
-        this.setState = (() => {
-            return { datos: this.props.egresos }
+        // this.setState = (() => {
+        //     return { datos: this.props.egresos }
+        // });
+        this.setState({
+            datos: this.props.egresos
+        });
+    }
+
+    manejaFiltroEgresosTexto = (e) => {
+        let inputTexto = e.target.value;
+        this.setState({
+            filtroEgresosTexto: inputTexto
+        });
+    }
+
+    manejaFiltroProveedor = (e) => {
+        let inputProveedor = e.target.value;
+        this.setState({
+            filtroEgresosProveedor: inputProveedor
         });
     }
 
@@ -33,14 +51,19 @@ class ListaEgresos extends React.Component {
                                 <input 
                                 type="text"
                                 placeholder='Texto para filtrar'
+                                value = {this.state.filtroEgresosTexto}
+                                onChange = {this.manejaFiltroEgresosTexto}
                                 />
                             </div>
                             <div className='col-md-6'>
                                 Seleccione Categoria:
                                 {' '}
-                                <select>
-                                    <option value='sams'>   Sams</option>
-                                    <option value='cotsco'>Cotsco</option>
+                                <select
+                                    value    = {this.state.filtroEgresosProveedor}
+                                    onChange = {this.manejaFiltroProveedor}
+                                >
+                                    <option value='Sams'>   Sams</option>
+                                    <option value='Cotsco'>Cotsco</option>
                                     <option value='otro'>    Otro</option>
                                 </select>
                             </div>
@@ -51,7 +74,8 @@ class ListaEgresos extends React.Component {
                         <div className='row' id='contenedorProductos'>
 
                             {
-                                this.props.egresos.map((elemento) => {
+                                obtenerEgresosVisibles(this.props.egresos,this.state.filtroEgresosTexto,this.state.filtroEgresosProveedor)
+                                .map((elemento) => {
                                     return <ListaEgresosItem
                                         key                         = {elemento._id}
                                         currentIdEgreso             = {elemento._id}
