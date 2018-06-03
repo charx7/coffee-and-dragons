@@ -38,6 +38,10 @@ class HistoricoCompras extends  React.Component {
         } else {
             console.log('Se va a eliminar la compra: ', idToEliminar);
             this.props.dispatch(empiezaEliminarCompra(idToEliminar));
+            // Una vez que se elimina quitamos la venta seleccionada del estado
+            this.setState({
+                currentCompra: {}
+            });
         }
     }
 

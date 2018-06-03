@@ -27,7 +27,7 @@ class EditarEgresos extends React.Component {
     // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
     componentDidUpdate(previousProps, previousState) {
         // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
-        if(previousProps.currentEgreso.descripcion !== this.props.currentEgreso.descripcion) {
+        if(previousProps.currentEgreso._id !== this.props.currentEgreso._id) {
             this.setState({ 
                 descripcion: this.props.currentEgreso.descripcion,
                 precio: this.props.currentEgreso.precio,
@@ -187,6 +187,16 @@ class EditarEgresos extends React.Component {
             // Hace la eliminacio en la BDD
             */
             this.props.dispatch(empiezaEliminarEgreso(this.props.currentEgreso._id));
+            // this.setState({
+            //     descripcion:  '',
+            //     precio:  '',
+            //     proveedor:  '',
+            //     unidadPresentacion:  '',
+            //     tipoEgreso:  '',
+            //     iva:  '',
+            //     usoDestino:  '',
+            //     imagen:  ''
+            // });
             }
         }
     /* } */
@@ -197,12 +207,15 @@ class EditarEgresos extends React.Component {
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         Detalles del egreso: {
-                            this.props.currentEgreso ? this.state.descripcion : ''
+                            this.props.currentEgreso ? (this.props.currentEgreso.descripcion + ' ' + this.props.currentEgreso._id)  : ''
                         }
                     </div>
                     <div className="panel-body">
                         <form onSubmit={this.submitForma}>
                             <div className='form-group'>
+                                <p>
+                                    Descripcion
+                                </p>  
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -211,7 +224,10 @@ class EditarEgresos extends React.Component {
                                     onChange    = {this.manejaCambioDescripcion}
                                 />
                             </div>
-                            <div className='form-group'>                                
+                            <div className='form-group'>
+                                <p>
+                                    Proveedor
+                                </p>                            
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -220,7 +236,10 @@ class EditarEgresos extends React.Component {
                                     onChange    = {this.manejaCambioProveedor}
                                 />
                             </div>
-                            <div className='form-group'>                                
+                            <div className='form-group'>
+                                <p>
+                                    Precio
+                                </p>                                
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -229,7 +248,10 @@ class EditarEgresos extends React.Component {
                                     onChange    = {this.manejaCambioPrecio}
                                 />                    
                             </div>
-                            <div className='form-group'>            
+                            <div className='form-group'>
+                                <p>
+                                    Unidad de Presentacion
+                                </p>            
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -239,6 +261,9 @@ class EditarEgresos extends React.Component {
                                 />
                             </div>
                             <div className='form-group'>
+                                <p>
+                                    Uso Destino
+                                </p>
                                 <input 
                                     type="text"
                                     className='form-control'
@@ -248,6 +273,9 @@ class EditarEgresos extends React.Component {
                                 />
                             </div>
                             <div className='form-group'>
+                                <p>
+                                    Tipo Egreso
+                                </p>
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -257,6 +285,9 @@ class EditarEgresos extends React.Component {
                                 />
                             </div>
                             <div className='form-group'>
+                                <p>
+                                    IVA
+                                </p>
                                 <input 
                                     className='form-control' 
                                     type="text"
@@ -266,6 +297,9 @@ class EditarEgresos extends React.Component {
                                 />
                             </div>
                             <div className='form-group'>
+                                <p>
+                                    URL Imagen
+                                </p>
                                 <input 
                                     className='form-control' 
                                     type="text"

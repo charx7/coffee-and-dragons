@@ -18,6 +18,7 @@ class CatalogoEgresos extends  React.Component {
 
     manejaNuevoEgreso = () => {
         // Hace que los props que se pasen al componente de detalles de producto sean para un producto nuevo
+        console.log('Entro a marcar un nuevo Egreso');
         this.setState({
             currentEgreso: {
                 descripcion: "Nueva Descripcion",

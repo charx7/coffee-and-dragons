@@ -21,7 +21,7 @@ class EditarProducto extends React.Component {
     // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
     componentDidUpdate(previousProps, previousState) {
         // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
-        if(previousProps.currentProducto.descripcion !== this.props.currentProducto.descripcion) {
+        if(previousProps.currentProducto._id !== this.props.currentProducto._id) {
           this.setState({ 
             descripcion: this.props.currentProducto.descripcion,
             precio: this.props.currentProducto.precio,
