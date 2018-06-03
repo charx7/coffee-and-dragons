@@ -11,9 +11,7 @@ class Arqueo extends React.Component {
                     </div>
                     <div className="panel-body">
                         <h3>
-                            <strong>
-                                Hola [Usuario]
-                            </strong>
+                            Hola <strong> {this.props.nombreUsuario} </strong>
                         </h3>
                         <div className='row'>    
                             <div className='col-md-6'>

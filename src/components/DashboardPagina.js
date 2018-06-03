@@ -98,7 +98,13 @@ class DashboardPagina extends React.Component {
                         {this.state.tareaActiva == 'catalogoEgresos' ? <CatalogoEgresos/>: ''}
                         {this.state.tareaActiva == 'compras' ? <Compras/>: ''}
                         {this.state.tareaActiva == 'historicoCompras' ? <HistoricoCompras/>: ''}
-                        {this.state.tareaActiva == 'contabilidad' ? <Contabilidad/>: ''}
+                        {
+                            this.state.tareaActiva == 'contabilidad' 
+                                ? <Contabilidad
+                                    nombreUsuario = {this.props.authentication.nombre}    
+                                />
+                                : ''
+                        }
                     </div>
                 </div>
             </div>
