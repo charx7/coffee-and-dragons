@@ -47,7 +47,12 @@ class MenuLateral extends React.Component  {
                         this.props.authentication.esAdmin == true 
                         ?
                             <ListGroupItem 
-                                href="#" >
+                                href="#"
+                                active = {this.props.currentTareaActiva == 'contabilidad' ? true : false } 
+                                onClick = {(e) => {
+                                    this.props.manejaTareaActiva('CONTABILIDAD');
+                                }}
+                            >
                                 Contabilidad
                             </ListGroupItem>
                         :   
