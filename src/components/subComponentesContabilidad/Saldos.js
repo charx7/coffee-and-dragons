@@ -1,6 +1,7 @@
 import React from 'react';
 import Caja from './Caja';
 import Sobre from './Sobre';
+import moment from 'moment';
 
 class Saldos extends React.Component {
     render () {
@@ -13,7 +14,7 @@ class Saldos extends React.Component {
                 <div className="panel-body">
                     <h3>
                         <strong>
-                            Saldos Pertenecientes a: [FECHA]
+                            Saldos Pertenecientes a: {moment(this.props.currentFecha).format('MMM Do. YYYY')}
                         </strong>
                     </h3>
                     <div className='row'>    

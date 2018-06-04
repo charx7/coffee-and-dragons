@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-class ArqueoInicio extends React.Component {
+class ArqueoCierre extends React.Component {
 
     state = {
         cantidad500:    0,
@@ -107,7 +107,7 @@ class ArqueoInicio extends React.Component {
         return (
             <div>
                 <h3>
-                    <strong>Inicio</strong>
+                    <strong>Cierre</strong>
                 </h3>
                 <table className = 'table table-striped'>
                     <thead>
@@ -312,4 +312,4 @@ class ArqueoInicio extends React.Component {
     }
 }
 
-export default ArqueoInicio;
+export default ArqueoCierre;
