@@ -107,7 +107,7 @@ class ArqueoInicio extends React.Component {
         return (
             <div>
                 <h3>
-                    <strong>Inicio</strong>
+                    <strong>Inicio Real</strong>
                 </h3>
                 <table className = 'table table-striped'>
                     <thead>

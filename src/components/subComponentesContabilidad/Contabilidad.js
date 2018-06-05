@@ -25,8 +25,8 @@ class Contabilidad extends React.Component {
                     manejaCambioFechaEnPadre = {this.manejaCambioFechaEnPadre}
                 />    
                 <Saldos
-                    currentFecha = {this.state.currentFecha.valueOf()}
-                    
+                    currentFecha       = {this.state.currentFecha.valueOf()}
+                    currentFechaFiltro = {this.state.currentFecha}
                 />
             </div>
         )

@@ -1,6 +1,9 @@
 import React from 'react';
 
 class Caja extends React.Component {
+
+
+
     render () {
         return (
             <div>
@@ -25,7 +28,8 @@ class Caja extends React.Component {
                                 Ingresos Totales
                             </td>
                             <td>
-                                300
+                                {console.log('Las compras seleccionadas son: ',this.props.compras)}
+                                {console.log('Las ventas seleccionadas son: ',this.props.ventas, ' su suma es ')}
                             </td>
                         </tr>
                         <tr>

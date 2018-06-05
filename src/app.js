@@ -13,6 +13,7 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css'; // Imports de BS
 import { empiezaAgregarProducto } from './acciones/productos'; // Import accion que toma los datos de la BDD
 import { empiezaAgregarEgresos } from './acciones/egresos'; // Import de la accion que hace query a la BDD y los pone en el almacen
 import { empiezaAgregarCompras } from './acciones/compras'; // Import de la accion query BDD de las compras
+import { empiezaAgregarVentas } from './acciones/ventas'; // Import de la accion query BDD de las ventas
 
 // acceso al modelo del almacen con REDUX
 const almacen = configuraAlmacen();
@@ -32,6 +33,7 @@ ReactDOM.render(<p>Cargando...</p>, document.getElementById('app'));
 almacen.dispatch(empiezaAgregarProducto())
     .then(almacen.dispatch(empiezaAgregarEgresos())
     .then(almacen.dispatch(empiezaAgregarCompras()))
+    .then(almacen.dispatch(empiezaAgregarVentas()))
     .then(() => { 
     ReactDOM.render(jsx, document.getElementById('app'));
 }));

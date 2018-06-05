@@ -67,7 +67,14 @@ class Arqueo extends React.Component {
                                 />
                             </div>
                             <div className = 'col-md-6'>
-                                <ArqueoCierre/>
+                                {/* Aqui va el componente de Arqueo Inicio Teorico */}
+                            </div>
+                        </div>
+                        <div className = 'row'>
+                            <div className = 'col-md-6'>
+                                <ArqueoCierre
+                                    currentFecha = {this.state.creadoEn}
+                                />
                             </div>
                         </div>
                     </div>

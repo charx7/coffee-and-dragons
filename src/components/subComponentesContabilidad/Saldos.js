@@ -2,6 +2,9 @@ import React from 'react';
 import Caja from './Caja';
 import Sobre from './Sobre';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import obtenerComprasVisibles from '../../selectores/selectorCompras';
+import obtenerVentasVisibles from '../../selectores/selectorVentas';
 
 class Saldos extends React.Component {
     render () {
@@ -19,7 +22,10 @@ class Saldos extends React.Component {
                     </h3>
                     <div className='row'>    
                         <div className='col-md-6'>
-                            <Caja/>
+                            <Caja
+                                compras = {obtenerComprasVisibles(this.props.compras,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
+                                ventas  = {obtenerVentasVisibles(this.props.ventas,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
+                            />
                         </div>
                         <div className = 'col-md-6'>
                             <Sobre/>
@@ -32,4 +38,12 @@ class Saldos extends React.Component {
     }
 }
 
-export default Saldos;
+const mapeoEstadoToProps = (estado, props)=> {
+    return {
+        // Accedemos a las compras y ventas guardadas en el almacen
+        ventas:  estado.ventas,
+        compras: estado.compras
+    }
+}
+
+export default connect(mapeoEstadoToProps) (Saldos);
