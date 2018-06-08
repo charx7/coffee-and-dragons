@@ -1,9 +1,10 @@
 import React from 'react';
 import moment from 'moment'; // Importacion de momentos
-import ArqueoInicio from './ArqueoInicio';
+import ArqueoInicioReal from './ArqueoInicioReal';
 import { SingleDatePicker } from 'react-dates'; // Importacion de React Dates
 import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 import ArqueoCierre from './ArqueoCierre';
+import ArqueoInicioTeorico from './ArqueoInicioTeorico';
 
 // Creamos un objeto de la libreria moment
 const now = moment();
@@ -62,12 +63,14 @@ class Arqueo extends React.Component {
                         </div>
                         <div className='row'>    
                             <div className='col-md-6'>
-                                <ArqueoInicio
+                                <ArqueoInicioReal
                                     currentFecha = {this.state.creadoEn}
                                 />
                             </div>
                             <div className = 'col-md-6'>
-                                {/* Aqui va el componente de Arqueo Inicio Teorico */}
+                                <ArqueoInicioTeorico
+                                    currentFecha = {this.state.creadoEn}
+                                />
                             </div>
                         </div>
                         <div className = 'row'>

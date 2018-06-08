@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-class ArqueoInicio extends React.Component {
+class ArqueoInicioReal extends React.Component {
 
     state = {
         cantidad500:    0,
@@ -307,9 +307,12 @@ class ArqueoInicio extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+                <button type="button" class="btn btn-primary">
+                    Guardar Arqueo Inicio
+                </button>
             </div>
         )
     }
 }
 
-export default ArqueoInicio;
+export default ArqueoInicioReal;

@@ -33,14 +33,24 @@ class MenuLateral extends React.Component  {
                         >
                         Productos
                     </ListGroupItem>
-                    <ListGroupItem 
-                        href="#" 
-                        active = {this.props.currentTareaActiva == 'historico' ? true : false}
-                        onClick = {(e) => {
-                            this.props.manejaTareaActiva('HISTORICO');
-                        }}>
-                        Historico
-                    </ListGroupItem>
+                    {
+                        this.props.authentication.esAdmin == true
+                        ?
+                        <ListGroupItem
+                            href="#" 
+                            active = {this.props.currentTareaActiva == 'historico' ? true : false}
+                            onClick = {(e) => {
+                                this.props.manejaTareaActiva('HISTORICO');
+                            }}>
+                            Historico
+                        </ListGroupItem>
+                        : 
+                            <ListGroupItem
+                                href = '#'
+                                disabled>
+                                Historico Ventas
+                            </ListGroupItem>
+                    }
                     {/* Rendereo Condicional del componente de Contabilidad segun si la persona
                         logeada es admin o no*/}
                     {   
@@ -62,33 +72,60 @@ class MenuLateral extends React.Component  {
                                 Contabilidad
                             </ListGroupItem>
                     }
-
-                    <ListGroupItem
-                        href ='#'
-                        active = {this.props.currentTareaActiva == 'catalogoEgresos' ? true : false }
-                        onClick = {(e) => {
-                            this.props.manejaTareaActiva('CATALOGOEGRESOS');
-                        }}>
-                        Catalogo de Egresos
-                    </ListGroupItem>
-
-                    <ListGroupItem
-                        href ='#'
-                        active = {this.props.currentTareaActiva == 'compras' ? true : false }
-                        onClick = {(e) => {
-                            this.props.manejaTareaActiva('COMPRAS');
-                        }}>
-                        Compras
-                    </ListGroupItem>
-
-                    <ListGroupItem
-                        href ='#'
-                        active = {this.props.currentTareaActiva == 'historicoCompras' ? true : false }
-                        onClick = {(e) => {
-                            this.props.manejaTareaActiva('HISTORICOCOMPRAS');
-                        }}>
-                        Historico Compras
-                    </ListGroupItem>
+                    {
+                        this.props.authentication.esAdmin == true
+                        ?
+                            <ListGroupItem
+                                href ='#'
+                                active = {this.props.currentTareaActiva == 'catalogoEgresos' ? true : false }
+                                onClick = {(e) => {
+                                    this.props.manejaTareaActiva('CATALOGOEGRESOS');
+                                }}>
+                                Catalogo de Egresos
+                            </ListGroupItem>
+                        :
+                            <ListGroupItem
+                                href="#"
+                                disabled>
+                                Catalogo de Egresos
+                            </ListGroupItem>
+                    }
+                    {
+                        this.props.authentication.esAdmin == true
+                        ?
+                            <ListGroupItem
+                                href ='#'
+                                active = {this.props.currentTareaActiva == 'compras' ? true : false }
+                                onClick = {(e) => {
+                                    this.props.manejaTareaActiva('COMPRAS');
+                                }}>
+                                Compras
+                            </ListGroupItem>
+                        :
+                            <ListGroupItem
+                                href="#"
+                                disabled>
+                                Compras
+                            </ListGroupItem>
+                    }
+                    {
+                        this.props.authentication.esAdmin == true
+                        ?
+                            <ListGroupItem
+                                href ='#'
+                                active = {this.props.currentTareaActiva == 'historicoCompras' ? true : false }
+                                onClick = {(e) => {
+                                    this.props.manejaTareaActiva('HISTORICOCOMPRAS');
+                                }}>
+                                Historico Compras
+                            </ListGroupItem>
+                        :
+                            <ListGroupItem
+                                href="#"
+                                disabled>
+                                Historico Compras
+                            </ListGroupItem>
+                    }
                 </ListGroup>
             </div>
         );
