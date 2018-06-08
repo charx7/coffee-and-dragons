@@ -1,20 +1,38 @@
 import React from 'react';
-import moment from 'moment';
 
 class ArqueoInicioReal extends React.Component {
 
     state = {
-        cantidad500:    0,
-        cantidad200:    0,
-        cantidad100:    0,
-        cantidad50:     0,
-        cantidad20:     0,
-        cantidad10:     0,
-        cantidad5:      0,
-        cantidad2:      0,
-        cantidad1:      0,
-        cantidadPunto5: 0
+        cantidad500:     this.props.currentArqueo.denom500,
+        cantidad200:     this.props.currentArqueo.denom200,
+        cantidad100:     this.props.currentArqueo.denom100,
+        cantidad50:      this.props.currentArqueo.denom50,
+        cantidad20:      this.props.currentArqueo.denom20,
+        cantidad10:      this.props.currentArqueo.denom10,
+        cantidad5:       this.props.currentArqueo.denom5,
+        cantidad2:       this.props.currentArqueo.denom2,
+        cantidad1:       this.props.currentArqueo.denom1,
+        cantidadPunto5:  this.props.currentArqueo.denomPunto5 
     }
+
+    // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
+    componentDidUpdate(previousProps, previousState) {
+        // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
+        if(previousProps.currentArqueo._id !== this.props.currentArqueo._id) {
+          this.setState({ 
+            cantidad500:     this.props.currentArqueo.denom500,
+            cantidad200:     this.props.currentArqueo.denom200,
+            cantidad100:     this.props.currentArqueo.denom100,
+            cantidad50:      this.props.currentArqueo.denom50,
+            cantidad20:      this.props.currentArqueo.denom20,
+            cantidad10:      this.props.currentArqueo.denom10,
+            cantidad5:       this.props.currentArqueo.denom5,
+            cantidad2:       this.props.currentArqueo.denom2,
+            cantidad1:       this.props.currentArqueo.denom1,
+            cantidadPunto5:  this.props.currentArqueo.denomPunto5
+        });
+        }
+      }
 
     manejaCambioDenominaciones = (cantidad, denominacion) => {
         // Verificamos si es una cadena
@@ -106,6 +124,7 @@ class ArqueoInicioReal extends React.Component {
     render () {
         return (
             <div>
+                {console.log('El objeto de currentArqueo es: ',this.props.currentArqueo)}
                 <h3>
                     <strong>Inicio Real</strong>
                 </h3>
@@ -307,7 +326,7 @@ class ArqueoInicioReal extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary">
+                <button type="button" className="btn btn-primary">
                     Guardar Arqueo Inicio
                 </button>
             </div>

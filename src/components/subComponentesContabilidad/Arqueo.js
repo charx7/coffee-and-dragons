@@ -65,6 +65,28 @@ class Arqueo extends React.Component {
                             <div className='col-md-6'>
                                 <ArqueoInicioReal
                                     currentFecha = {this.state.creadoEn}
+                                    currentArqueo = {
+                                        this.props.arqueos.find((elemento) => {
+                                        return moment(elemento.fecha).isSame(this.state.creadoEn,'day');
+                                    }) 
+                                    ? 
+                                        this.props.arqueos.find((elemento) => {
+                                            return moment(elemento.fecha).isSame(this.state.creadoEn,'day');
+                                        })
+                                    : 
+                                        { 
+                                            denom500: 0,
+                                            denom200: 0,
+                                            denom100: 0,
+                                            denom50: 0,
+                                            denom20: 0,
+                                            denom10: 0,
+                                            denom5: 0,
+                                            denom2: 0,
+                                            denom1: 0,
+                                            denomPunto5: 0
+                                        }
+                                    }
                                 />
                             </div>
                             <div className = 'col-md-6'>
