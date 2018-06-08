@@ -85,11 +85,13 @@ app.use(function(req, res, next) {
 const usuarios      = require('./api/usuarios');
 const autenticacion = require('./api/authentication');
 const egresos       = require('./api/egresos');
-const compras       = require('./api/compras');  
+const compras       = require('./api/compras'); 
+const arqueos       = require('./api/arqueos'); 
 // Uso del Routeador
 app.use('/api/usuarios', usuarios);
 app.use('/api/', egresos);
 app.use('/api/', compras);
+app.use('/api/', arqueos);
 app.use('/api/autenticacion', autenticacion);
 // ###################################
 
