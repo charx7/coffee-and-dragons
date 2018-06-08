@@ -23,8 +23,32 @@ class Saldos extends React.Component {
                     <div className='row'>    
                         <div className='col-md-6'>
                             <Caja
-                                compras = {obtenerComprasVisibles(this.props.compras,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
-                                ventas  = {obtenerVentasVisibles(this.props.ventas,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
+                                compras         = {obtenerComprasVisibles(this.props.compras,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
+                                comprasTarjeta  = {
+                                     obtenerComprasVisibles(this.props.compras,'','',
+                                    'tarjeta',this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
+                                comprasEfectivo = {
+                                    obtenerComprasVisibles(this.props.compras,'','',
+                                    'efectivo', this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
+                                comprasTransferencia = {
+                                    obtenerComprasVisibles(this.props.compras,'','',
+                                    'transferencia', this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
+                                comprasTraspasoSobre = {
+                                    obtenerComprasVisibles(this.props.compras,'','',
+                                    'traspasoSobre', this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
+                                ventas          = {obtenerVentasVisibles(this.props.ventas,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
+                                ventasTarjeta   = {
+                                    obtenerVentasVisibles(this.props.ventas,'','',
+                                    'tarjeta',this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
+                                ventasEfectivo  = {
+                                    obtenerVentasVisibles(this.props.ventas,'','',
+                                    'efectivo',this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
                             />
                         </div>
                         <div className = 'col-md-6'>
