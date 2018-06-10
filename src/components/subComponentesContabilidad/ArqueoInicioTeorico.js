@@ -1,107 +1,48 @@
 import React from 'react';
-import moment from 'moment';
+import numeral from 'numeral';
 
 class ArqueoInicioTeorico extends React.Component {
 
     state = {
-        cantidad500:    0,
-        cantidad200:    0,
-        cantidad100:    0,
-        cantidad50:     0,
-        cantidad20:     0,
-        cantidad10:     0,
-        cantidad5:      0,
-        cantidad2:      0,
-        cantidad1:      0,
-        cantidadPunto5: 0
+        cantidad500:    this.props.currentArqueo.denom500,
+        cantidad200:    this.props.currentArqueo.denom200,
+        cantidad100:    this.props.currentArqueo.denom100,
+        cantidad50:     this.props.currentArqueo.denom50,
+        cantidad20:     this.props.currentArqueo.denom20,
+        cantidad10:     this.props.currentArqueo.denom10,
+        cantidad5:      this.props.currentArqueo.denom5,
+        cantidad2:      this.props.currentArqueo.denom2,
+        cantidad1:      this.props.currentArqueo.denom1,
+        cantidadPunto5: this.props.currentArqueo.denomPunto5
     }
 
-    manejaCambioDenominaciones = (cantidad, denominacion) => {
-        // Verificamos si es una cadena
-        let cadenaCantidad = cantidad.target.value;
-        // Le quito los espacios
-        let cantidadSinEspacios = Number(cadenaCantidad.toString().trim());
-        
-        // Si no esta vacia procedemos a hacer los casos switch
-        if(!isNaN(cantidadSinEspacios)) {
-            switch (denominacion) {
-                case 'DENOMINACION500':
-                    this.setState(() => {
-                        return ({
-                            cantidad500: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION200':
-                    this.setState(() => {
-                        return ({
-                            cantidad200: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION100':
-                    this.setState(() => {
-                        return ({
-                            cantidad100: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION50':
-                    this.setState(() => {
-                        return ({
-                            cantidad50: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION20':
-                    this.setState(() => {
-                        return ({
-                            cantidad20: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION10':
-                    this.setState(() => {
-                        return ({
-                            cantidad10: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION5':
-                    this.setState(() => {
-                        return ({
-                            cantidad5: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION2':
-                    this.setState(() => {
-                        return ({
-                            cantidad2: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACION1':
-                    this.setState(() => {
-                        return ({
-                            cantidad1: cantidadSinEspacios
-                        });
-                    });
-                return;
-                case 'DENOMINACIONPUNTO5':
-                    this.setState(() => {
-                        return ({
-                            cantidadPunto5: cantidadSinEspacios
-                        });
-                    });
-                return;
-                default:
-                    return;
-            }
-        } else {
-            console.log('Cadena Invalida');
+    // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
+    componentDidUpdate(previousProps, previousState) {
+        // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
+        if(previousProps.currentArqueo.denom500         !== this.props.currentArqueo.denom500
+            || previousProps.currentArqueo.denom200     !== this.props.currentArqueo.denom200
+            || previousProps.currentArqueo.denom100     !== this.props.currentArqueo.denom100
+            || previousProps.currentArqueo.denom50      !== this.props.currentArqueo.denom50
+            || previousProps.currentArqueo.denom20      !== this.props.currentArqueo.denom20
+            || previousProps.currentArqueo.denom10      !== this.props.currentArqueo.denom10
+            || previousProps.currentArqueo.denom5       !== this.props.currentArqueo.denom5
+            || previousProps.currentArqueo.denom2       !== this.props.currentArqueo.denom2
+            || previousProps.currentArqueo.denom1       !== this.props.currentArqueo.denom1
+            || previousProps.currentArqueo.denomPunto5  !== this.props.currentArqueo.denomPunto5) {
+          this.setState({ 
+            cantidad500:     this.props.currentArqueo.denom500,
+            cantidad200:     this.props.currentArqueo.denom200,
+            cantidad100:     this.props.currentArqueo.denom100,
+            cantidad50:      this.props.currentArqueo.denom50,
+            cantidad20:      this.props.currentArqueo.denom20,
+            cantidad10:      this.props.currentArqueo.denom10,
+            cantidad5:       this.props.currentArqueo.denom5,
+            cantidad2:       this.props.currentArqueo.denom2,
+            cantidad1:       this.props.currentArqueo.denom1,
+            cantidadPunto5:  this.props.currentArqueo.denomPunto5
+        });
         }
-    }
+      }
 
     render () {
         return (
@@ -109,7 +50,7 @@ class ArqueoInicioTeorico extends React.Component {
                 <h3>
                     <strong>Inicio Teorico</strong>
                 </h3>
-                <table className = 'table table-striped'>
+                <table className = 'table table-striped' id = 'tablaTeorica'>
                     <thead>
                         <tr>
                             <th>Cantidad</th>
@@ -120,171 +61,111 @@ class ArqueoInicioTeorico extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad500}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION500')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom500}
                             </td>
                             <td>500.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad500 * 500}
+                                    {numeral(this.state.cantidad500 * 500).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad200}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION200')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom200}
                             </td>
                             <td>200.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad200 * 200}
+                                    {numeral(this.state.cantidad200 * 200).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad100}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION100')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom100}
                             </td>
                             <td>100.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad100 * 100}
+                                    {numeral(this.state.cantidad100 * 100).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad50}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION50')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom50}
                             </td>
                             <td>50.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad50 * 50}
+                                    {numeral(this.state.cantidad50 * 50).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad20}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION20')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom20}
                             </td>
                             <td>20.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad20 * 20}
+                                    {numeral(this.state.cantidad20 * 20).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad10}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION10')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom10}
                             </td>
                             <td>10.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad10 * 10}
+                                    {numeral(this.state.cantidad10 * 10).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad5}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION5')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom5}
                             </td>
                             <td>5.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad5 * 5}
+                                    {numeral(this.state.cantidad5 * 5).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad2}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION2')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom2}
                             </td>
                             <td>2.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad2 * 2}
+                                    {numeral(this.state.cantidad2 * 2).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidad1}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACION1')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denom1}
                             </td>
                             <td>1.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad1 * 1}
+                                    {numeral(this.state.cantidad1 * 1).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type      = "text"
-                                    value     = {this.state.cantidadPunto5}
-                                    onChange  = {(cantidad) => this.manejaCambioDenominaciones(cantidad, 'DENOMINACIONPUNTO5')}
-                                    maxLength = "4" 
-                                    size      = "4"
-                                />
+                                {this.props.currentArqueo.denomPunto5}
                             </td>
                             <td>0.50</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidadPunto5 * 0.5}
+                                    {numeral(this.state.cantidadPunto5 * 0.5).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -292,6 +173,7 @@ class ArqueoInicioTeorico extends React.Component {
                             <td></td>
                             <td><strong>Gran Total: </strong></td>
                             <td> {
+                                    numeral(
                                     this.state.cantidad500    * 500 +
                                     this.state.cantidad200    * 200 +
                                     this.state.cantidad100    * 100 +
@@ -301,7 +183,8 @@ class ArqueoInicioTeorico extends React.Component {
                                     this.state.cantidad5      * 5   +
                                     this.state.cantidad2      * 2   +
                                     this.state.cantidad1      * 1   +
-                                    this.state.cantidadPunto5 * 0.5 
+                                    this.state.cantidadPunto5 * 0.5
+                                    ).format('$0,0.[00]') 
                                 } 
                             </td>
                         </tr>

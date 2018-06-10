@@ -1,6 +1,7 @@
 import React from 'react';
 import { sumaPrecioCompras,
          sumaPrecioVentas } from '../../selectores/selectorSumasConceptos';
+import numeral from 'numeral';
 
 class Caja extends React.Component {
 
@@ -22,7 +23,7 @@ class Caja extends React.Component {
                                 Caja Inicial
                             </td>
                             <td>
-                                0
+                                {numeral(this.props.cajaInicial).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -30,7 +31,7 @@ class Caja extends React.Component {
                                 Ingresos Totales
                             </td>
                             <td>
-                                <strong> {sumaPrecioVentas(this.props.ventas)} </strong>
+                                <strong> {numeral(sumaPrecioVentas(this.props.ventas)).format('$0,0.[00]')} </strong>
                             </td>
                         </tr>
                         <tr>
@@ -38,7 +39,7 @@ class Caja extends React.Component {
                                 Ingresos Tarjeta 
                             </td>
                             <td>
-                                {sumaPrecioVentas(this.props.ventasTarjeta)}
+                                {numeral(sumaPrecioVentas(this.props.ventasTarjeta)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -46,7 +47,7 @@ class Caja extends React.Component {
                                 Ingresos en Efectivo
                             </td>
                             <td> 
-                                {sumaPrecioVentas(this.props.ventasEfectivo)}
+                                {numeral(sumaPrecioVentas(this.props.ventasEfectivo)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -54,7 +55,7 @@ class Caja extends React.Component {
                                 Egresos Totales
                             </td>
                             <td>
-                                <strong> {sumaPrecioCompras(this.props.compras)} </strong>
+                                <strong> {numeral(sumaPrecioCompras(this.props.compras)).format('$0,0.[00]')} </strong>
                             </td>
                         </tr>
                         <tr>
@@ -62,7 +63,7 @@ class Caja extends React.Component {
                                 Egresos Efectivo
                             </td>
                             <td>
-                                {sumaPrecioCompras(this.props.comprasEfectivo)}
+                                {numeral(sumaPrecioCompras(this.props.comprasEfectivo)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -70,7 +71,7 @@ class Caja extends React.Component {
                                 Egresos Tarjeta
                             </td>
                             <td>
-                                {sumaPrecioCompras(this.props.comprasTarjeta)}
+                                {numeral(sumaPrecioCompras(this.props.comprasTarjeta)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -78,7 +79,7 @@ class Caja extends React.Component {
                                 Egresos Transferencia
                             </td>
                             <td>
-                                {sumaPrecioCompras(this.props.comprasTransferencia)}
+                                {numeral(sumaPrecioCompras(this.props.comprasTransferencia)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -86,7 +87,7 @@ class Caja extends React.Component {
                                 Traspasos a Sobre
                             </td>
                             <td>
-                                {sumaPrecioCompras(this.props.comprasTraspasoSobre)}
+                                {numeral(sumaPrecioCompras(this.props.comprasTraspasoSobre)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -94,7 +95,13 @@ class Caja extends React.Component {
                                 Caja Teoria
                             </td>
                             <td>
-                                0
+                                <strong>
+                                    {   numeral(
+                                        this.props.cajaInicial 
+                                        + sumaPrecioVentas(this.props.ventas)
+                                        - sumaPrecioCompras(this.props.compras)).format('$0,0.[00]') 
+                                    }
+                                </strong>
                             </td>
                         </tr>
                         <tr>
@@ -110,7 +117,15 @@ class Caja extends React.Component {
                                 Diferencia
                             </td>
                             <td>
-                                0
+                            <strong>
+                                {
+                                    numeral(
+                                    0 
+                                    - (this.props.cajaInicial 
+                                    + sumaPrecioVentas(this.props.ventas)
+                                    - sumaPrecioCompras(this.props.compras))).format('$0,0.[00]') 
+                                }
+                            </strong>
                             </td>
                         </tr>
                     </tbody>

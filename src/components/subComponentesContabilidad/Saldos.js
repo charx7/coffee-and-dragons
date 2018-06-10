@@ -49,6 +49,18 @@ class Saldos extends React.Component {
                                     obtenerVentasVisibles(this.props.ventas,'','',
                                     'efectivo',this.props.currentFechaFiltro, this.props.currentFechaFiltro)
                                 }
+                                cajaInicial = {
+                                    this.props.currentArqueo.denom500 * 500 +
+                                    this.props.currentArqueo.denom200 * 200 +
+                                    this.props.currentArqueo.denom100 * 100 +
+                                    this.props.currentArqueo.denom50  * 50  +
+                                    this.props.currentArqueo.denom20  * 20  +
+                                    this.props.currentArqueo.denom10  * 10  +
+                                    this.props.currentArqueo.denom5   * 5   +
+                                    this.props.currentArqueo.denom2   * 2   +
+                                    this.props.currentArqueo.denom1   * 1   +
+                                    this.props.currentArqueo.denomPunto5 * .5      
+                                }
                             />
                         </div>
                         <div className = 'col-md-6'>
