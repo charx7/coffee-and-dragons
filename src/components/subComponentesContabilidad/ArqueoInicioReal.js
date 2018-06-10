@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class ArqueoInicioReal extends React.Component {
 
@@ -326,7 +327,25 @@ class ArqueoInicioReal extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <button type="button" className="btn btn-primary">
+                <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick = {() => {
+                        this.props.manejaGuardarArqueo(this.props.currentArqueo._id, { fecha: this.props.currentFecha.valueOf() },
+                        {
+                            denom500: this.state.cantidad500,
+                            denom200: this.state.cantidad200,
+                            denom100: this.state.cantidad100,
+                            denom50: this.state.cantidad50,
+                            denom20: this.state.cantidad20,
+                            denom10: this.state.cantidad10,
+                            denom5: this.state.cantidad5,
+                            denom2: this.state.cantidad2,
+                            denom1: this.state.cantidad1,
+                            denomPunto5: this.state.cantidadPunto5
+                        }
+                    )}}            
+                >
                     Guardar Arqueo Inicio
                 </button>
             </div>

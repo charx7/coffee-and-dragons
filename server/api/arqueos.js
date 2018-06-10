@@ -62,5 +62,21 @@ router.delete('/arqueos/:id', (req, res) => {
     });
 });
 
+// EDIT ruta para editar un egreso
+router.put('/arqueos/:id', (req, res) => {
+    console.log('Entro a editar un arqueo a la BDD', req.params.id);
+    console.log('Informacion nueva: ', req.body)
+    var actualizacionesAplicar = req.body;
+    var idActual = req.params.id;
+    modeloArqueos.findByIdAndUpdate( idActual, actualizacionesAplicar, { 'new': true } /* Para que devuelva el nuevo registro en lugar del viejo */, (error, resultadoQuery) => {
+        if(!error) {
+            console.log('Exito modificando el registro', resultadoQuery);
+            return res.json(resultadoQuery);
+        } else {
+            console.log('Error Editando');
+        }
+    });  
+});
+
 // Exportaciones del modulo
 module.exports = router;

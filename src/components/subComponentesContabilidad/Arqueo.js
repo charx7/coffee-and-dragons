@@ -87,6 +87,7 @@ class Arqueo extends React.Component {
                                             denomPunto5: 0
                                         }
                                     }
+                                    manejaGuardarArqueo = {this.props.manejaGuardarArqueo}
                                 />
                             </div>
                             <div className = 'col-md-6'>
