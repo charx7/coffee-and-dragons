@@ -162,7 +162,7 @@ class Caja extends React.Component {
                         </tr>
                         <tr>
                             <td>
-                                Diferencia
+                                Diferencia (El calculo se hace con el campo iZettle)
                             </td>
                             <td>
                             <strong>
@@ -171,6 +171,8 @@ class Caja extends React.Component {
                                     this.props.cajaFinal 
                                     - (this.props.cajaInicial 
                                     + sumaPrecioVentas(this.props.ventas)
+                                    + sumaPrecioVentas(this.props.ventasTarjeta) 
+                                    - this.state.egresosIzettle
                                     - sumaPrecioCompras(this.props.compras))).format('$0,0.[00]') 
                                 }
                             </strong>
