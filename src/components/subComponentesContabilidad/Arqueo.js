@@ -21,12 +21,14 @@ class Arqueo extends React.Component {
         if(creadoEnForma) {
             this.setState(() => ({ creadoEn: creadoEnForma }));
             // Le pasamos el prop al padre
-            this.props.manejaCambioFechaEnPadre(creadoEnForma);
+            // Atencion se tiene que crear otra instancia de moment() para poder sumar un dia sin alterar la misma instancia de moment 2 veces
+            let momentoSiguiente = moment(creadoEnForma.valueOf()).add(1,'d');  
+            this.props.manejaCambioFechaEnPadre(creadoEnForma, momentoSiguiente);
         }
     };
     // Metodo de cambio de focus cuando se manipula el calendarito chevere
     enCambioCalendarFocused = ({ focused }) => {
-        this.setState( () => ({ calendarFocused: focused }));
+        this.setState(() => ({ calendarFocused: focused }));
     };
 
     render () {
@@ -121,7 +123,31 @@ class Arqueo extends React.Component {
                         <div className = 'row'>
                             <div className = 'col-md-6'>
                                 <ArqueoCierre
-                                    currentFecha = {this.state.creadoEn}
+                                    currentFecha        = {this.state.creadoEn}
+                                    manejaGuardarArqueo = {this.props.manejaGuardarArqueo}
+                                    diaSiguiente        = {this.props.diaSiguiente}
+                                    currentArqueoCierre = { 
+                                        this.props.arqueos.find((elemento) => {
+                                        return moment(elemento.fecha).isSame(this.props.diaSiguiente,'day');
+                                    }) 
+                                    ? 
+                                        this.props.arqueos.find((elemento) => {
+                                            return moment(elemento.fecha).isSame(this.props.diaSiguiente,'day');
+                                        })
+                                    : 
+                                        { 
+                                            denom500: 0,
+                                            denom200: 0,
+                                            denom100: 0,
+                                            denom50: 0,
+                                            denom20: 0,
+                                            denom10: 0,
+                                            denom5: 0,
+                                            denom2: 0,
+                                            denom1: 0,
+                                            denomPunto5: 0
+                                        }
+                                    }
                                 />
                             </div>
                         </div>

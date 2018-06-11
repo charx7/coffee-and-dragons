@@ -109,7 +109,9 @@ class Caja extends React.Component {
                                 Caja Real
                             </td>
                             <td>
-                                0
+                                {
+                                    numeral(this.props.cajaFinal).format('$0,0.[00]')
+                                }
                             </td>
                         </tr>
                         <tr>
@@ -120,7 +122,7 @@ class Caja extends React.Component {
                             <strong>
                                 {
                                     numeral(
-                                    0 
+                                    this.props.cajaFinal 
                                     - (this.props.cajaInicial 
                                     + sumaPrecioVentas(this.props.ventas)
                                     - sumaPrecioCompras(this.props.compras))).format('$0,0.[00]') 

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import numeral from 'numeral';
 
 class ArqueoCierre extends React.Component {
 
@@ -15,6 +16,25 @@ class ArqueoCierre extends React.Component {
         cantidad1:      0,
         cantidadPunto5: 0
     }
+
+    // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
+    componentDidUpdate(previousProps) {
+        // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
+        if(previousProps.currentArqueoCierre._id !== this.props.currentArqueoCierre._id) {
+          this.setState({ 
+            cantidad500:     this.props.currentArqueoCierre.denom500,
+            cantidad200:     this.props.currentArqueoCierre.denom200,
+            cantidad100:     this.props.currentArqueoCierre.denom100,
+            cantidad50:      this.props.currentArqueoCierre.denom50,
+            cantidad20:      this.props.currentArqueoCierre.denom20,
+            cantidad10:      this.props.currentArqueoCierre.denom10,
+            cantidad5:       this.props.currentArqueoCierre.denom5,
+            cantidad2:       this.props.currentArqueoCierre.denom2,
+            cantidad1:       this.props.currentArqueoCierre.denom1,
+            cantidadPunto5:  this.props.currentArqueoCierre.denomPunto5
+        });
+        }
+      }
 
     manejaCambioDenominaciones = (cantidad, denominacion) => {
         // Verificamos si es una cadena
@@ -131,7 +151,7 @@ class ArqueoCierre extends React.Component {
                             <td>500.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad500 * 500}
+                                    {numeral(this.state.cantidad500 * 500).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -148,7 +168,7 @@ class ArqueoCierre extends React.Component {
                             <td>200.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad200 * 200}
+                                    {numeral(this.state.cantidad200 * 200).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -165,7 +185,7 @@ class ArqueoCierre extends React.Component {
                             <td>100.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad100 * 100}
+                                    {numeral(this.state.cantidad100 * 100).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -182,7 +202,7 @@ class ArqueoCierre extends React.Component {
                             <td>50.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad50 * 50}
+                                    {numeral(this.state.cantidad50 * 50).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -199,7 +219,7 @@ class ArqueoCierre extends React.Component {
                             <td>20.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad20 * 20}
+                                    {numeral(this.state.cantidad20 * 20).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -216,7 +236,7 @@ class ArqueoCierre extends React.Component {
                             <td>10.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad10 * 10}
+                                    {numeral(this.state.cantidad10 * 10).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -233,7 +253,7 @@ class ArqueoCierre extends React.Component {
                             <td>5.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad5 * 5}
+                                    {numeral(this.state.cantidad5 * 5).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -250,7 +270,7 @@ class ArqueoCierre extends React.Component {
                             <td>2.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad2 * 2}
+                                    {numeral(this.state.cantidad2 * 2).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -267,7 +287,7 @@ class ArqueoCierre extends React.Component {
                             <td>1.00</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidad1 * 1}
+                                    {numeral(this.state.cantidad1 * 1).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -284,7 +304,7 @@ class ArqueoCierre extends React.Component {
                             <td>0.50</td>
                             <td>
                                 <strong>
-                                    {this.state.cantidadPunto5 * 0.5}
+                                    {numeral(this.state.cantidadPunto5 * 0.5).format('$0,0.[00]')}
                                 </strong> 
                             </td>
                         </tr>
@@ -292,6 +312,7 @@ class ArqueoCierre extends React.Component {
                             <td></td>
                             <td><strong>Gran Total: </strong></td>
                             <td> {
+                                    numeral(
                                     this.state.cantidad500    * 500 +
                                     this.state.cantidad200    * 200 +
                                     this.state.cantidad100    * 100 +
@@ -301,12 +322,35 @@ class ArqueoCierre extends React.Component {
                                     this.state.cantidad5      * 5   +
                                     this.state.cantidad2      * 2   +
                                     this.state.cantidad1      * 1   +
-                                    this.state.cantidadPunto5 * 0.5 
+                                    this.state.cantidadPunto5 * 0.5
+                                    ).format('$0,0.[00]') 
                                 } 
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <button 
+                    type="button" 
+                    className="btn btn-primary"
+                    onClick = {() => {
+                        // Llamamos a la funcion de guardar una fecha pero ahora se guarda como el dia siguiente
+                        this.props.manejaGuardarArqueo(this.props.currentArqueoCierre._id, { fecha: this.props.diaSiguiente.valueOf() },
+                        {
+                            denom500: this.state.cantidad500,
+                            denom200: this.state.cantidad200,
+                            denom100: this.state.cantidad100,
+                            denom50: this.state.cantidad50,
+                            denom20: this.state.cantidad20,
+                            denom10: this.state.cantidad10,
+                            denom5: this.state.cantidad5,
+                            denom2: this.state.cantidad2,
+                            denom1: this.state.cantidad1,
+                            denomPunto5: this.state.cantidadPunto5
+                        }
+                    )}}            
+                >
+                    Guardar Arqueo Cierre
+                </button>
             </div>
         )
     }

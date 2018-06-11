@@ -9,13 +9,14 @@ import { empiezaEditarArqueo,
 class Contabilidad extends React.Component {
     
     state = {
-        currentFecha: moment()
+        currentFecha: moment(),
+        diaSiguiente: moment()
     }
 
-    manejaCambioFechaEnPadre = (fechaToCambiar) => {
-        let currentFecha = fechaToCambiar;
+    manejaCambioFechaEnPadre = (fechaToCambiar, fechaToCambiarSiguiente) => {
         this.setState({
-            currentFecha: fechaToCambiar
+            currentFecha: fechaToCambiar,
+            diaSiguiente: fechaToCambiarSiguiente
         });
     }
 
@@ -45,7 +46,8 @@ class Contabilidad extends React.Component {
                     nombreUsuario            = {this.props.nombreUsuario}
                     manejaCambioFechaEnPadre = {this.manejaCambioFechaEnPadre}
                     arqueos                  = {this.props.arqueos}
-                    manejaGuardarArqueo       = {this.manejaGuardarArqueo}
+                    manejaGuardarArqueo      = {this.manejaGuardarArqueo}
+                    diaSiguiente             = {this.state.diaSiguiente}
                 />    
                 <Saldos
                     currentFecha       = {this.state.currentFecha.valueOf()}
@@ -57,6 +59,28 @@ class Contabilidad extends React.Component {
                     ? 
                         this.props.arqueos.find((elemento) => {
                             return moment(elemento.fecha).isSame(this.state.currentFecha,'day');
+                        })
+                    : 
+                        { 
+                            denom500: 0,
+                            denom200: 0,
+                            denom100: 0,
+                            denom50: 0,
+                            denom20: 0,
+                            denom10: 0,
+                            denom5: 0,
+                            denom2: 0,
+                            denom1: 0,
+                            denomPunto5: 0
+                        }
+                    }
+                    currentArqueoSiguiente = {
+                        this.props.arqueos.find((elemento) => {
+                        return moment(elemento.fecha).isSame(this.state.diaSiguiente,'day');
+                    }) 
+                    ? 
+                        this.props.arqueos.find((elemento) => {
+                            return moment(elemento.fecha).isSame(this.state.diaSiguiente,'day');
                         })
                     : 
                         { 

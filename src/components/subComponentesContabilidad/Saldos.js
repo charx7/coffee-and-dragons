@@ -61,6 +61,18 @@ class Saldos extends React.Component {
                                     this.props.currentArqueo.denom1   * 1   +
                                     this.props.currentArqueo.denomPunto5 * .5      
                                 }
+                                cajaFinal = {
+                                    this.props.currentArqueoSiguiente.denom500 * 500 +
+                                    this.props.currentArqueoSiguiente.denom200 * 200 +
+                                    this.props.currentArqueoSiguiente.denom100 * 100 +
+                                    this.props.currentArqueoSiguiente.denom50  * 50  +
+                                    this.props.currentArqueoSiguiente.denom20  * 20  +
+                                    this.props.currentArqueoSiguiente.denom10  * 10  +
+                                    this.props.currentArqueoSiguiente.denom5   * 5   +
+                                    this.props.currentArqueoSiguiente.denom2   * 2   +
+                                    this.props.currentArqueoSiguiente.denom1   * 1   +
+                                    this.props.currentArqueoSiguiente.denomPunto5 * .5
+                                }
                             />
                         </div>
                         <div className = 'col-md-6'>
