@@ -3,17 +3,20 @@ var mongoose = require("mongoose");
 
 // Instalacion del Schema de la BDD
 var esquemaArqueos = new mongoose.Schema({
-    fecha:       Number,
-    denom500:    Number,
-    denom200:    Number,
-    denom100:    Number,
-    denom50:     Number,
-    denom20:     Number,
-    denom10:     Number,
-    denom5:      Number,
-    denom2:      Number,
-    denom1:      Number,
-    denomPunto5: Number
+    fecha:             Number,
+    denom500:          Number,
+    denom200:          Number,
+    denom100:          Number,
+    denom50:           Number,
+    denom20:           Number,
+    denom10:           Number,
+    denom5:            Number,
+    denom2:            Number,
+    denom1:            Number,
+    denomPunto5:       Number,
+    razonesDiferencia: String,
+    hechaPor:          String,
+    saldoIzettle:      Number
 });
 
 // Compilando el modelo

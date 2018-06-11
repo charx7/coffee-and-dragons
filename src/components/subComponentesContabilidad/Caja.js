@@ -5,7 +5,39 @@ import numeral from 'numeral';
 
 class Caja extends React.Component {
 
+    state = {
+        razonesDiferencia: this.props.currentArqueo.razonesDiferencia ? this.props.currentArqueo.razonesDiferencia : '',
+        egresosIzettle:    this.props.currentArqueo.saldoIzettle ? this.props.currentArqueo.saldoIzettle : 0
+    }
+    
+    // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes
+    componentDidUpdate(previousProps) {
+        // Verifica si los props anteriores son diferentes a los nuevos y hace update al estado en ese caso
+        if(previousProps.currentArqueo._id !== this.props.currentArqueo._id) {
+            this.setState({ 
+                egresosIzettle:    this.props.currentArqueo.saldoIzettle ? this.props.currentArqueo.saldoIzettle : 0,
+                razonesDiferencia: this.props.currentArqueo.razonesDiferencia ? this.props.currentArqueo.razonesDiferencia : ''
+            });
+        }
+      }
 
+    // Manejador del textarea
+    manejaCambioRazonesDiferencia = (e) => {
+        let cadenaRazones = e.target.value;
+        this.setState({
+            razonesDiferencia: cadenaRazones
+        });
+    }
+
+    // Manejador del iZettle
+    manejaCambioIzettle = (e) => {
+        const cadenaSaldosZettle = e.target.value;
+        if(!cadenaSaldosZettle || cadenaSaldosZettle.match(/^\d{1,}(\.\d{0,2})?$/)){
+            this.setState({
+                egresosIzettle: cadenaSaldosZettle
+            });
+        }
+    }
 
     render () {
         return (
@@ -40,6 +72,20 @@ class Caja extends React.Component {
                             </td>
                             <td>
                                 {numeral(sumaPrecioVentas(this.props.ventasTarjeta)).format('$0,0.[00]')}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>iZettle</strong>
+                            </td>
+                            <td>
+                                <input 
+                                    type      ="text"
+                                    maxLength = "8" 
+                                    size      = "8"
+                                    value     = {this.state.egresosIzettle}
+                                    onChange  = {this.manejaCambioIzettle}
+                                />
                             </td>
                         </tr>
                         <tr>
@@ -132,6 +178,36 @@ class Caja extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+                <div className = 'row'>
+                    <div className = 'col-md-12'>
+                        <div className = "form-group">
+                            <label htmlFor ="textoRazonDiferencia">Razones diferencia:</label>
+                            <textarea 
+                                className = "form-control" 
+                                id       = "textoRazonDiferencia" 
+                                rows     ="3"
+                                value    = {this.state.razonesDiferencia}
+                                onChange = {this.manejaCambioRazonesDiferencia}
+                            >
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <button 
+                    type="button" 
+                    className="btn btn-primary btn-block"
+                    onClick = {() => {
+                        let actualizaciones = {
+                            saldoIzettle:       parseFloat(this.state.egresosIzettle),
+                            razonesDiferencia:  this.state.razonesDiferencia,
+                            hechaPor:           this.props.nombreUsuario
+                        }
+                        this.props.manejaGuardarSaldos(this.props.currentArqueo._id,this.props.currentFecha,actualizaciones);    
+                    }}            
+                >
+                    Guardar Saldos Caja
+                </button>
+                <h3>Hecho por: {this.props.currentArqueo.hechaPor ? this.props.currentArqueo.hechaPor: ''}</h3>
             </div>
         )
     }

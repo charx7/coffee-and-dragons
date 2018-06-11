@@ -39,6 +39,19 @@ class Contabilidad extends React.Component {
         }
     }
 
+    manejaGuardarSaldos = (id, fecha, nuevasCaracteristicas) => {
+        // Verificamos si ya se selecciono un arqueo existente
+        if(!id) {
+            alert('No se pueden guardar saldos sin antes haber un Arqueo existente!');
+            console.log('Estos serian los datos: ', nuevasCaracteristicas);
+        } else {
+            console.log('Se esta editando un arquedo existente con el id ', id, ' y la fecha ', fecha);
+            console.log(nuevasCaracteristicas);
+            // Mandamos la accion de guardar a la BDD y al almacen
+            this.props.dispatch(empiezaEditarArqueo(id, nuevasCaracteristicas));
+        }
+    }
+
     render() {
         return (
             <div className = 'col-md-9'>
@@ -50,8 +63,10 @@ class Contabilidad extends React.Component {
                     diaSiguiente             = {this.state.diaSiguiente}
                 />    
                 <Saldos
-                    currentFecha       = {this.state.currentFecha.valueOf()}
-                    currentFechaFiltro = {this.state.currentFecha}
+                    nombreUsuario            = {this.props.nombreUsuario}
+                    manejaGuardarSaldos      = {this.manejaGuardarSaldos}
+                    currentFecha             = {this.state.currentFecha.valueOf()}
+                    currentFechaFiltro       = {this.state.currentFecha}
                     currentArqueo = {
                         this.props.arqueos.find((elemento) => {
                         return moment(elemento.fecha).isSame(this.state.currentFecha,'day');

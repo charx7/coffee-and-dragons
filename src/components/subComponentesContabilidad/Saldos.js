@@ -23,6 +23,10 @@ class Saldos extends React.Component {
                     <div className='row'>    
                         <div className='col-md-6'>
                             <Caja
+                                nombreUsuario       = {this.props.nombreUsuario}
+                                currentArqueo       = {this.props.currentArqueo}
+                                currentFecha        = {this.props.currentFecha}
+                                manejaGuardarSaldos = {this.props.manejaGuardarSaldos}
                                 compras         = {obtenerComprasVisibles(this.props.compras,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
                                 comprasTarjeta  = {
                                      obtenerComprasVisibles(this.props.compras,'','',
