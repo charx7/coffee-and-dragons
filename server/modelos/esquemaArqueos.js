@@ -16,7 +16,16 @@ var esquemaArqueos = new mongoose.Schema({
     denomPunto5:       Number,
     razonesDiferencia: String,
     hechaPor:          String,
-    saldoIzettle:      Number
+    saldoIzettle:      Number,
+    // Empiezan registros del sobre POR DETERMINAR VERSION FINAL
+    saldoInicialSobre:          Number,
+    saldoFinalSobre:            Number,
+    traspasosCajaSobre:         Number,
+    traspasosSobreCaja:         Number,
+    ingresosSobre:              Number,
+    egresosSobre:               Number,
+    razonesDiferenciaSobre:     String,
+    descripcionIngresosEgresos: String
 });
 
 // Compilando el modelo
