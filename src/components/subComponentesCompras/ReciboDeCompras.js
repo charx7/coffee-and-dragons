@@ -61,7 +61,8 @@ class ReciboDeCompras extends React.Component {
                         <option value='efectivo'>      Efectivo</option>
                         <option value='tarjeta'>       Tarjeta</option>
                         <option value="transferencia"> Transferencia</option>
-                        <option value='traspasoSobre'> Traspaso Sobre </option>
+                        <option value='traspasoSobre'> Traspaso Caja a Sobre </option>
+                        <option value='traspasoCaja'>  Traspaso Sobre a Caja </option>
                     </select>
                 </p>
                 <p>

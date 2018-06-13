@@ -31,11 +31,14 @@ class Contabilidad extends React.Component {
             };
             // Mandamos una accion de crear un nuevo arqueo a la BDD y al almacen de Redux
             this.props.dispatch(empiezaNuevoArqueo(nuevoRegistro));
-
+            // Cue Visual de exito
+            alert('Se Guardo un nuevo Arqueo a la BDD');
         } else {
             console.log('Se esta editando un arqueo existente');
             // Entonces es un update de un arqueo especifico
             this.props.dispatch(empiezaEditarArqueo(id, nuevasCaracteristicas));
+            // Cue Visual de exito
+            alert('Se Modifico el Arqueo en la BDD');
         }
     }
 
@@ -49,6 +52,8 @@ class Contabilidad extends React.Component {
             console.log(nuevasCaracteristicas);
             // Mandamos la accion de guardar a la BDD y al almacen
             this.props.dispatch(empiezaEditarArqueo(id, nuevasCaracteristicas));
+            // Cue Visual de exito
+            alert('Se guardaron los saldos y diferencias en la BDD');
         }
     }
 

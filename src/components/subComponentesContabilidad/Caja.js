@@ -114,10 +114,18 @@ class Caja extends React.Component {
                         </tr>
                         <tr>
                             <td>
-                                Traspasos a Sobre
+                                Traspasos Caja a Sobre
                             </td>
                             <td>
                                 {numeral(sumaPrecioCompras(this.props.comprasTraspasoSobre)).format('$0,0.[00]')}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Traspasos Sobre a Caja
+                            </td>
+                            <td>
+                                {numeral(sumaPrecioCompras(this.props.comprasTraspasoCaja)).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -132,7 +140,8 @@ class Caja extends React.Component {
                                         + sumaPrecioVentas(this.props.ventas) 
                                         - this.state.egresosIzettle
                                         - sumaPrecioCompras(this.props.comprasEfectivo) 
-                                        - sumaPrecioCompras(this.props.comprasTraspasoSobre))
+                                        - sumaPrecioCompras(this.props.comprasTraspasoSobre)
+                                        + sumaPrecioCompras(this.props.comprasTraspasoCaja))
                                         .format('$0,0.[00]') 
                                     }
                                 </strong>
@@ -162,7 +171,8 @@ class Caja extends React.Component {
                                     + sumaPrecioVentas(this.props.ventas) 
                                     - this.state.egresosIzettle
                                     - sumaPrecioCompras(this.props.comprasEfectivo) 
-                                    - sumaPrecioCompras(this.props.comprasTraspasoSobre)))
+                                    - sumaPrecioCompras(this.props.comprasTraspasoSobre)
+                                    + sumaPrecioCompras(this.props.comprasTraspasoCaja)))
                                     .format('$0,0.[00]')
                                 }
                             </strong>

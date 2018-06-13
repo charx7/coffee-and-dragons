@@ -44,6 +44,10 @@ class Saldos extends React.Component {
                                     obtenerComprasVisibles(this.props.compras,'','',
                                     'traspasoSobre', this.props.currentFechaFiltro, this.props.currentFechaFiltro)
                                 }
+                                comprasTraspasoCaja = {
+                                    obtenerComprasVisibles(this.props.compras,'','',
+                                    'traspasoCaja', this.props.currentFechaFiltro, this.props.currentFechaFiltro)
+                                }
                                 ventas          = {obtenerVentasVisibles(this.props.ventas,'','','',this.props.currentFechaFiltro,this.props.currentFechaFiltro)}
                                 ventasTarjeta   = {
                                     obtenerVentasVisibles(this.props.ventas,'','',
