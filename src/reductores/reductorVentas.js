@@ -24,6 +24,11 @@ const reductorVentas = (estado = reductorVentasDefault, accion) => {
             })
         case 'MOSTRAR_VENTA':
             return [{ ...accion.venta }]
+        case 'ELIMINAR_VENTA':
+            console.log('Id a elminar de la accion es: ', accion.idEliminar)
+            return estado.filter(({ _id }) => {
+                return _id != accion.idEliminar;
+            });    
         default: 
             return estado;
     }

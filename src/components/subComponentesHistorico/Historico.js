@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListaVentas from './ListaVentas';
 import EditarVenta from './EditarVenta';
 import { connect } from 'react-redux';
+import { empiezaEliminarVenta } from '../../acciones/ventas';
 
 class Historico extends React.Component {
     // Estado inicial vacio
@@ -29,8 +30,17 @@ class Historico extends React.Component {
         });
     }
 
-    manejaEliminarVenta = () => {
-        alert('olaaa');
+    manejaEliminarVenta = (idToEliminar) => {
+        if(!idToEliminar) {
+            alert('Debe seleccionar un registro.');
+        } else {
+            console.log('Se va a eliminar la venta: ', idToEliminar);
+            this.props.dispatch(empiezaEliminarVenta(idToEliminar));
+            // Una vez que se elimina quitamos la venta seleccionada del estado
+            this.setState({
+                currentCompra: {}
+            });
+        }
     }
 
     render() {

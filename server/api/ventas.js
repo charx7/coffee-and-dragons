@@ -56,10 +56,12 @@ router.post('/ventas/', (req, res) => {
 router.delete('/ventas/:id', (req, res) => {
     console.log('Entro a borrar un registro de ventas', req.params);
     modeloVentas.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
-        if(!error) console.log('Venta Eliminada', resultadoQuery);
+        if(!error) {
+            console.log('Venta Eliminada', resultadoQuery);
+            res.json(resultadoQuery); 
+        }
         else console.log('Error ', error);
     });
-    res.send('done');
 });
 
 module.exports = router;
