@@ -18,7 +18,8 @@ import {eliminarCuenta,
         activaCuenta,
         modificaIndicesCuentas,
         modificaNombreCuenta } from '../acciones/cuentas';
-
+// Acciones de las ventas
+import { agregarVenta } from '../acciones/ventas'
 // Creamos un objeto de la libreria moment
 const now = moment();
 console.log(now.format('MMM Do, YYYY'));
@@ -81,6 +82,8 @@ class Subtotal extends React.Component {
             .then( res => {
                 console.log('Se esta anadiendo la venta: ', ventaAAniadir)
                 console.log('respuesta al posteo', res);
+                // Llama al dispatch de redux que modifica las ventas registradas en el almacen
+                this.props.dispatch(agregarVenta(res.data));
                 // Llamada al metodo que resetear la lista de productos del recibo
                 this.manejaResetearRecibo();
             })

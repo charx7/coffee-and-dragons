@@ -38,7 +38,7 @@ class Historico extends React.Component {
             this.props.dispatch(empiezaEliminarVenta(idToEliminar));
             // Una vez que se elimina quitamos la venta seleccionada del estado
             this.setState({
-                currentCompra: {}
+                currentVenta: {}
             });
         }
     }

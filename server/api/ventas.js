@@ -46,10 +46,12 @@ router.post('/ventas/', (req, res) => {
         idProducto: req.body.idProducto
     }
     modeloVentas.create(nuevaVenta, (error, resultadoQuery) => {
-        if(!error) console.log('Venta Guardada');
+        if(!error){
+            console.log('Venta Guardada');
+            return res.send(JSON.stringify(resultadoQuery));
+        } 
         else console.log('Error ', error);
     });
-    res.send('done');
 });
 
 // DELETE
