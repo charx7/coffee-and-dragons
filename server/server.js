@@ -43,7 +43,6 @@ if(process.env.NODE_ENV == 'development') {
 }
 // Importando los requerimientos de esquemas de la BDD
 var productos = require("./modelos/esquemaProductos");
-var modeloVentas = require("./modelos/esquemaVentas");
 
 // Para el uso de CORS
 app.use(function(req, res, next) {
@@ -85,59 +84,17 @@ app.use(function(req, res, next) {
 const usuarios      = require('./api/usuarios');
 const autenticacion = require('./api/authentication');
 const egresos       = require('./api/egresos');
-const compras       = require('./api/compras'); 
+const compras       = require('./api/compras');
+const ventas        = require('./api/ventas'); 
 const arqueos       = require('./api/arqueos'); 
 // Uso del Routeador
 app.use('/api/usuarios', usuarios);
 app.use('/api/', egresos);
 app.use('/api/', compras);
+app.use('/api/', ventas)
 app.use('/api/', arqueos);
 app.use('/api/autenticacion', autenticacion);
 // ###################################
-
-// API de VENTAS
-// GET ALL
-app.get('/api/ventas/', (req, res) => {
-    // Query a la BDD de todas las ventas
-    modeloVentas.find({}, (error, resultadoQuery) => {
-        if(error) {
-            console.log('Error obteniendo los datos', error);
-        } else {
-            console.log('Se sustrayeron los datos de todas las ventas');
-            res.json(resultadoQuery);
-        }
-    });
-});
-
-// POST
-app.post('/api/ventas/', (req, res) => {
-    console.log('Entro a postear una venta a la BDD');
-    console.log('El cuerpo del post es: ',req.body);
-    var nuevaVenta = {
-        precio: req.body.precio,
-        descripcion: req.body.descripcion,
-        categoria: req.body.categoria,
-        modoPago: req.body.modoPago,
-        comision: req.body.comision,
-        fecha: req.body.fecha,
-        idProducto: req.body.idProducto
-    }
-    modeloVentas.create(nuevaVenta, (error, resultadoQuery) => {
-        if(!error) console.log('Venta Guardada');
-        else console.log('Error ', error);
-    });
-    res.send('done');
-});
-
-// DELETE
-app.delete('/api/ventas/:id', (req, res) => {
-    console.log('Entro a borrar un registro de ventas', req.params);
-    modeloVentas.findByIdAndRemove(req.params.id, (error, resultadoQuery) => {
-        if(!error) console.log('Venta Eliminada', resultadoQuery);
-        else console.log('Error ', error);
-    });
-    res.send('done');
-});
 
 // ##############################################
 // API DE PRODUCTOS

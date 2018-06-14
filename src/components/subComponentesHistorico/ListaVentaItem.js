@@ -6,26 +6,10 @@ import { mostrarVenta } from '../../acciones/ventas';
 
 class ListaVentaItem extends React.Component {
     
-    state = {
-        datos: undefined
-    }
-
-    manejaClickEnVenta = () => {
-        this.props.dispatch(mostrarVenta({
-            id: this.props.currentID,
-            precio: this.props.currentPrecio,
-            modoPago: this.props.currentModoPago,    
-            comision: this.props.currentComision,    
-            fecha: this.props.currentFecha,       
-            categoria: this.props.currentCategoria,  
-            descripcion: this.props.currentDescripcion 
-        }));
-    }
-
     render() {
         return (
             <li className='list-group-item' id='li-producto'>
-                <Link to="#" onClick={() => {this.manejaClickEnVenta()}}>
+                <Link to="#" onClick={() => {this.props.manejaEditarVenta(this.props.currentID)}}>
                     {this.props.currentDescripcion}
                 </Link>
                 <p id= 'boton-en-lista'>

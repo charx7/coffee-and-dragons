@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ListaVentaItem from './ListaVentaItem';
 import axios from 'axios';
 import obtenerVentasVisibles from './../../selectores/selectorVentas';
@@ -66,31 +65,6 @@ class ListaVentas extends React.Component {
         });
     }
 
-    // Manda una request de asyc al servidor
-    cargarVentasDelServidor =  () => {
-        axios.get('/api/ventas')
-            .then( respuesta => {
-                console.log(respuesta.data);
-                this.setState({ datos: respuesta.data })
-            })
-            .catch( (error)=>{
-                console.log(error);
-            });
-    };
-
-    // Manda a cargar datos cuando hay una actualizacion de los props que recibe
-    componentWillReceiveProps = () => {
-        this.cargarVentasDelServidor();
-        console.log('Entro a actualizar la lista de datos');
-    }
-
-    componentDidMount () {
-        console.log('Empezo a hacer la request');
-        // Llama al metodo que carga los datos del servidor
-        this.cargarVentasDelServidor();
-        console.log('Los datos del servidor son: ',this.state.datos);
-    }
-
     render() {
         return (            
             <div className='row'>
@@ -127,8 +101,8 @@ class ListaVentas extends React.Component {
                                 />
                             </div>
                         </div>
-                        {/* Texto que muestra el total de las ventas por efectivo y por tarjeta */}
-                        <p>Total Ventas Mostradas: ${
+                        {/* Texto que muestra el total de las ventas por efectivo y por tarjeta }
+                        <div>Total Ventas Mostradas: ${
                             (this.state.datos === undefined || this.state.ventaMostrada
                                 ? <p>Loading</p> 
                                 : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
@@ -148,9 +122,9 @@ class ListaVentas extends React.Component {
                                     : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','',
                                       this.state.fechaInicial,this.state.fechaFinal))} </strong>
                             )}
-                        </p>
+                        </div>
 
-                        <p>Total Ventas Efectivo : ${
+                        <div>Total Ventas Efectivo : ${
                             (this.state.datos === undefined || this.state.ventaMostrada
                                 ? <p>Loading</p> 
                                 : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','efectivo',
@@ -169,9 +143,9 @@ class ListaVentas extends React.Component {
                                     : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','efectivo',
                                         this.state.fechaInicial,this.state.fechaFinal))} </strong>
                                 )}
-                        </p>
+                        </div>
 
-                        <p>Total Ventas Tarjeta : ${
+                        <div>Total Ventas Tarjeta : ${
                             (this.state.datos === undefined || this.state.ventaMostrada
                                 ? <p>Loading</p> 
                                 : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','tarjeta',
@@ -190,17 +164,15 @@ class ListaVentas extends React.Component {
                                     : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','tarjeta',
                                         this.state.fechaInicial,this.state.fechaFinal))} </strong>
                                 )}
-                        </p>
-
+                        </div>
+                        */}
                         <h3>Lista de Ventas</h3>
                         <ul className='list-group'>
-                            {(this.state.datos === undefined || this.state.ventaMostrada
-                                ? <li>Loading</li> 
-                                : obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
+                            {obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, '','',
                                   this.state.fechaInicial,this.state.fechaFinal)
                                   .map((elemento) => {
                                     return <ListaVentaItem
-                                        key={elemento._id}   
+                                        key                  = {elemento._id}   
                                         currentID            = {elemento._id}
                                         currentPrecio        = {elemento.precio}
                                         currentModoPago      = {elemento.modoPago}
@@ -208,8 +180,9 @@ class ListaVentas extends React.Component {
                                         currentFecha         = {elemento.fecha}
                                         currentCategoria     = {elemento.categoria}
                                         currentDescripcion   = {elemento.descripcion}
+                                        manejaEditarVenta    = {this.props.manejaEditarVenta}
                                     />
-                                }))}
+                                })}
                         </ul>
                         {/* Aqui va el boton para exportar a excel la seleccion */}
                         <button 
@@ -226,11 +199,4 @@ class ListaVentas extends React.Component {
 
 }
 
-
-const mapeoEstadoAProps = (estado) => {
-    return {
-        ventaMostrada: estado.ventas[0]
-    }
-}
-
-export default connect(mapeoEstadoAProps)(ListaVentas);
+export default ListaVentas;

@@ -1,23 +1,36 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 import ListaVentas from './ListaVentas';
 import EditarVenta from './EditarVenta';
+import { connect } from 'react-redux';
 
 class Historico extends React.Component {
     // Estado inicial vacio
     state = {
-        datos: {},
-        actualizo: false
+        currentVenta: {},
     }
     
-    // Metodo que le indica al componente que se actualizo la lista de las ventas y le pasa
-    // un prop a la ListaVentas para que llame al metodo que hace reQuery a la BDD
-    actualizaComponente = () => {
-        console.log('Se marco una actulizacion del la BDD');
+    manejaVentaSeleccionada = (ventaToMostrar) => {
         this.setState({
-            actualizo: true
+            currentVenta: ventaToMostrar
         });
+    }
+
+    // Hacemos un query a la API de compras
+    manejaEditarVenta = (currentIdVenta) => {
+        console.log('Se va a editar: ', currentIdVenta);
+        axios.get(`/api/ventas/${currentIdVenta}`)
+        .then((respuesta) => {
+            console.log(respuesta.data);
+            this.manejaVentaSeleccionada(respuesta.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    manejaEliminarVenta = () => {
+        alert('olaaa');
     }
 
     render() {
@@ -25,15 +38,24 @@ class Historico extends React.Component {
             <div className='col-md-9'>
                 {/* Importacion del componente de lista de ventas*/}
                 <ListaVentas
-                    actualizo = {this.state.actualizo}
+                    ventas            = {this.props.ventas}
+                    manejaEditarVenta = {this.manejaEditarVenta}
                 />
                 {/* Importacion del componente que edita una venta*/}
                 <EditarVenta 
-                    actualizaComponente = {this.actualizaComponente}
+                    currentVenta        = {this.state.currentVenta}
+                    manejaEliminarVenta = {this.manejaEliminarVenta}
                 />
             </div>
         )
     }
 }
 
-export default Historico;
+const mapeoEstadoToProps = (estado, props) => {
+    return {
+        // Mandamos como prop las compras que estan en el almacen
+        ventas: estado.ventas
+    }
+}
+
+export default connect(mapeoEstadoToProps)(Historico);
