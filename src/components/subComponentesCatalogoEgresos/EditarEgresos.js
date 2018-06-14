@@ -34,7 +34,7 @@ class EditarEgresos extends React.Component {
                 proveedor: this.props.currentEgreso.proveedor,
                 unidadPresentacion: this.props.currentEgreso.unidadPresentacion,
                 tipoEgreso: this.props.currentEgreso.tipoEgreso,
-                iva: this.props.currentEgreso.iva,
+                iva: this.props.currentEgreso.iva.toString(),
                 usoDestino: this.props.currentEgreso.usoDestino,
                 imagen: this.props.currentEgreso.imagen
             });

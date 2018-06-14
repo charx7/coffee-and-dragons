@@ -4,7 +4,7 @@ const obtenerEgresosVisibles = (egresos, texto, proveedor) => {
             elemento.proveedor.includes(proveedor)
             : true;
         const coincidenciaTexto = (texto!= '') ?
-            elemento.descripcion.includes(texto)
+            elemento.descripcion.toLowerCase().includes(texto.toLowerCase())
             : true;
         return coincidenciaProveedor && coincidenciaTexto;
     })

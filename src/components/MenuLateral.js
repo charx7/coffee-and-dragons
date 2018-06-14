@@ -42,7 +42,7 @@ class MenuLateral extends React.Component  {
                             onClick = {(e) => {
                                 this.props.manejaTareaActiva('HISTORICO');
                             }}>
-                            Historico
+                            Historico Ventas
                         </ListGroupItem>
                         : 
                             <ListGroupItem

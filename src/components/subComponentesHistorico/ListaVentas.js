@@ -14,7 +14,6 @@ import sumaPrecioProductos from './../../selectores/playgroundselector';
 class ListaVentas extends React.Component {
     // Definimos estado vacio
     state = {
-        datos: undefined,
         filtroTextoVentas: '',
         focusCalendario: null,
         fechaInicial: moment(),
@@ -33,7 +32,7 @@ class ListaVentas extends React.Component {
             'fecha'
         ]
         
-        const queryExportar = obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
+        const queryExportar = obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, '','',
         this.state.fechaInicial,this.state.fechaFinal); 
         // Tranformar a CSV
         const datosCSV = json2scv({ data: queryExportar, fields: fields });
