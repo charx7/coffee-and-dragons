@@ -1,11 +1,12 @@
 import React from 'react';
+import numeral from 'numeral';
 
 class Sobre extends React.Component {
 
     state = {
         razonesDiferenciaSobre:         this.props.currentArqueo.razonesDiferenciaSobre ? this.props.currentArqueo.razonesDiferenciaSobre : '',
         descripcionIngresosEgresos:     this.props.currentArqueo.descripcionIngresosEgresos ? this.props.currentArqueo.descripcionIngresosEgresos : '',
-        saldoInicialSobre:              this.props.currentArqueo.saldoInicialSobre ? this.props.currentArqueo.saldoFinalSobre : 0,
+        saldoInicialSobre:              this.props.currentArqueo.saldoInicialSobre ? this.props.currentArqueo.saldoInicialSobre : 0,
         traspasosCajaSobre:             this.props.currentArqueo.traspasosCajaSobre ? this.props.currentArqueo.traspasosCajaSobre : 0,
         traspasosSobreCaja:             this.props.currentArqueo.traspasosSobreCaja ? this.props.currentArqueo.traspasosSobreCaja : 0,
         ingresosSobre:                  this.props.currentArqueo.ingresosSobre ? this.props.currentArqueo.ingresosSobre : 0,
@@ -20,7 +21,7 @@ class Sobre extends React.Component {
             this.setState({ 
                 razonesDiferenciaSobre:         this.props.currentArqueo.razonesDiferenciaSobre ? this.props.currentArqueo.razonesDiferenciaSobre : '',
                 descripcionIngresosEgresos:     this.props.currentArqueo.descripcionIngresosEgresos ? this.props.currentArqueo.descripcionIngresosEgresos : '',
-                saldoInicialSobre:              this.props.currentArqueo.saldoInicialSobre ? this.props.currentArqueo.saldoFinalSobre : 0,
+                saldoInicialSobre:              this.props.currentArqueo.saldoInicialSobre ? this.props.currentArqueo.saldoInicialSobre : 0,
                 traspasosCajaSobre:             this.props.currentArqueo.traspasosCajaSobre ? this.props.currentArqueo.traspasosCajaSobre : 0,
                 traspasosSobreCaja:             this.props.currentArqueo.traspasosSobreCaja ? this.props.currentArqueo.traspasosSobreCaja : 0,
                 ingresosSobre:                  this.props.currentArqueo.ingresosSobre ? this.props.currentArqueo.ingresosSobre : 0,
@@ -184,7 +185,13 @@ class Sobre extends React.Component {
                                 1000
                             </td>
                             <td>
-                                {'Aca deberia aparecer una suma de los saldos'}
+                                {numeral(
+                                    + this.state.saldoInicialSobre
+                                    + this.state.ingresosSobre
+                                    - this.state.egresosSobre
+                                    - this.state.traspasosSobreCaja
+                                    + this.state.traspasosCajaSobre
+                                ).format('$0,0.[00]')}
                             </td>
                         </tr>
                         <tr>
@@ -212,7 +219,16 @@ class Sobre extends React.Component {
                                 100
                             </td>
                             <td>
-                                {'Aca deberia aparecer la diferencia de las cajas'}
+                                {
+                                    numeral((
+                                        + this.state.saldoInicialSobre
+                                        + this.state.ingresosSobre
+                                        - this.state.egresosSobre
+                                        - this.state.traspasosSobreCaja
+                                        + this.state.traspasosCajaSobre)
+                                        - this.state.saldoFinalSobre
+                                    ).format('$0,0.[00]')
+                                }
                             </td>
                         </tr>
                     </tbody>
