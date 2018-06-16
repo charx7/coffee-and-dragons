@@ -87,7 +87,7 @@ class Sobre extends React.Component {
                     <thead>
                         <tr>
                             <th>Concepto</th>
-                            <th>Saldo</th>
+                            <th>Dia Anterior</th>
                             <th>Inputs</th>
                         </tr>
                     </thead>
@@ -97,7 +97,7 @@ class Sobre extends React.Component {
                                 Saldo Inicial Sobre
                             </td>
                             <td>
-                                6000
+                                'PlaceHolderSaldo'
                             </td>
                             <td>
                                 <input 
@@ -113,9 +113,7 @@ class Sobre extends React.Component {
                             <td>
                                 Traspasos de Caja a Sobre
                             </td>
-                            <td>
-                                500
-                            </td>
+                            <td></td>
                             <td>
                                 <input 
                                     type      ="text"
@@ -130,9 +128,7 @@ class Sobre extends React.Component {
                             <td>
                                 Traspasos de Sobre a Caja
                             </td>
-                            <td>
-                                500
-                            </td>
+                            <td></td>
                             <td>
                                 <input 
                                     type      ="text"
@@ -147,9 +143,7 @@ class Sobre extends React.Component {
                             <td>
                                 Ingresos de Sobre
                             </td>
-                            <td>
-                                500
-                            </td>
+                            <td></td>
                             <td>
                                 <input 
                                     type      ="text"
@@ -164,9 +158,7 @@ class Sobre extends React.Component {
                             <td>
                                 Egresos de Sobre
                             </td>
-                            <td>
-                                500
-                            </td>
+                            <td></td>
                             <td>
                                 <input 
                                     type      ="text"
@@ -181,9 +173,7 @@ class Sobre extends React.Component {
                             <td>
                                 Cantidad Teorica en Sobre
                             </td>
-                            <td>
-                                1000
-                            </td>
+                            <td></td>
                             <td>
                                 {numeral(
                                     + this.state.saldoInicialSobre
@@ -198,9 +188,7 @@ class Sobre extends React.Component {
                             <td>
                                 Caja Real en Sobre
                             </td>
-                            <td>
-                                1000
-                            </td>
+                            <td></td>
                             <td>
                                 <input 
                                     type      ="text"
@@ -215,9 +203,7 @@ class Sobre extends React.Component {
                             <td>
                                 Diferencia
                             </td>
-                            <td>
-                                100
-                            </td>
+                            <td></td>
                             <td>
                                 {
                                     numeral((

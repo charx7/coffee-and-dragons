@@ -1,9 +1,13 @@
 // Funcion que suma los montos individuales de los conceptos 
 // DE UN ARREGLO CON UN OBJETO DE PRODUCTOS/COMPRAS
-export const sumaPrecioCompras = (elemento) => {
+export const sumaPrecioCompras = (compras) => {
     // Hace un arreglo con 
-    let arregloMontos = elemento.map( function(elemento) {
-        return elemento.precio
+    let arregloMontos = compras.map(function(elemento) {
+        if(elemento.cantidad) {
+            return elemento.precio * elemento.cantidad    
+        } else {
+            return elemento.precio
+        }
     });
     // Sumamos usando el metodo reduce
     let sumaPrecios = arregloMontos.reduce((a,b) => {

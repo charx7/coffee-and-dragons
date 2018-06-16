@@ -5,16 +5,16 @@ import numeral from 'numeral';
 class ArqueoCierre extends React.Component {
 
     state = {
-        cantidad500:    0,
-        cantidad200:    0,
-        cantidad100:    0,
-        cantidad50:     0,
-        cantidad20:     0,
-        cantidad10:     0,
-        cantidad5:      0,
-        cantidad2:      0,
-        cantidad1:      0,
-        cantidadPunto5: 0
+        cantidad500:    this.props.currentArqueoCierre.denom500,
+        cantidad200:    this.props.currentArqueoCierre.denom200,
+        cantidad100:    this.props.currentArqueoCierre.denom100,
+        cantidad50:     this.props.currentArqueoCierre.denom50,
+        cantidad20:     this.props.currentArqueoCierre.denom20,
+        cantidad10:     this.props.currentArqueoCierre.denom10,
+        cantidad5:      this.props.currentArqueoCierre.denom5,
+        cantidad2:      this.props.currentArqueoCierre.denom2,
+        cantidad1:      this.props.currentArqueoCierre.denom1,
+        cantidadPunto5: this.props.currentArqueoCierre.denomPunto5
     }
 
     // IMPORTANTE!!!! Metodo de life-cycle para actualizar estado en cambio de componentes

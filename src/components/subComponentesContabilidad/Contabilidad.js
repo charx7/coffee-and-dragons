@@ -10,7 +10,7 @@ class Contabilidad extends React.Component {
     
     state = {
         currentFecha: moment(),
-        diaSiguiente: moment()
+        diaSiguiente: moment().add(1,'days')
     }
 
     manejaCambioFechaEnPadre = (fechaToCambiar, fechaToCambiarSiguiente) => {
@@ -23,7 +23,7 @@ class Contabilidad extends React.Component {
     manejaGuardarArqueo = (id,fecha, nuevasCaracteristicas) => {
         if(!id) {
             // Entonces estamos agregando un nuevo arqueo
-            console.log('Se esta salvando un nuevo arqueo a la BDD');
+            console.log('Se esta salvando un nuevo arqueo a la BDD en la fecha: ', fecha);
             // Aniadimos la fecha como nuevo objeto
             let nuevoRegistro = { 
                 ...nuevasCaracteristicas,
@@ -34,7 +34,7 @@ class Contabilidad extends React.Component {
             // Cue Visual de exito
             alert('Se Guardo un nuevo Arqueo a la BDD');
         } else {
-            console.log('Se esta editando un arqueo existente');
+            console.log('Se esta editando un arqueo existente en la fecha: ', fecha);
             // Entonces es un update de un arqueo especifico
             this.props.dispatch(empiezaEditarArqueo(id, nuevasCaracteristicas));
             // Cue Visual de exito
