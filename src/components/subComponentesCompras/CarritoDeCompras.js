@@ -10,9 +10,13 @@ class CarritoDeCompras extends React.Component{
                     {
                         this.props.carritoDeCompras.map((elemento) => {
                             return <CarritoDeComprasItem
-                                key                = {uuid()}
-                                currentIdEgreso    = {elemento}
-                                manejaQuitarEgreso = {this.props.manejaQuitarEgreso}
+                                key                          = {elemento.uuid}
+                                currentIdEgreso              = {elemento.idEgreso}
+                                manejaQuitarEgreso           = {this.props.manejaQuitarEgreso}
+                                manejaAgregarCantidadCarrito = {this.props.manejaAgregarCantidadCarrito}
+                                // Pasamos el uuid como identificador unico del elemento del carrito de compras que se genero cuando
+                                // dimos click en agregar producto
+                                uuid                         = {elemento.uuid}
                             />
                         })
                     }

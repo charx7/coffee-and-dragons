@@ -3,16 +3,18 @@ var mongoose = require("mongoose");
 
 // Instalacion del Schema de la BDD
 var esquemaCompras = new mongoose.Schema({
-    precio: Number,
-    descripcion: String,
-    proveedor: String,
-    modoPago: String,
-    iva: Number,
-    fecha: Number,
-    idCompra: String,
-    tipoEgreso: String,
+    precio:             Number,
+    descripcion:        String,
+    proveedor:          String,
+    modoPago:           String,
+    iva:                Number,
+    fecha:              Number,
+    idCompra:           String,
+    tipoEgreso:         String,
     unidadPresentacion: String,
-    usoDestino:         String
+    usoDestino:         String,
+    cantidad:           String
+
 });
 // Compilando el modelo
 var modeloCompras = mongoose.model("Compra", esquemaCompras);

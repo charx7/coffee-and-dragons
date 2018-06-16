@@ -1,9 +1,10 @@
 import React from 'react';
+import uuid from 'uuid';
 
 class ListaEgresosItem extends React.Component {
     manejaEmpiezaAgregarEgreso = () => {
         // Llamado a la funcion que esta heredada en los props
-        this.props.manejaAgregarEgreso(this.props.currentIdEgreso);
+        this.props.manejaAgregarEgreso(this.props.currentIdEgreso, uuid());
     }
 
     render () {

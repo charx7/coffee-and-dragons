@@ -13,48 +13,93 @@ class Compras extends  React.Component {
     }
 
     // Manejador de agregar un Egreso
-    manejaAgregarEgreso = (idToAgregar) => {
+    manejaAgregarEgreso = (idToAgregar, uuid) => {
         this.setState((prevState) => {
             return {
                 carritoDeCompras: [
                     ...prevState.carritoDeCompras,
+                    {
                     // Este deberia ser el ID del egreso a aniadir
-                    idToAgregar
+                        idEgreso:       idToAgregar,
+                        uuid:           uuid,
+                        cantidad:       1
+                    }
                 ]
             };
         });
     } 
+
+    manejaAgregarCantidadCarrito = (idProducto, cantidadProducto, uuid) => {
+        console.log('El idProducto es: ', idProducto, ' y la cantidad: ', cantidadProducto, ' el uuid es: ', uuid);
+        // let elementoCarritoToModificar = listaComprasActual.find((elemento) => {
+        //     return elemento.uuid == uuid;
+        // });
+
+        // elementoCarritoToModificar = {
+        //     ...elementoCarritoToModificar,
+        //     cantidad: cantidadProducto
+        // }
+        //console.log('El elemento a modificar es: ', elementoCarritoToModificar)
+
+        // Copiamos la lista de productos actual del carrito
+        let listaComprasActual = this.state.carritoDeCompras;
+        // Declaramos una nueva lista vacia
+        let nuevaLista = [];
+        // Iteramos sobre todos los elementos
+        listaComprasActual.map((elemento) => {
+            if(elemento.uuid == uuid) {
+                // Si encontramos el mismos uuid
+                // Copiamos los elementos sobre los que estamos iterando
+                nuevaLista = [
+                    ...nuevaLista,
+                    //elementoCarritoToModificar (Metodo pasado encontrando primera el elemento a cambiar)
+                    // Sobre-escribimos el elemento en el que estamos con la nueva propiedad de cantidad
+                    {
+                        ...elemento,
+                        cantidad: cantidadProducto
+                    }
+                ];
+            } else {
+                // Si no encontramos el uuid entonces vamos aniadiendo los elementos
+                nuevaLista = [
+                    ...nuevaLista,
+                    elemento
+                ];
+            }
+        });
+        // Cambiamos el estado del carrito de compras a la nueva lista con la propiedad de cantidad modificada
+        this.setState({
+            carritoDeCompras: nuevaLista
+        });
+    }
 
     // Metodo para quitar un egreso del carrito de compras
     manejaQuitarEgreso = (idToQuitar) => {
         // Sacamos el elemento que vamos a quitar del arreglo de los props
         const elementoQuitar = idToQuitar;
         // Definimos cual es el arreglo al que le vamos a hacer las modificaciones
-        const listaEgresosActual = this.state.carritoDeCompras;
-        // Obtenemos el indice de donde esta la primera instancia de ese elemento con .indexOf
-        const indiceElementoARemover = listaEgresosActual.indexOf(elementoQuitar);
-        // Condicion que entra si el indice existe
-        if( indiceElementoARemover > -1 ) {
-            // Quitamos el elemento del arreglo en el indice
-            listaEgresosActual.splice(indiceElementoARemover, 1)
-        }
-        // Hacemos un push al estado con el arreglo de idProductos modificado (ya no existe
-        this.setState((prevState) => {
+        const carritoDeComprasActual = this.state.carritoDeCompras;
+        // Hacemos un metodo de filter para quitar el objeto que tiene el uuid a quitar
+        let nuevoCarritoDeCompras = carritoDeComprasActual.filter(({ uuid }) => {
+            return uuid != idToQuitar; 
+        });
+        // Hacemos un set de estado al nuevo carrito de compras sin el elemento
+        this.setState(() => {
             return {
-                carritoDeCompras: listaEgresosActual
+                carritoDeCompras: nuevoCarritoDeCompras
             };
         });
     }
 
-    // Manejador de suma de los precios segun los items en el recibo
+    // Manejador de suma de los precios segun los items en el carrito de compras
     manejaSumaPrecioEgresos = () => {
         let precioTotal = 0;
         this.state.carritoDeCompras.map((elemento) => {
             let precioProducto = this.props.egresos.find((elementoInterno) => {
-                return elementoInterno._id == elemento;
+                return elementoInterno._id == elemento.idEgreso;
             });
             //console.log(precioProducto);
-            precioTotal = precioTotal + precioProducto.precio;
+            precioTotal = precioTotal + (precioProducto.precio * elemento.cantidad);
         });
         return precioTotal;
     }
@@ -64,17 +109,26 @@ class Compras extends  React.Component {
         let arregloDatosCompras = [];
         this.state.carritoDeCompras.map((elemento) => {
             let datosCompra = this.props.egresos.find((elementoInterno) => {
-                return elementoInterno._id == elemento;
+                return elementoInterno._id == elemento.idEgreso;
             });
+            // Para que me deje usar el spread operator (une 2 objetos)
+            let cantidadObjeto = {
+                cantidad: elemento.cantidad
+            }
             // Lo agregamos al arreglo
             arregloDatosCompras = [
                 ...arregloDatosCompras,
-                datosCompra
+                // Usamos el spread para aniadir las caracteristicas que encontramos con
+                // el match del almacen y la cantidad del elemento a liquidar
+                {
+                    ...datosCompra,
+                    ...cantidadObjeto
+                }
             ]
         });
         // Verificamos que no esta vacio el arreglo
         if(arregloDatosCompras.length < 1) alert('No se puede liquidar una cuenta vacia');
-        console.log(arregloDatosCompras);
+        console.log('El arreglo de compras que se van a aniadir es: ',arregloDatosCompras);
         arregloDatosCompras.map((elemento) => {
             let compraToAniadir = {
                 idCompra:           elemento._id,           
@@ -85,14 +139,14 @@ class Compras extends  React.Component {
                 tipoEgreso:         elemento.tipoEgreso,
                 unidadPresentacion: elemento.unidadPresentacion,
                 usoDestino:         elemento.usoDestino,
-                modoPago: modoPago,
-                fecha: fecha,
+                modoPago:           modoPago,
+                fecha:              fecha,
+                cantidad:           elemento.cantidad
             }
             console.log('Va a liquidar la/las compras: ', compraToAniadir);
             this.props.dispatch(empiezaNuevaCompra(compraToAniadir));
             // Reseteo del carrito de compras
             this.manejaVaciarCarritoDeCompras();
-                    
         });
     }
 
@@ -128,8 +182,9 @@ class Compras extends  React.Component {
                         <div className="panel-body">
                             {/* Rendereo del carrito de compras */}
                             <CarritoDeCompras
-                                carritoDeCompras   = {this.state.carritoDeCompras}
-                                manejaQuitarEgreso = {this.manejaQuitarEgreso}
+                                carritoDeCompras             = {this.state.carritoDeCompras}
+                                manejaQuitarEgreso           = {this.manejaQuitarEgreso}
+                                manejaAgregarCantidadCarrito = {this.manejaAgregarCantidadCarrito}
                             />
                             <ReciboDeCompras
                                 carritoDeCompras         = {this.state.carritoDeCompras}

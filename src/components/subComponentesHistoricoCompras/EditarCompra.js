@@ -27,15 +27,30 @@ class EditarCompra extends React.Component {
                         </h4>
                         <h4>
                             <strong>
-                                Precio {''}
+                                Modo de Pago {''}
+                            </strong>
+                            {this.props.currentCompra ? this.props.currentCompra.modoPago: ''}
+                        </h4>
+                        <h4>
+                            <strong>
+                                Precio Por Unidad {''}
                             </strong>
                             {this.props.currentCompra ? this.props.currentCompra.precio : ''} 
                         </h4>
                         <h4>
                             <strong>
-                                Modo de Pago {''}
+                                Cantidad {''}
                             </strong>
-                            {this.props.currentCompra ? this.props.currentCompra.modoPago: ''}
+                            {this.props.currentCompra && this.props.currentCompra.cantidad}
+                        </h4>
+                        <h4>
+                            <strong>
+                                Precio Total {' '}
+                            </strong>
+                            {' '}{this.props.currentCompra && (this.props.currentCompra.cantidad 
+                                ? (this.props.currentCompra.cantidad * this.props.currentCompra.precio)
+                                : this.props.currentCompra.precio
+                            )}
                         </h4>
                         <h4>
                             <strong>
