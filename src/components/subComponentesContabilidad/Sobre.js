@@ -87,7 +87,7 @@ class Sobre extends React.Component {
                     <thead>
                         <tr>
                             <th>Concepto</th>
-                            <th>Dia Anterior</th>
+                            <th>Saldo Final Dia Anterior</th>
                             <th>Inputs</th>
                         </tr>
                     </thead>
@@ -97,7 +97,7 @@ class Sobre extends React.Component {
                                 Saldo Inicial Sobre
                             </td>
                             <td>
-                                'PlaceHolderSaldo'
+                                {this.props.currentArqueoAnterior.saldoFinalSobre && numeral(this.props.currentArqueoAnterior.saldoFinalSobre).format('$0,00[00]')}
                             </td>
                             <td>
                                 <input 

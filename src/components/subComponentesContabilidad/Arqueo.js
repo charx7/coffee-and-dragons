@@ -22,8 +22,9 @@ class Arqueo extends React.Component {
             this.setState(() => ({ creadoEn: creadoEnForma }));
             // Le pasamos el prop al padre
             // Atencion se tiene que crear otra instancia de moment() para poder sumar un dia sin alterar la misma instancia de moment 2 veces
-            let momentoSiguiente = moment(creadoEnForma.valueOf()).add(1,'d');  
-            this.props.manejaCambioFechaEnPadre(creadoEnForma, momentoSiguiente);
+            let momentoSiguiente = moment(creadoEnForma.valueOf()).add(1,'d');
+            let momentoAnterior  = moment(creadoEnForma.valueOf()).subtract(1,'d');  
+            this.props.manejaCambioFechaEnPadre(creadoEnForma, momentoSiguiente, momentoAnterior);
         }
     };
     // Metodo de cambio de focus cuando se manipula el calendarito chevere

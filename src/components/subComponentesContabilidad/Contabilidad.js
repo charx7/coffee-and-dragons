@@ -10,13 +10,15 @@ class Contabilidad extends React.Component {
     
     state = {
         currentFecha: moment(),
-        diaSiguiente: moment().add(1,'days')
+        diaSiguiente: moment().add(1,'days'),
+        diaAnterior:  moment().subtract(1,'days')
     }
 
-    manejaCambioFechaEnPadre = (fechaToCambiar, fechaToCambiarSiguiente) => {
+    manejaCambioFechaEnPadre = (fechaToCambiar, fechaToCambiarSiguiente, fechaToCambiarAnterior) => {
         this.setState({
             currentFecha: fechaToCambiar,
-            diaSiguiente: fechaToCambiarSiguiente
+            diaSiguiente: fechaToCambiarSiguiente,
+            diaAnterior:  fechaToCambiarAnterior
         });
     }
 
@@ -72,6 +74,7 @@ class Contabilidad extends React.Component {
                     manejaGuardarSaldos      = {this.manejaGuardarSaldos}
                     currentFecha             = {this.state.currentFecha.valueOf()}
                     currentFechaFiltro       = {this.state.currentFecha}
+                    diaSiguiente             = {this.state.diaSiguiente}
                     currentArqueo = {
                         this.props.arqueos.find((elemento) => {
                         return moment(elemento.fecha).isSame(this.state.currentFecha,'day');
@@ -115,6 +118,17 @@ class Contabilidad extends React.Component {
                             denom1: 0,
                             denomPunto5: 0
                         }
+                    }
+                    currentArqueoAnterior = {
+                        this.props.arqueos.find((elemento) => {
+                        return moment(elemento.fecha).isSame(this.state.diaAnterior,'day');
+                    }) 
+                    ? 
+                        this.props.arqueos.find((elemento) => {
+                            return moment(elemento.fecha).isSame(this.state.diaAnterior,'day');
+                        })
+                    : 
+                        {}
                     }
                 />
             </div>

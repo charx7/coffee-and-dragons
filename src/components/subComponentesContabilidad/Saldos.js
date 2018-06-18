@@ -85,9 +85,10 @@ class Saldos extends React.Component {
                         </div>
                         <div className = 'col-md-6'>
                             <Sobre
-                                currentArqueo       = {this.props.currentArqueo}
-                                currentFecha        = {this.props.currentFecha}
-                                manejaGuardarSaldos = {this.props.manejaGuardarSaldos}
+                                currentArqueo              = {this.props.currentArqueo}
+                                currentFecha               = {this.props.currentFecha}
+                                manejaGuardarSaldos        = {this.props.manejaGuardarSaldos}
+                                currentArqueoAnterior      = {this.props.currentArqueoAnterior}
                             />
                         </div>
                     </div>
