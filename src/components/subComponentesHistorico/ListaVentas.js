@@ -10,6 +10,7 @@ import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 import FileSaver from 'file-saver';
 import json2scv from 'json2csv'; // Importacion para convertir los objetos de JSON en csv's
 import sumaPrecioProductos from './../../selectores/playgroundselector';
+import numeral from 'numeral';
 
 class ListaVentas extends React.Component {
     // Definimos estado vacio
@@ -100,71 +101,40 @@ class ListaVentas extends React.Component {
                                 />
                             </div>
                         </div>
-                        {/* Texto que muestra el total de las ventas por efectivo y por tarjeta }
-                        <div>Total Ventas Mostradas: ${
-                            (this.state.datos === undefined || this.state.ventaMostrada
-                                ? <p>Loading</p> 
-                                : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','',
-                                  this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                            )}
-
-                            (Cafeteria) ${
-                                (this.state.datos === undefined || this.state.ventaMostrada
-                                    ? <p>Loading</p> 
-                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'cafeteria','',
-                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                            )}
-
-                            (Tienda) ${
-                                (this.state.datos === undefined || this.state.ventaMostrada
-                                    ? <p>Loading</p> 
-                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','',
-                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                            )}
+                        {/* Texto que muestra el total de las ventas por efectivo y por tarjeta */ }
+                        <div>Total Ventas Mostradas:
+                            <strong> {numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, '','',
+                                  this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                            (Cafeteria)
+                                    <strong> {numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, 'cafeteria','',
+                                      this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                            (Tienda)
+                                    <strong> {numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, 'tienda','',
+                                      this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                        </div>
+                        
+                        <div>Total Ventas Efectivo :
+                            <strong> {numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, '','efectivo',
+                                  this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                            (Cafeteria) : 
+                                <strong> {numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, 'cafeteria','efectivo',
+                                      this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                            (Tienda) :
+                                <strong> {numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, 'tienda','efectivo',
+                                        this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
                         </div>
 
-                        <div>Total Ventas Efectivo : ${
-                            (this.state.datos === undefined || this.state.ventaMostrada
-                                ? <p>Loading</p> 
-                                : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','efectivo',
-                                  this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                            )}
-
-                            (Cafeteria) : ${
-                                (this.state.datos === undefined || this.state.ventaMostrada
-                                    ? <p>Loading</p> 
-                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'cafeteria','efectivo',
-                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                                )}
-                            (Tienda) : ${
-                                (this.state.datos === undefined || this.state.ventaMostrada
-                                    ? <p>Loading</p> 
-                                    : <strong> {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','efectivo',
-                                        this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                                )}
+                        <div>Total Ventas Tarjeta :
+                            <strong>{numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, '','tarjeta',
+                                  this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                            (Cafeteria) :
+                                <strong>{numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, 'cafeteria','tarjeta',
+                                      this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
+                            (Tienda) :
+                                <strong>{numeral(sumaPrecioProductos(obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, 'tienda','tarjeta',
+                                        this.state.fechaInicial,this.state.fechaFinal))).format('$0,00[00]')} </strong>
                         </div>
-
-                        <div>Total Ventas Tarjeta : ${
-                            (this.state.datos === undefined || this.state.ventaMostrada
-                                ? <p>Loading</p> 
-                                : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, '','tarjeta',
-                                  this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                            )}
-
-                            (Cafeteria) : ${
-                                (this.state.datos === undefined || this.state.ventaMostrada
-                                    ? <p>Loading</p> 
-                                    : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'cafeteria','tarjeta',
-                                      this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                                )}
-                            (Tienda) : ${
-                                (this.state.datos === undefined || this.state.ventaMostrada
-                                    ? <p>Loading</p> 
-                                    : <strong>  {sumaPrecioProductos(obtenerVentasVisibles(this.state.datos, this.state.filtroTextoVentas, 'tienda','tarjeta',
-                                        this.state.fechaInicial,this.state.fechaFinal))} </strong>
-                                )}
-                        </div>
-                        */}
+                        
                         <h3>Lista de Ventas</h3>
                         <ul className='list-group'>
                             {obtenerVentasVisibles(this.props.ventas, this.state.filtroTextoVentas, '','',
