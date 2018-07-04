@@ -21,7 +21,11 @@ class ListaComprasItem extends React.Component {
                 </Link>
             <p id= 'boton-en-lista'>
                 <strong>
-                    {numeral(this.props.currentCompraPrecio).format('$0,0.[00]')}
+                    {
+                        this.props.currentCompraCantidad 
+                            ? numeral(this.props.currentCompraCantidad * this.props.currentCompraPrecio).format('$0.0.[00]')
+                            : numeral(this.props.currentCompraPrecio).format('$0,0.[00]')
+                    }
                 </strong>
             </p>
         </li>

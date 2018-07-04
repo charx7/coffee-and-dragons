@@ -7,6 +7,8 @@ import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 import obtenerComprasVisibles from '../../selectores/selectorCompras';
 import json2scv from 'json2csv'; // Importacion para convertir los objetos de JSON en csv's
 import FileSaver from 'file-saver';
+import numeral from 'numeral';
+import sumaPrecioCompras from '../../selectores/manejaSumarCompras';
 
 class ListaCompras extends React.Component {
     
@@ -101,7 +103,56 @@ class ListaCompras extends React.Component {
                                     minimumNights = {0}
                                 />
                             </div>
-
+                        </div>
+                        <div>
+                            Total Compras Mostradas:
+                            <strong>{numeral(sumaPrecioCompras(obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras,'','',
+                                this.state.fechaInicial, this.state.fechaFinal))).format('$0,0.[00]')} </strong>                             
+                        </div>
+                        <div>
+                            (Efectivo):
+                            <strong>
+                                {
+                                    numeral(sumaPrecioCompras(obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras,'',
+                                    'efectivo',this.state.fechaInicial,this.state.fechaFinal))).format('$0,0.[00]')
+                                }
+                            </strong>
+                        </div>
+                        <div>
+                            (Tarjeta):
+                            <strong>
+                                {
+                                    numeral(sumaPrecioCompras(obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras,'',
+                                    'tarjeta',this.state.fechaInicial,this.state.fechaFinal))).format('$0,0.[00]')
+                                }
+                            </strong>
+                        </div>
+                        <div>
+                            (Transferencia):
+                            <strong>
+                                {
+                                    numeral(sumaPrecioCompras(obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras,'',
+                                    'transferencia',this.state.fechaInicial,this.state.fechaFinal))).format('$0,0.[00]')
+                                }
+                            </strong>
+                        </div>
+                        <div>
+                            (Traspaso Caja a Sobre):
+                            <strong>
+                                {
+                                    numeral(sumaPrecioCompras(obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras,'',
+                                    'traspasoSobre',this.state.fechaInicial,this.state.fechaFinal))).format('$0,0.[00]')
+                                }
+                            </strong>                            
+                        </div>
+                        <div>
+                            (Traspaso Sobre a Caja):
+                            <strong>
+                                {
+                                    numeral(sumaPrecioCompras(obtenerComprasVisibles(this.props.compras, this.state.filtroTextoCompras,'',
+                                    'traspasoCaja',this.state.fechaInicial,this.state.fechaFinal))).format('$0,0.[00]')
+                                }
+                            </strong>                            
                         </div>
                         <h3>
                             Lista Compras
@@ -115,6 +166,7 @@ class ListaCompras extends React.Component {
                                     currentCompraId          = {elemento._id}
                                     currentCompraDescripcion = {elemento.descripcion}
                                     currentCompraPrecio      = {elemento.precio}
+                                    currentCompraCantidad    = {elemento.cantidad}
                                     manejaEditarCompra       = {this.props.manejaEditarCompra}
                                 />
                             })}

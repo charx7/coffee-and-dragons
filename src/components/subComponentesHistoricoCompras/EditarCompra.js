@@ -33,6 +33,12 @@ class EditarCompra extends React.Component {
                         </h4>
                         <h4>
                             <strong>
+                                Unidad de Presentacion {' '}
+                            </strong>
+                            {this.props.currentCompra ? this.props.currentCompra.unidadPresentacion: ''}
+                        </h4>
+                        <h4>
+                            <strong>
                                 Precio Por Unidad {''}
                             </strong>
                             {this.props.currentCompra ? this.props.currentCompra.precio : ''} 
