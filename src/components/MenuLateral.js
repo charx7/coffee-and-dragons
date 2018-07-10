@@ -126,6 +126,24 @@ class MenuLateral extends React.Component  {
                                 Historico Compras
                             </ListGroupItem>
                     }
+                    {
+                        this.props.authentication.esAdmin == true
+                        ?
+                            <ListGroupItem
+                                href ='#'
+                                active = {this.props.currentTareaActiva == 'analisisVentas' ? true : false }
+                                onClick = {(e) => {
+                                    this.props.manejaTareaActiva('ANALISISVENTAS');
+                                }}>
+                                Analisis Ventas
+                            </ListGroupItem>
+                        :
+                            <ListGroupItem
+                                href="#"
+                                disabled>
+                                Analisis Ventas 
+                            </ListGroupItem>
+                    }
                 </ListGroup>
             </div>
         );

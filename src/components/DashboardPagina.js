@@ -12,6 +12,7 @@ import CatalogoEgresos from './subComponentesCatalogoEgresos/CatalogoEgresos'; /
 import Compras from './subComponentesCompras/Compras'; // Componente del Menu de Compras
 import HistoricoCompras from './subComponentesHistoricoCompras/HistoricoCompras'; // Componente del Menu del Historico de Compras
 import Contabilidad from './subComponentesContabilidad/Contabilidad'; // Componente del menu de Contabilidad
+import AnalisisVentas from './subComponentesAnalisisVentas/AnalisisVentas'; // Componente del menu de Analisis
 import { connect } from 'react-redux'; // Importacion para acceder al almacen de redux
 
 class DashboardPagina extends React.Component {
@@ -71,6 +72,13 @@ class DashboardPagina extends React.Component {
                     });
                 });
             return;
+            case 'ANALISISVENTAS':
+                this.setState(() => {
+                    return({
+                        tareaActiva: 'analisisVentas'
+                    });
+                });
+            return;
             default:
                 return;
         }
@@ -98,6 +106,7 @@ class DashboardPagina extends React.Component {
                         {this.state.tareaActiva == 'catalogoEgresos' ? <CatalogoEgresos/>: ''}
                         {this.state.tareaActiva == 'compras' ? <Compras/>: ''}
                         {this.state.tareaActiva == 'historicoCompras' ? <HistoricoCompras/>: ''}
+                        {this.state.tareaActiva == 'analisisVentas' ? <AnalisisVentas />: ''} 
                         {
                             this.state.tareaActiva == 'contabilidad' 
                                 ? <Contabilidad
