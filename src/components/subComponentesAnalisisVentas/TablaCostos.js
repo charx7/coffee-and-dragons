@@ -1,6 +1,25 @@
 import React from 'react';
+import DiaCostos from './DiaCostos';
+import moment from 'moment';
 
 class TablaCostos extends React.Component {
+    
+    manejaCrearCostos (numeroDiasMes, primerDia) {
+        // Creamos un arreglo vacio de Dias (Filas de la tabla)
+        let arregloDias = [];
+        let diaDesplegar = moment(primerDia).startOf('month');
+        console.log('el primer dia es: ',diaDesplegar);
+        // Iteramos sobre estas
+        for (let i = 0; i < numeroDiasMes; i++) {
+                arregloDias.push(<DiaCostos 
+                    diaMostrar= {moment(diaDesplegar).add(i, 'day')}
+                    key = {i}
+            />)                        
+        }
+
+       return arregloDias 
+    }
+
     render() {
         return(
             <div>
@@ -20,25 +39,9 @@ class TablaCostos extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                               Domingo X de Julio  
-                            </td>
-                            <td>500.00</td>
-                            <td>600.00</td>
-                            <td>
-                                <strong>
-                                    500.00
-                                </strong>
-                            </td>
-                            <td>500.00</td>
-                            <td>500.00</td>
-                            <td>
-                                <strong>
-                                    500.00
-                                </strong>
-                            </td>
-                        </tr>
+                        {
+                            this.manejaCrearCostos(this.props.currentMes.daysInMonth(), moment(this.props.currentMes))
+                        }
                     </tbody>
                 </table>
             </div>
