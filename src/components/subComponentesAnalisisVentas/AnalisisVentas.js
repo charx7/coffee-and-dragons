@@ -4,18 +4,56 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates'; // Importacion de React Dates
 import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 import numeroDiasEnMes from '../../helpers/numeroDiasEnMes'; // Importacion de la funcion de dias en el mes
+import { connect } from 'react-redux';
+import obtenerVentasVisibles from '../../selectores/selectorVentas'; // Importacion de la funcion para obtener las ventas
+import { sumaPrecioVentas } from '../../selectores/selectorSumasConceptos'; // Importacion de la suma de los montos de ventas  
 
 class AnalisisVentas extends React.Component {
     state = {
         calendarFocused: false,
         creadoEn: moment(),
-        gastosFijos: 0
+        gastosFijos: 0,
+        ventasCafeteria: 0,
+        ventasTienda: 0
     }
+
+    // Para jalar las ventas del mes por default
+    componentDidMount() {
+        this.manejaObtenerVentas();
+    } 
+
+    // Metodo que hace fetch a las ventas que se van a desplegar
+    manejaObtenerVentas = () => {
+        // Obtenemos el primer dia del mes
+        let primerDiaMes = moment(this.state.creadoEn).startOf('month');
+        // Cuantos dias hay en el mes seleccionado
+        let numeroDiasMes =  moment(this.state.creadoEn).daysInMonth();
+        // Creamos los objetos vacios para establecer el cambio de estado
+        let totalCafeteria = [];
+        let totalTienda = [];
+        for (let i = 0; i < numeroDiasMes; i++) {
+                // Hacemos los metodos para obtener los montos a desplegar por dia de ventas
+                let ventasCafeteriaDia = obtenerVentasVisibles(this.props.ventas,'','cafeteria','',moment(primerDiaMes).add(i,'day'),moment(primerDiaMes).add(i,'day'));
+                let montoVentasCafeteria = sumaPrecioVentas(ventasCafeteriaDia);
+                // Hacemos push al arreglo 
+                totalCafeteria.push(montoVentasCafeteria);
+                // Ahora hacemos lo mismo pero para las ventas de tienda
+                let ventasTiendaDia = obtenerVentasVisibles(this.props.ventas,'','tienda','',moment(primerDiaMes).add(i,'day'),moment(primerDiaMes).add(i,'day'));
+                let montoVentasTienda = sumaPrecioVentas(ventasTiendaDia);
+                // Hacemos push al arreglo
+                totalTienda.push(montoVentasTienda);
+        } 
+        // Hacemo cambio al estado
+        this.setState({
+            ventasCafeteria: totalCafeteria,
+            ventasTienda: totalTienda
+        });
+    };
 
     // Metodo que se encarga de manipular el estado de Fecha segun el calendario chevere de la libreria 3rd party
     manejaCambioFecha = (creadoEnForma) => {
         if(creadoEnForma) {
-            this.setState(() => ({ creadoEn: creadoEnForma }));
+            this.setState({ creadoEn: creadoEnForma }, this.manejaObtenerVentas);
         }
     };
 
@@ -97,6 +135,7 @@ class AnalisisVentas extends React.Component {
                                 <div className='col-md-12'>
                                     <TablaCostos 
                                         currentMes = {this.state.creadoEn} 
+                                        ventas     = {this.props.ventas}
                                     />
                                 </div>
                             </div>
@@ -108,4 +147,11 @@ class AnalisisVentas extends React.Component {
     }
 }
 
-export default AnalisisVentas;
+const mapeoEstadoToProps = (estado, props) => {
+    return {
+        // Mandamos como prop las compras que estan en el almacen
+        ventas: estado.ventas
+    }
+}
+
+export default connect(mapeoEstadoToProps)(AnalisisVentas);

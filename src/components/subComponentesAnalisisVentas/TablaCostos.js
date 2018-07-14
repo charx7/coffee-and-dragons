@@ -1,6 +1,7 @@
 import React from 'react';
 import DiaCostos from './DiaCostos';
 import moment from 'moment';
+import numeral from 'numeral';
 
 class TablaCostos extends React.Component {
     
@@ -8,10 +9,19 @@ class TablaCostos extends React.Component {
         // Creamos un arreglo vacio de Dias (Filas de la tabla)
         let arregloDias = [];
         let diaDesplegar = moment(primerDia).startOf('month');
-        console.log('el primer dia es: ',diaDesplegar);
+        console.log('El primer dia es: ',diaDesplegar);
         // Iteramos sobre estas
         for (let i = 0; i < numeroDiasMes; i++) {
-                arregloDias.push(<DiaCostos 
+                // Hacemos los metodos para obtener los montos a desplegar por dia de ventas
+                //let ventasCafeteriaDia = obtenerVentasVisibles(this.props.ventas,'','cafeteria','',moment(diaDesplegar).add(i,'day'),moment(diaDesplegar).add(i,'day'));
+                // let montoVentasCafeteria = sumaPrecioVentas(ventasCafeteriaDia);
+                // Ahora hacemos lo mismo pero para las ventas de tienda
+                //let ventasTiendaDia = obtenerVentasVisibles(this.props.ventas,'','tienda','',moment(diaDesplegar).add(i,'day'),moment(diaDesplegar).add(i,'day'));
+                //let montoVentasTienda = sumaPrecioVentas(ventasTiendaDia);
+                // Construimos el arreglo de las filas de la tabla a mostrar
+                arregloDias.push(<DiaCostos
+                    //montoVentasTienda = {montoVentasTienda} 
+                    //montoVentasCafeteria = {montoVentasCafeteria}
                     diaMostrar= {moment(diaDesplegar).add(i, 'day')}
                     key = {i}
             />)                        
