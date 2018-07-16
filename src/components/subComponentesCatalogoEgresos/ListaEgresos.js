@@ -49,6 +49,7 @@ class ListaEgresos extends React.Component {
                         <div className = 'row'>
                             <div className = 'col-md-6'>
                                 <input 
+                                className='form-control'
                                 type="text"
                                 placeholder='Texto para filtrar'
                                 value = {this.state.filtroEgresosTexto}

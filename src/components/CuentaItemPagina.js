@@ -30,6 +30,7 @@ class CuentaItemPagina extends React.Component  {
                         {/* Activa: {this.props.currentActivaMesa ? 'si' : 'no' } */} 
                     </h2>
                     <input 
+                        className = 'form-control'
                         type="text" 
                         id='nombre-usuario' 
                         size='16'

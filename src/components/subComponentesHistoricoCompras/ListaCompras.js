@@ -80,8 +80,9 @@ class ListaCompras extends React.Component {
                                 <p>
                                     Filtro Nombre Egreso
                                 </p>
-                                <input 
-                                    type        ="text"
+                                <input
+                                    className   = 'form-control' 
+                                    type        = "text"
                                     placeholder = 'Texto a filtrar'
                                     value       = {this.state.filtroTextoCompras}
                                     onChange    = {this.manejaCambioFiltroCompras}

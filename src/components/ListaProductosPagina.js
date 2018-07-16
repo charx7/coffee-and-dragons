@@ -47,6 +47,7 @@ class ListaProductosPagina extends React.Component {
                 <input 
                     type="text"
                     placeholder ='Texto para filtrar'
+                    className   ='form-control'
                     value       = {this.state.filtroProductosTexto}
                     onChange    = {this.manejaCambioFiltroTexto}
                 />

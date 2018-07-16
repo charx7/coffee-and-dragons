@@ -31,12 +31,12 @@ class ListaEgresos extends React.Component {
                 <p>Filtro de egresos</p>
                 {/* Rendereo la lista de mesas */}
                 <input 
+                    className = 'form-control'
                     type="text"
                     placeholder ='Texto para filtrar'
                     value = {this.state.filtroTexto}
                     onChange = {this.manejaCambioTexto}
                 />
-                <br/>
                 <br/>
                 <p>Seleccione Proveedor</p>
                 <select 

@@ -105,21 +105,23 @@ class Header extends React.Component {
                         <Navbar.Toggle />
                         </Navbar.Header>
                         <Navbar.Collapse>
-                        <Nav>
+                        
+                        {/*<Nav>
                             <NavItem eventKey={1} href="#">HOME</NavItem>
-                        </Nav>
+                        </Nav>*/}
                         <Nav pullRight>
                             { this.props.authentication.nombre != 'Anonimo' 
                                 ? <NavItem eventKey={1} href="#" onClick = { this.logOutUsuario }>Logout</NavItem>    
                                 : <NavItem eventKey={1} href="#" onClick = { this.manejaLogin } >Login</NavItem> 
                             }
 
-                            <NavDropdown eventKey={3} title="Menu Principal" id="basic-nav-dropdown">
+                            {/* <NavDropdown eventKey={3} title="Menu Principal" id="basic-nav-dropdown">
                                 <MenuItem eventKey={3.1}>Configuracion</MenuItem>
                                 <MenuItem eventKey={3.3}>Usuarios</MenuItem>
                                 <MenuItem divider />
                                 <MenuItem eventKey={3.3}>Salir</MenuItem>
                             </NavDropdown>
+                            */}
                         </Nav>
                         </Navbar.Collapse>
                     </Navbar>
