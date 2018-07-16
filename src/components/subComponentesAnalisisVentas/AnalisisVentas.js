@@ -15,7 +15,14 @@ class AnalisisVentas extends React.Component {
         gastosFijos: 0,
         ventasCafeteria: [],
         ventasTienda: [],
-        loading: false
+        loading: true, 
+        porcentajeUtilidadCafeteria: 50,
+        porcentajeUtilidadTienda: 30
+    }
+
+    componentDidMount() {
+        console.log('El componente esta cargando: ', this.state.loading);
+        this.manejaCallAsync();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -24,6 +31,7 @@ class AnalisisVentas extends React.Component {
                loading: true
             }, () => {
                 console.log('El edo de la carga es: ', this.state.loading);
+                this.forceUpdate();
                 this.manejaCallAsync();
             })
         }
@@ -33,9 +41,12 @@ class AnalisisVentas extends React.Component {
         let datos = await this.manejaObtenerVentas();
         this.setState({
             ventasCafeteria: datos.totalCafeteria,
+            ventasTienda: datos.totalTienda,
             loading: false
         });
     }
+
+    // Codigo asyncrono de forma de promesa
     // manejaCallAsync = () => { 
     //     this.manejaObtenerVentas().then((valorResuelto) => {
     //         this.setState({
@@ -47,7 +58,7 @@ class AnalisisVentas extends React.Component {
     // }
 
     // Metodo que hace fetch a las ventas que se van a desplegar
-    manejaObtenerVentas = () => {
+    async manejaObtenerVentas () {
         return new Promise((resolve, reject) => {
             // Obtenemos el primer dia del mes
             let primerDiaMes = moment(this.state.creadoEn).startOf('month');
@@ -76,7 +87,7 @@ class AnalisisVentas extends React.Component {
             };
             resolve(datosPromesa);
         });
-    };
+    }
 
     // Metodo que se encarga de manipular el estado de Fecha segun el calendario chevere de la libreria 3rd party
     manejaCambioFecha = (creadoEnForma) => {
@@ -100,6 +111,24 @@ class AnalisisVentas extends React.Component {
         }
     }
 
+    manejaCambioUtilidadCafeteria = (e) => {
+        let cadenaUtilidadCafeteria = e.target.value;
+        if(!cadenaUtilidadCafeteria || cadenaUtilidadCafeteria.match(/(^(100(?:\.0{1,2})?))|(?!^0*$)(?!^0*\.0*$)^\d{1,2}(\.\d{1,2})?$/)) {
+            this.setState({
+                porcentajeUtilidadCafeteria: cadenaUtilidadCafeteria 
+            });
+        }
+    }
+
+    manejaCambioUtilidadTienda = (e) => {
+        let cadenaUtilidadTienda = e.target.value;
+        if(!cadenaUtilidadTienda || cadenaUtilidadTienda.match(/(^(100(?:\.0{1,2})?))|(?!^0*$)(?!^0*\.0*$)^\d{1,2}(\.\d{1,2})?$/)) {
+            this.setState({
+                porcentajeUtilidadTienda: cadenaUtilidadTienda
+            });
+        }
+    }
+
     render() {
         return(
             <div className='col-md-9'>
@@ -114,7 +143,9 @@ class AnalisisVentas extends React.Component {
                                     <div>
                                         <div className='form-group row'>
                                             <div className='col-md-4 ' id='inputCantidadVentas'>
-                                                Gastos Fijos {' '}
+                                                <strong>
+                                                    Gastos Fijos 
+                                                </strong>
                                             </div> 
                                             <div className='col-md-7'>
                                                 <input
@@ -129,7 +160,9 @@ class AnalisisVentas extends React.Component {
                                         </div>
                                         <div className='form-group row'>
                                             <div className='col-md-4' id='inputCantidadVentas'>
-                                                % Utilidad Cafeteria  
+                                                <strong>
+                                                    % Utilidad Cafeteria   
+                                                </strong>
                                             </div>
                                             <div className='col-md-7'>
                                                 <input
@@ -142,6 +175,24 @@ class AnalisisVentas extends React.Component {
                                                 /> 
                                             </div> 
                                         </div>
+                                        <div className='form-group row'>
+                                            <div className='col-md-4' id='inputCantidadVentas'>
+                                                <strong>
+                                                    % Utilidad Tienda  
+                                                </strong>
+                                            </div>
+                                            <div className='col-md-7'>
+                                                <input
+                                                    className = 'form-control' 
+                                                    type      = "text"
+                                                    maxLength = "8" 
+                                                    size      = "8"
+                                                    value     = {this.state.porcentajeUtilidadTienda}
+                                                    onChange  = {this.manejaCambioUtilidadTienda}
+                                                /> 
+                                            </div> 
+                                        </div>
+
                                     </div>
                                     <div>
                                         Numero de Dias L-S en el mes: {' '}
@@ -152,12 +203,18 @@ class AnalisisVentas extends React.Component {
                                     <div>
                                         Numero de Domingos en el mes: {' '}
                                         <strong>
-                                            { numeroDiasEnMes(moment(this.state.creadoEn).startOf('month'), 0)}
+                                            {numeroDiasEnMes(moment(this.state.creadoEn).startOf('month'), 0)}
                                         </strong> 
                                     </div>
                                 </div>
                                 <div className='col-md-6'>
                                     <div>
+                                        Mes Actual: 
+                                        {' '}
+                                        <strong>
+                                            { moment(this.state.creadoEn).format('MMMM') } 
+                                        </strong> 
+                                        {' '}
                                         <SingleDatePicker
                                             // Props necesarios para que funcione el calendario
                                             date           = {this.state.creadoEn}
@@ -167,12 +224,6 @@ class AnalisisVentas extends React.Component {
                                             numberOfMonths = {1}
                                             isOutsideRange = {(day) => false }
                                         />
-                                        {' '}
-                                        Mes Actual: 
-                                        {' '}
-                                        <strong>
-                                            { moment(this.state.creadoEn).format('MMMM') } 
-                                        </strong> 
                                     </div>
                                 </div>
                                 <div className='col-md-12'>
@@ -189,6 +240,8 @@ class AnalisisVentas extends React.Component {
                                         montoRequerido  = {
                                             this.state.gastosFijos / (this.state.creadoEn.daysInMonth() - numeroDiasEnMes(moment(this.state.creadoEn).startOf('month'), 0))
                                         }
+                                        porcentajeUtilidadCafeteria = {this.state.porcentajeUtilidadCafeteria}
+                                        porcentajeUtilidadTienda    = {this.state.porcentajeUtilidadTienda}
                                     />
                                     }
                                 </div>
