@@ -9,7 +9,8 @@ import 'react-dates/lib/css/_datepicker.css' // Importacion del CSS
 // Importaciones de File-saver
 import FileSaver from 'file-saver';
 import json2scv from 'json2csv'; // Importacion para convertir los objetos de JSON en csv's
-import sumaPrecioProductos from './../../selectores/playgroundselector';
+//import sumaPrecioProductos from './../../selectores/playgroundselector';
+import sumaPrecioProductos from '../../selectores/playgroundSelector';
 import numeral from 'numeral';
 
 class ListaVentas extends React.Component {

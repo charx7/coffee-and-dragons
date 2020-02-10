@@ -31,6 +31,7 @@
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "css-loader": "^0.28.7",
+    "dotenv": "^8.2.0",
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
@@ -72,7 +73,7 @@
   "devDependencies": {
     "chalk": "^2.3.0",
     "cross-env": "5.0.5",
-    "dotenv": "4.0.0",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint-plugin-jest": "^21.5.0",

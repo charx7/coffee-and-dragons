@@ -12,6 +12,8 @@ const app = express();
 const publicPath = path.join(__dirname, '..', 'public');
 // Para establecer que puerto va a correr nuestra app
 const puertoEnv = process.env.PORT || 3000;
+// Para lodear env y testear que se pueda correr ambos
+const dotEnv = require('dotenv').config()
 
 // ################################################
 // Importaciones del body parser para parsear los posts methods y le decimos a express que la use
